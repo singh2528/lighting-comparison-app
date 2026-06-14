@@ -6,6 +6,11 @@
 <title>Smart Home — Lighting, AV, HVAC, CCTV &amp; Curtains | OnePoint Smart Home</title>
 <meta name="description" content="What a smart home actually includes — lighting control, AV &amp; entertainment, climate/HVAC, CCTV &amp; security, and curtains/blinds — and how they're designed to work as one integrated system." />
 <link rel="stylesheet" href="assets/style.css" />
+<style>
+  /* tilt-wrap as grid child — ensure card fills the cell */
+  .system-grid .tilt-wrap { display: flex; }
+  .system-grid .tilt-card { flex: 1; }
+</style>
 </head>
 <body>
 
@@ -15,125 +20,188 @@
     <nav class="nav-links">
       <a href="smart-home.html" class="active">Smart Home</a>
       <a href="lighting-guide.html">Free lighting guide</a>
-      <a class="btn ghost" href="services.html#contact">Upload your drawing</a>
-      <a class="btn" href="lighting.html">Start my project</a>
+      <a class="btn" href="services.html#contact">Start my project</a>
     </nav>
   </div>
 </header>
 
 <section class="hero" style="padding:48px 0 36px;">
-  <div class="wrap">
+  <div class="wrap reveal">
     <span class="kicker">Smart Home</span>
     <h1 style="font-size:clamp(1.6rem,3.5vw,2.4rem);">Every system, designed to work as one</h1>
     <p class="lead" style="margin-bottom:0;">A smart home is more than smart lighting. It's lighting, entertainment, climate, security and curtains, all responding to the same scenes and schedules — instead of five separate apps that don't talk to each other.</p>
   </div>
 </section>
 
-<section id="lighting-control">
-  <div class="wrap">
-    <span class="kicker">01 · Lighting control</span>
-    <h2 class="sec">The layer everything else builds on</h2>
-    <div class="grid c2">
-      <div class="card">
-        <h3>What it includes</h3>
-        <p>Smart switches and dimmers — or, for full systems, DALI/KNX keypads and a central processor — that replace simple on/off with scenes ("Morning", "Movie night", "Away"), schedules, and app or voice control across every room.</p>
+<section>
+  <div class="wrap reveal" style="text-align:center;">
+    <span class="kicker">Choose a system</span>
+    <h2 class="sec">Five systems, one integrated home</h2>
+
+    <div class="system-grid">
+
+      <!-- Lighting Control -->
+      <div class="tilt-wrap reveal reveal-d1">
+        <a class="card k-card system-card tilt-card" href="lighting-control.html">
+          <svg class="sh-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Glow ring -->
+            <circle cx="28" cy="25" r="12" stroke="#c9a25a" stroke-width="1.5" fill="#c9a25a" fill-opacity="0.08" style="animation:pulse-soft 2.4s ease-in-out infinite"/>
+            <!-- Bulb -->
+            <path d="M22 33 C22 28.6 24.7 25 28 25 C31.3 25 34 28.6 34 33 L34 35 L22 35 Z" fill="#c9a25a" opacity="0.9"/>
+            <rect x="23.5" y="35.5" width="9" height="2" rx="1" fill="#c9a25a"/>
+            <rect x="25" y="38" width="6" height="1.5" rx="0.75" fill="#c9a25a"/>
+            <!-- Rays -->
+            <line x1="28" y1="13" x2="28" y2="10" stroke="#c9a25a" stroke-width="1.5" stroke-linecap="round" style="animation:beam-sweep 2.4s ease-in-out infinite"/>
+            <line x1="20" y1="16" x2="17.5" y2="13.5" stroke="#c9a25a" stroke-width="1.5" stroke-linecap="round" style="animation:beam-sweep 2.4s ease-in-out infinite 0.4s"/>
+            <line x1="36" y1="16" x2="38.5" y2="13.5" stroke="#c9a25a" stroke-width="1.5" stroke-linecap="round" style="animation:beam-sweep 2.4s ease-in-out infinite 0.8s"/>
+            <line x1="16" y1="25" x2="12.5" y2="25" stroke="#c9a25a" stroke-width="1.5" stroke-linecap="round" style="animation:beam-sweep 2.4s ease-in-out infinite 0.2s"/>
+            <line x1="40" y1="25" x2="43.5" y2="25" stroke="#c9a25a" stroke-width="1.5" stroke-linecap="round" style="animation:beam-sweep 2.4s ease-in-out infinite 0.6s"/>
+          </svg>
+          <h3>Lighting Control</h3>
+          <span class="go">Explore options →</span>
+        </a>
       </div>
-      <div class="card">
-        <h3>Why it matters</h3>
-        <p>This is usually the first system designed, because the choice here — retrofit smart switches on existing wiring vs. a first-fix bus system — sets the cost and flexibility ceiling for everything that connects to it later: curtains, AC and AV scenes all hang off the lighting layer.</p>
+
+      <!-- AV & Entertainment -->
+      <div class="tilt-wrap reveal reveal-d2">
+        <a class="card k-card system-card tilt-card" href="av.html">
+          <svg class="sh-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Speaker body -->
+            <rect x="13" y="20" width="12" height="16" rx="2" fill="#c9a25a" opacity="0.9"/>
+            <!-- Speaker cone -->
+            <path d="M25 20 L36 13 L36 43 L25 36 Z" fill="#c9a25a" opacity="0.75"/>
+            <!-- Equalizer bars -->
+            <rect x="40" y="27" width="3" height="4" rx="1.5" fill="#c9a25a" style="animation:pulse-soft 0.65s ease-in-out infinite"/>
+            <rect x="44.5" y="22" width="3" height="14" rx="1.5" fill="#c9a25a" style="animation:pulse-soft 0.65s ease-in-out infinite 0.18s"/>
+            <rect x="49" y="24.5" width="3" height="9" rx="1.5" fill="#c9a25a" style="animation:pulse-soft 0.65s ease-in-out infinite 0.36s"/>
+          </svg>
+          <h3>AV &amp; Entertainment</h3>
+          <span class="go">Explore options →</span>
+        </a>
       </div>
+
+      <!-- Climate / HVAC — spinning snowflake -->
+      <div class="tilt-wrap reveal reveal-d3">
+        <a class="card k-card system-card tilt-card" href="hvac.html">
+          <svg class="sh-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g style="animation:spin-slow 7s linear infinite;transform-origin:28px 28px;transform-box:fill-box">
+              <!-- Snowflake arms -->
+              <line x1="28" y1="11" x2="28" y2="45" stroke="#c9a25a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="11" y1="28" x2="45" y2="28" stroke="#c9a25a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="16.5" y1="16.5" x2="39.5" y2="39.5" stroke="#c9a25a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="39.5" y1="16.5" x2="16.5" y2="39.5" stroke="#c9a25a" stroke-width="2.5" stroke-linecap="round"/>
+              <!-- Tips N -->
+              <line x1="28" y1="11" x2="23" y2="15.5" stroke="#c9a25a" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="28" y1="11" x2="33" y2="15.5" stroke="#c9a25a" stroke-width="1.5" stroke-linecap="round"/>
+              <!-- Tips S -->
+              <line x1="28" y1="45" x2="23" y2="40.5" stroke="#c9a25a" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="28" y1="45" x2="33" y2="40.5" stroke="#c9a25a" stroke-width="1.5" stroke-linecap="round"/>
+              <!-- Tips W -->
+              <line x1="11" y1="28" x2="15.5" y2="23" stroke="#c9a25a" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="11" y1="28" x2="15.5" y2="33" stroke="#c9a25a" stroke-width="1.5" stroke-linecap="round"/>
+              <!-- Tips E -->
+              <line x1="45" y1="28" x2="40.5" y2="23" stroke="#c9a25a" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="45" y1="28" x2="40.5" y2="33" stroke="#c9a25a" stroke-width="1.5" stroke-linecap="round"/>
+            </g>
+            <circle cx="28" cy="28" r="5" fill="#c9a25a"/>
+          </svg>
+          <h3>Climate / HVAC</h3>
+          <span class="go">Explore options →</span>
+        </a>
+      </div>
+
+      <!-- CCTV & Security — camera with pulsing dot -->
+      <div class="tilt-wrap reveal reveal-d4">
+        <a class="card k-card system-card tilt-card" href="cctv.html">
+          <svg class="sh-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Camera body -->
+            <rect x="10" y="20" width="28" height="16" rx="3" fill="#c9a25a" opacity="0.9"/>
+            <!-- Lens -->
+            <circle cx="24" cy="28" r="5.5" fill="#c9a25a" fill-opacity="0.25" stroke="#17140f" stroke-width="1.5"/>
+            <circle cx="24" cy="28" r="2.5" fill="#17140f" opacity="0.65"/>
+            <!-- Bracket -->
+            <path d="M38 24.5 L47 19" stroke="#c9a25a" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Recording dot -->
+            <circle cx="47" cy="18.5" r="5" fill="#c9a25a" style="animation:pulse-soft 1.4s ease-in-out infinite"/>
+            <circle cx="47" cy="18.5" r="2" fill="#fff" fill-opacity="0.85"/>
+          </svg>
+          <h3>CCTV &amp; Security</h3>
+          <span class="go">Explore options →</span>
+        </a>
+      </div>
+
+      <!-- Curtains & Blinds — floating curtain panels -->
+      <div class="tilt-wrap reveal reveal-d5">
+        <a class="card k-card system-card tilt-card" href="curtains.html">
+          <svg class="sh-icon float-icon slow" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Curtain rail -->
+            <rect x="9" y="12" width="38" height="3" rx="1.5" fill="#c9a25a"/>
+            <!-- Left curtain panel -->
+            <path d="M11 15 C11 15 10 30 15 42 L23 42 C21 30 22 15 20 15 Z" fill="#c9a25a" fill-opacity="0.85"/>
+            <!-- Right curtain panel -->
+            <path d="M45 15 C45 15 46 30 41 42 L33 42 C35 30 34 15 36 15 Z" fill="#c9a25a" fill-opacity="0.85"/>
+            <!-- Left folds -->
+            <line x1="14.5" y1="18" x2="12.5" y2="36" stroke="#b3863f" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+            <line x1="18.5" y1="17" x2="16.5" y2="37" stroke="#b3863f" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+            <!-- Right folds -->
+            <line x1="41.5" y1="18" x2="43.5" y2="36" stroke="#b3863f" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+            <line x1="37.5" y1="17" x2="39.5" y2="37" stroke="#b3863f" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+          </svg>
+          <h3>Curtains &amp; Blinds</h3>
+          <span class="go">Explore options →</span>
+        </a>
+      </div>
+
     </div>
   </div>
 </section>
 
-<section id="av" class="alt">
-  <div class="wrap">
-    <span class="kicker">02 · AV &amp; entertainment</span>
-    <h2 class="sec">Multi-room audio, home theatre and TV — in your scenes, not a drawer of remotes</h2>
-    <div class="grid c2">
-      <div class="card">
-        <h3>What it includes</h3>
-        <p>Ceiling or in-wall speakers wired to a multi-zone amplifier for whole-home audio; a soundbar or AV receiver for the main TV/home theatre; and a single app or universal remote that controls TV, streaming boxes and volume across rooms.</p>
-      </div>
-      <div class="card">
-        <h3>Why it matters</h3>
-        <p>Speaker wiring, AV rack location and cable routing need to be planned before walls and false ceilings close — retrofitting later means visible cabling or wireless compromises. Tied into lighting, a "Movie night" scene can dim lights, close curtains and switch the TV input in one tap.</p>
-      </div>
-    </div>
+<!-- System finder quiz -->
+<section>
+  <div class="wrap reveal" style="text-align:center;">
+    <span class="kicker">System finder</span>
+    <h2 class="sec">Not sure which systems your home needs?</h2>
+    <p class="sub" style="margin-left:auto;margin-right:auto;">Answer two questions and we'll point you to the most relevant systems for your home and priorities.</p>
   </div>
-</section>
+  <div class="wrap reveal reveal-d1">
+    <div class="quiz-card tilt-wrap">
+      <div class="tilt-card" id="shQuiz">
+        <span class="quiz-kicker">2-minute system finder</span>
+        <div class="quiz-progress"><span id="shStep1"></span><span id="shStep2"></span></div>
 
-<section id="hvac">
-  <div class="wrap">
-    <span class="kicker">03 · Climate / HVAC</span>
-    <h2 class="sec">Comfort on a schedule — and your biggest energy line item, automated</h2>
-    <div class="grid c2">
-      <div class="card">
-        <h3>What it includes</h3>
-        <p>Smart thermostats or zone sensors layered onto your existing AC/VRF system, scheduling (pre-cool before you arrive, set back overnight), and occupancy-based control so empty rooms aren't cooled unnecessarily.</p>
-      </div>
-      <div class="card">
-        <h3>Why it matters</h3>
-        <p>HVAC is typically the largest ongoing utility cost in a home — even basic scheduling and zoning can meaningfully cut bills. Zoning needs to be planned alongside your ductwork or VRF layout, and pairs naturally with curtains (close before peak afternoon heat) and lighting scenes.</p>
-      </div>
-    </div>
-  </div>
-</section>
+        <div id="shQ1">
+          <p class="quiz-q">Which spaces matter most to you?</p>
+          <div class="quiz-options">
+            <button class="quiz-opt" data-q="1" data-v="living">Living room &amp; home cinema</button>
+            <button class="quiz-opt" data-q="1" data-v="bedrooms">Bedrooms &amp; private areas</button>
+            <button class="quiz-opt" data-q="1" data-v="whole">The whole home — every room</button>
+            <button class="quiz-opt" data-q="1" data-v="outdoor">Including outdoor &amp; garden</button>
+          </div>
+        </div>
 
-<section id="cctv" class="alt">
-  <div class="wrap">
-    <span class="kicker">04 · CCTV &amp; security</span>
-    <h2 class="sec">Cameras, access and alarms — one app, not three</h2>
-    <div class="grid c2">
-      <div class="card">
-        <h3>What it includes</h3>
-        <p>Indoor and outdoor cameras with night vision and motion alerts, smart door locks or access control, door/window sensors with an alarm panel, and video intercom for the gate or main door — all viewable from one app.</p>
-      </div>
-      <div class="card">
-        <h3>Why it matters</h3>
-        <p>Camera cabling (PoE) and intercom wiring need to be planned at first fix — running cable later means surface conduit. Decide upfront whether footage is stored locally or in the cloud, since that affects both cost and privacy. Integrated with lighting, a motion alert at night can trigger lights automatically.</p>
-      </div>
-    </div>
-  </div>
-</section>
+        <div id="shQ2" style="display:none;">
+          <p class="quiz-q">What's your biggest pain point right now?</p>
+          <div class="quiz-options">
+            <button class="quiz-opt" data-q="2" data-v="ambience">The lighting feels wrong — too harsh or too flat</button>
+            <button class="quiz-opt" data-q="2" data-v="climate">The AC is loud, inefficient or hard to control</button>
+            <button class="quiz-opt" data-q="2" data-v="security">I want to monitor and control the home remotely</button>
+            <button class="quiz-opt" data-q="2" data-v="all">All of the above — I want one integrated system</button>
+          </div>
+        </div>
 
-<section id="curtains">
-  <div class="wrap">
-    <span class="kicker">05 · Curtains &amp; blinds</span>
-    <h2 class="sec">Motorised, scheduled, and part of every scene</h2>
-    <div class="grid c2">
-      <div class="card">
-        <h3>What it includes</h3>
-        <p>Motorised curtain tracks or blind motors (wired or rechargeable), controlled by switch, app, schedule or scene — open automatically at sunrise, close at sunset, or react to a sun/light sensor.</p>
-      </div>
-      <div class="card">
-        <h3>Why it matters</h3>
-        <p>Track length and curtain weight determine the right motor — get this wrong and the motor strains or the curtain doesn't fully open/close. Wired motors need cabling planned before the curtain box or false ceiling is finished; retrofitting wired tracks afterwards means exposed wiring.</p>
-      </div>
-    </div>
-  </div>
-</section>
+        <div id="shResult" class="quiz-result" style="display:none;"></div>
 
-<section id="integration">
-  <div class="wrap">
-    <span class="kicker">How it all connects</span>
-    <h2 class="sec">Two ways to integrate these systems</h2>
-    <p class="sub">Every home falls into one of two integration approaches — the right one depends on whether you're retrofitting a finished home or designing in from first fix.</p>
-    <div class="grid c2">
-      <div class="card">
-        <h3>Retrofit: Wi-Fi / Zigbee smart devices</h3>
-        <p>Smart switches, plugs, sensors and motors added on top of existing wiring. Each device connects to a hub or directly to Wi-Fi, controlled through an app with voice assistant support. No rewiring needed — ideal for apartments, rentals and renovations where walls are already closed.</p>
-      </div>
-      <div class="card">
-        <h3>First-fix: DALI / KNX-based bus systems</h3>
-        <p>Lighting, curtains, climate, AV and security wired to a dedicated control bus and programmed centrally from one or more processors. Scenes and schedules span every system from a single design. Requires planning before first fix, but gives the tightest integration and the most reliable long-term performance — typical for villas and premium apartments.</p>
+        <div class="quiz-nav">
+          <span class="quiz-step-label" id="shLabel">Question 1 of 2</span>
+          <button class="btn ghost" id="shBack" disabled>Back</button>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <section class="alt">
-  <div class="wrap" style="text-align:center;">
+  <div class="wrap reveal" style="text-align:center;">
     <span class="kicker">Get started</span>
     <h2 class="sec">Which systems does your home need?</h2>
     <p class="sub" style="margin-left:auto;margin-right:auto;">Share your floor plan and priorities — your design pack will cover exactly which of these systems make sense for your home, your budget and your build stage.</p>
@@ -172,6 +240,104 @@
 
 <!-- TODO: replace number -->
 <a class="wa-float" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">💬 WhatsApp</a>
+
+<script src="assets/motion.js"></script>
+
+<!-- System finder quiz logic -->
+<script>
+(function(){
+  var answers = {};
+  var q1 = document.getElementById('shQ1');
+  var q2 = document.getElementById('shQ2');
+  var result = document.getElementById('shResult');
+  var step1 = document.getElementById('shStep1');
+  var step2 = document.getElementById('shStep2');
+  var label = document.getElementById('shLabel');
+  var backBtn = document.getElementById('shBack');
+  if (!q1) return;
+
+  function showQ1(){
+    q1.style.display = ''; q2.style.display = 'none'; result.style.display = 'none';
+    step1.classList.remove('done'); step2.classList.remove('done');
+    label.textContent = 'Question 1 of 2';
+    backBtn.disabled = true;
+  }
+  function showQ2(){
+    q1.style.display = 'none'; q2.style.display = ''; result.style.display = 'none';
+    step1.classList.add('done'); step2.classList.remove('done');
+    label.textContent = 'Question 2 of 2';
+    backBtn.disabled = false;
+  }
+  function showResult(){
+    q1.style.display = 'none'; q2.style.display = 'none'; result.style.display = '';
+    step1.classList.add('done'); step2.classList.add('done');
+    label.textContent = 'Your systems';
+    backBtn.disabled = false;
+
+    var links = [];
+
+    if (answers[2] === 'all' || answers[1] === 'whole') {
+      links = [
+        '<a class="btn" href="lighting-control.html">Lighting →</a>',
+        '<a class="btn ghost" href="av.html">AV →</a>',
+        '<a class="btn ghost" href="hvac.html">HVAC →</a>',
+        '<a class="btn ghost" href="cctv.html">CCTV →</a>',
+        '<a class="btn ghost" href="curtains.html">Curtains →</a>'
+      ];
+    } else {
+      if (answers[2] === 'ambience') links.push('<a class="btn" href="lighting-control.html">Lighting Control →</a>');
+      if (answers[2] === 'climate') links.push('<a class="btn" href="hvac.html">Climate / HVAC →</a>');
+      if (answers[2] === 'security') links.push('<a class="btn" href="cctv.html">CCTV &amp; Security →</a>');
+
+      if (answers[1] === 'living') {
+        links.push('<a class="btn ghost" href="av.html">AV &amp; Entertainment →</a>');
+        if (!links.some(function(l){ return l.indexOf('lighting-control') > -1; })) {
+          links.push('<a class="btn ghost" href="lighting-control.html">Lighting Control →</a>');
+        }
+      }
+      if (answers[1] === 'bedrooms') {
+        if (!links.some(function(l){ return l.indexOf('lighting-control') > -1; })) {
+          links.push('<a class="btn ghost" href="lighting-control.html">Lighting Control →</a>');
+        }
+        links.push('<a class="btn ghost" href="curtains.html">Curtains &amp; Blinds →</a>');
+      }
+      if (answers[1] === 'outdoor') {
+        if (!links.some(function(l){ return l.indexOf('cctv') > -1; })) {
+          links.push('<a class="btn ghost" href="cctv.html">CCTV &amp; Security →</a>');
+        }
+        links.push('<a class="btn ghost" href="lighting-control.html">Lighting Control →</a>');
+      }
+
+      if (!links.length) links.push('<a class="btn" href="lighting-control.html">Lighting Control →</a>');
+    }
+
+    result.innerHTML =
+      '<p class="verdict">Based on your priorities, start with these systems:</p>' +
+      '<div class="cta-row" style="justify-content:center;flex-wrap:wrap;gap:10px;margin-top:16px;">' +
+      links.slice(0, 5).join('') + '</div>';
+  }
+
+  document.querySelectorAll('#shQuiz .quiz-opt').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var q = this.getAttribute('data-q');
+      var v = this.getAttribute('data-v');
+      answers[q] = v;
+      var siblings = this.parentElement.querySelectorAll('.quiz-opt');
+      siblings.forEach(function (s) { s.classList.remove('selected'); });
+      this.classList.add('selected');
+      if (q === '1') { setTimeout(showQ2, 150); }
+      else { setTimeout(showResult, 150); }
+    });
+  });
+
+  backBtn.addEventListener('click', function () {
+    if (result.style.display !== 'none') { showQ2(); }
+    else if (q2.style.display !== 'none') { showQ1(); }
+  });
+
+  showQ1();
+})();
+</script>
 
 </body>
 </html>

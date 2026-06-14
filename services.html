@@ -15,21 +15,20 @@
     <nav class="nav-links">
       <a href="smart-home.html">Smart Home</a>
       <a href="lighting-guide.html">Free lighting guide</a>
-      <a class="btn ghost" href="#contact">Upload your drawing</a>
-      <a class="btn" href="lighting.html">Start my project</a>
+      <a class="btn" href="#contact">Start my project</a>
     </nav>
   </div>
 </header>
 
 <section class="hero" style="padding:48px 0 36px;">
-  <div class="wrap">
+  <div class="wrap reveal">
     <span class="kicker">Design service</span>
     <h1 style="font-size:clamp(1.6rem,3.5vw,2.4rem);">Complete design, BOQ and installer — in 7 days</h1>
   </div>
 </section>
 
 <section id="problem" class="alt">
-  <div class="wrap">
+  <div class="wrap reveal">
     <span class="kicker">The problem</span>
     <h2 class="sec">Smart home shopping is broken</h2>
     <p class="sub">The architect, the electrician, the lighting shop and the automation dealer each own one piece. Nobody designs the whole system — so you end up as the unpaid project manager.</p>
@@ -43,7 +42,7 @@
 </section>
 
 <section id="how">
-  <div class="wrap">
+  <div class="wrap reveal">
     <span class="kicker">How it works</span>
     <h2 class="sec">From floor plan to finished smart home — 4 steps</h2>
     <p class="sub">You share your requirement. We do everything an expert consultant would — design, specification, costing, comparison, and installer matching.</p>
@@ -145,18 +144,220 @@
 </section>
 
 <section id="contact" class="alt">
-  <div class="wrap" style="text-align:center;">
-    <span class="kicker">Get started</span>
-    <h2 class="sec">Tell us about your home</h2>
-    <p class="sub" style="margin-left:auto;margin-right:auto;">Send your floor plan and requirements on WhatsApp, or book a consultation. We'll reply within one working day.</p>
-    <div class="cta-row" style="justify-content:center;">
-      <!-- TODO: replace 91XXXXXXXXXX with your WhatsApp Business number -->
-      <a class="btn big" href="https://wa.me/91XXXXXXXXXX?text=Hi%2C%20I%20want%20a%20smart%20home%20design%20%26%20BOQ%20for%20my%20home." target="_blank" rel="noopener">WhatsApp us your plan</a>
-      <!-- TODO: replace with your Tally/Typeform upload form URL -->
-      <a class="btn big ghost" href="#" title="Form coming soon">Upload via form</a>
+  <div class="wrap">
+
+    <div class="reveal" style="text-align:center;margin-bottom:2.5rem;">
+      <span class="kicker">Start Your Project</span>
+      <h2 class="sec">Upload your drawings</h2>
+      <p class="sub" style="margin:0 auto;">Drop your architect floor plan and tell us about your home. We review every submission and reply with a full design proposal within one working day.</p>
     </div>
+
+    <!-- Upload card -->
+    <div class="up-card reveal">
+
+      <!-- ── Drop zone ── -->
+      <div class="up-zone" id="upZone">
+        <div class="up-zone-icon">📐</div>
+        <p class="up-zone-title">Drop your floor plan here</p>
+        <p class="up-zone-hint">PDF, JPG or PNG · max 10 MB</p>
+        <label class="btn ghost" style="cursor:pointer;">
+          Browse file
+          <input type="file" id="upFile" accept=".pdf,.jpg,.jpeg,.png" style="display:none;">
+        </label>
+        <div id="upPreview" class="up-preview" style="display:none;"></div>
+      </div>
+
+      <!-- ── Fields ── -->
+      <div class="up-fields">
+        <div class="up-row">
+          <div class="up-field">
+            <label for="upName">Your name *</label>
+            <input type="text" id="upName" placeholder="e.g. Arjun Mehta" autocomplete="name">
+          </div>
+          <div class="up-field">
+            <label for="upEmail">Email address *</label>
+            <input type="email" id="upEmail" placeholder="you@example.com" autocomplete="email">
+          </div>
+        </div>
+        <div class="up-row">
+          <div class="up-field">
+            <label for="upPhone">WhatsApp number</label>
+            <input type="tel" id="upPhone" placeholder="+91 98765 43210" autocomplete="tel">
+          </div>
+          <div class="up-field">
+            <label for="upType">Project type</label>
+            <select id="upType">
+              <option value="">Select…</option>
+              <option>New home — under construction</option>
+              <option>Renovation / retrofit</option>
+              <option>Commercial / office</option>
+              <option>Lighting only</option>
+              <option>Full smart home system</option>
+            </select>
+          </div>
+        </div>
+        <div class="up-field">
+          <label for="upNotes">Anything else?</label>
+          <textarea id="upNotes" rows="3" placeholder="Budget range, city, specific rooms or systems, timeline…"></textarea>
+        </div>
+        <div class="up-actions">
+          <button class="btn big" id="upSubmit" type="button">Send my project →</button>
+          <p id="upStatus" class="up-status" style="display:none;"></p>
+        </div>
+      </div>
+
+    </div><!-- /.up-card -->
+
+    <p class="up-alt reveal">
+      Prefer to share directly?
+      <!-- TODO: replace 91XXXXXXXXXX with your WhatsApp Business number -->
+      <a href="https://wa.me/91XXXXXXXXXX?text=Hi%2C+I+want+a+smart+home+design+%26+BOQ+for+my+home." target="_blank" rel="noopener">WhatsApp us your plan →</a>
+    </p>
+
   </div>
 </section>
+
+<script>
+/* ──────────────────────────────────────────────────────────────
+   Upload form — sends enquiry + floor plan to Google Drive via
+   a Google Apps Script web app.
+
+   HOW TO ACTIVATE:
+   1. Open script.google.com and create a new project.
+   2. Paste the code from  upload-handler.gs  (in your Harman
+      Automation folder) into the editor.
+   3. Click Deploy → New deployment → Web app.
+      · Execute as: Me
+      · Who has access: Anyone
+   4. Copy the Web App URL and paste it into UPLOAD_URL below.
+   ────────────────────────────────────────────────────────────── */
+(function(){
+  var UPLOAD_URL = 'https://script.google.com/macros/s/AKfycbz0cbW-YPRqqPxx-LfF8vLYB0SaHSuguURHghqRxKD_sb7vXDytliIsI16qAANvyptM/exec';
+
+  var zone      = document.getElementById('upZone');
+  var fileInput = document.getElementById('upFile');
+  var preview   = document.getElementById('upPreview');
+  var submitBtn = document.getElementById('upSubmit');
+  var statusEl  = document.getElementById('upStatus');
+  var selFile   = null;
+
+  /* Drag & drop */
+  ['dragenter','dragover'].forEach(function(e){
+    zone.addEventListener(e, function(ev){ ev.preventDefault(); zone.classList.add('drag-over'); });
+  });
+  zone.addEventListener('dragleave', function(){ zone.classList.remove('drag-over'); });
+  zone.addEventListener('drop', function(e){
+    e.preventDefault();
+    zone.classList.remove('drag-over');
+    applyFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', function(){ applyFile(fileInput.files[0]); });
+
+  function applyFile(f){
+    if (!f) return;
+    if (f.size > 10 * 1024 * 1024){
+      showStatus('File must be under 10 MB. Please compress it first.', 'err');
+      return;
+    }
+    selFile = f;
+    preview.innerHTML =
+      '📄 <strong>' + f.name + '</strong>&nbsp;(' + Math.round(f.size / 1024) + ' KB)' +
+      '&nbsp;<button class="up-clear" onclick="upClearFile()">✕</button>';
+    preview.style.display = 'flex';
+    statusEl.style.display = 'none';
+  }
+
+  window.upClearFile = function(){
+    selFile = null;
+    preview.style.display = 'none';
+    preview.innerHTML = '';
+    fileInput.value = '';
+  };
+
+  function showStatus(msg, cls){
+    statusEl.textContent = msg;
+    statusEl.className   = 'up-status ' + (cls || '');
+    statusEl.style.display = 'block';
+  }
+
+  submitBtn.addEventListener('click', function(){
+    var name  = document.getElementById('upName').value.trim();
+    var email = document.getElementById('upEmail').value.trim();
+    if (!name || !email){ showStatus('Please enter your name and email.', 'err'); return; }
+
+    submitBtn.disabled    = true;
+    submitBtn.textContent = 'Sending…';
+    showStatus('Uploading — please wait…', '');
+
+    function dispatch(b64, fname, ftype){
+      /* Google Apps Script redirects POST requests, so fetch+no-cors
+         silently drops the body and doPost() never runs.
+         Fix: submit a hidden <form> targeting a hidden <iframe> —
+         the browser follows the redirect natively and the script fires. */
+
+      var iframeName = 'up-target-frame';
+      if (!document.getElementById(iframeName)){
+        var ifr = document.createElement('iframe');
+        ifr.id   = iframeName;
+        ifr.name = iframeName;
+        ifr.setAttribute('aria-hidden', 'true');
+        ifr.style.display = 'none';
+        document.body.appendChild(ifr);
+      }
+
+      var data = {
+        name:        name,
+        email:       email,
+        phone:       document.getElementById('upPhone').value.trim(),
+        projectType: document.getElementById('upType').value,
+        notes:       document.getElementById('upNotes').value.trim(),
+        fileName:    fname,
+        fileType:    ftype,
+        fileData:    b64
+      };
+
+      var form = document.createElement('form');
+      form.method = 'POST';
+      form.action = UPLOAD_URL;
+      form.target = iframeName;
+      form.style.cssText = 'position:fixed;left:-9999px;top:-9999px;';
+
+      var keys = Object.keys(data);
+      for (var k = 0; k < keys.length; k++){
+        var inp = document.createElement('input');
+        inp.type  = 'hidden';
+        inp.name  = keys[k];
+        inp.value = data[keys[k]];
+        form.appendChild(inp);
+      }
+      document.body.appendChild(form);
+      form.submit();
+      setTimeout(function(){ if (form.parentNode) form.parentNode.removeChild(form); }, 1500);
+
+      /* Can't read cross-origin iframe response; show success after fixed delay */
+      setTimeout(function(){
+        showStatus('✅ Received! We\'ll review your project and reply within one working day.', 'ok');
+        submitBtn.style.display = 'none';
+      }, 2500);
+    }
+
+    if (selFile){
+      var reader = new FileReader();
+      reader.onload = function(){
+        dispatch(reader.result.split(',')[1], selFile.name, selFile.type);
+      };
+      reader.onerror = function(){
+        showStatus('Could not read the file. Please try a different file.', 'err');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send my project →';
+      };
+      reader.readAsDataURL(selFile);
+    } else {
+      dispatch('', '', '');
+    }
+  });
+}());
+</script>
 
 <footer class="site">
   <div class="wrap">
@@ -189,5 +390,6 @@
 <!-- TODO: replace number -->
 <a class="wa-float" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">💬 WhatsApp</a>
 
+<script src="assets/motion.js"></script>
 </body>
 </html>

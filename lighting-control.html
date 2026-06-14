@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lighting Control — Smart Switches vs Scenes vs DALI/KNX | OnePoint Smart Home</title>
+<meta name="description" content="Compare smart switches, smart switches with scenes, and full DALI/KNX bus systems for lighting control — with general-market indicative pricing per point." />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="index.html">OnePoint <span>Smart Home</span></a>
+    <nav class="nav-links">
+      <a href="smart-home.html">Smart Home</a>
+      <a href="lighting-guide.html">Free lighting guide</a>
+      <a class="btn" href="services.html#contact">Start my project</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" style="padding:48px 0 36px;">
+  <div class="wrap reveal">
+    <span class="kicker">Smart Home · 01 of 5</span>
+    <h1 style="font-size:clamp(1.6rem,3.5vw,2.4rem);">Lighting Control</h1>
+    <p class="lead" style="margin-bottom:0;">The layer everything else builds on. Answer a few questions and see how Smart Switches, Smart Switches + Scenes, and a Full Bus System (DALI/KNX) compare for your home — with indicative pricing.</p>
+  </div>
+</section>
+
+<section style="padding-top:40px;">
+  <div class="wrap calc-shell">
+
+    <div class="panel">
+      <h3>Tell us about your home</h3>
+      <div class="field">
+        <label for="buildStage">Build stage</label>
+        <select id="buildStage">
+          <option value="new">New construction (first-fix not yet done)</option>
+          <option value="renovation">Renovation — walls/ceiling open</option>
+          <option value="finished">Finished home — retrofit only</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="pointCount">Approx. number of light switches/loads to control</label>
+        <input type="number" id="pointCount" placeholder="e.g. 25" min="1" max="500" />
+      </div>
+      <div class="field">
+        <label for="controlLevel">Control level you're considering</label>
+        <select id="controlLevel">
+          <option value="basic">Smart switches (basic — app, on/off &amp; dimming)</option>
+          <option value="scenes">Smart switches + scenes (app, voice, schedules)</option>
+          <option value="full">Full bus system (DALI/KNX — central processor, keypads)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="priority">Your priority</label>
+        <select id="priority">
+          <option value="cost">Lowest upfront cost</option>
+          <option value="balance">Balance of cost and capability</option>
+          <option value="integration">Best long-term integration with other systems</option>
+        </select>
+      </div>
+      <button class="btn" id="showOptions" style="width:100%;">Show my options</button>
+      <p class="disclaimer">This gives a quick indicative estimate. Your design pack confirms exact point counts, fixture types and pricing for your home.</p>
+    </div>
+
+    <div>
+      <div class="panel" style="border:none;background:transparent;padding:0;">
+        <h3 style="padding-left:4px;">Your result</h3>
+        <div id="lcResults">
+          <div class="card">
+            <p>Fill in the form and click <b>Show my options</b> to see your indicative budget and recommendation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="alt" id="compare">
+  <div class="wrap">
+    <span class="kicker">Compare</span>
+    <h2 class="sec">Smart switches vs. scenes vs. full bus system</h2>
+    <p class="sub">Two ways to get there: add smart devices on top of existing wiring with no rewiring needed, or wire everything to a dedicated control bus during first fix for the tightest integration.</p>
+    <div class="brand-tier-table">
+      <table id="lcTable">
+        <thead>
+          <tr>
+            <th>&nbsp;</th>
+            <th data-tier="basic">Smart Switches</th>
+            <th data-tier="scenes">Smart Switches + Scenes</th>
+            <th data-tier="full">Full Bus System (DALI/KNX)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>What it is</th>
+            <td data-tier="basic">Wi-Fi smart switches/dimmers swap in for existing switches</td>
+            <td data-tier="scenes">Zigbee/Wi-Fi switches + hub for scenes, schedules &amp; voice</td>
+            <td data-tier="full">Dedicated DALI/KNX bus wired to a central processor — every point individually addressable</td>
+          </tr>
+          <tr>
+            <th>Wiring</th>
+            <td data-tier="basic">None — fits existing wiring</td>
+            <td data-tier="scenes">None — fits existing wiring</td>
+            <td data-tier="full">Dedicated bus cable to every point — first-fix only</td>
+          </tr>
+          <tr>
+            <th>Control</th>
+            <td data-tier="basic">App + physical switch</td>
+            <td data-tier="scenes">App, voice, schedules, scenes</td>
+            <td data-tier="full">App, voice, wall keypads, schedules — fully programmable</td>
+          </tr>
+          <tr>
+            <th>Scenes &amp; automation</th>
+            <td data-tier="basic">Limited, per-switch only</td>
+            <td data-tier="scenes">Cross-device scenes (lights + curtains + AC)</td>
+            <td data-tier="full">Whole-building scenes, fastest response</td>
+          </tr>
+          <tr>
+            <th>Voice control</th>
+            <td data-tier="basic">Often (brand-dependent)</td>
+            <td data-tier="scenes">Yes</td>
+            <td data-tier="full">Yes</td>
+          </tr>
+          <tr>
+            <th>Best for</th>
+            <td data-tier="basic">Rentals, finished homes, single rooms</td>
+            <td data-tier="scenes">Most retrofits &amp; apartments</td>
+            <td data-tier="full">Villas, new builds, premium integration</td>
+          </tr>
+          <tr>
+            <th>Typical price per point</th>
+            <td data-tier="basic" class="price-level">AED 600-1,200</td>
+            <td data-tier="scenes" class="price-level">AED 1,200-2,200 (+ hub ~800-1,500)</td>
+            <td data-tier="full" class="price-level">AED 2,500-5,000 (+ processor &amp; programming ~12,000-30,000)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="disclaimer">These are general market indicative figures, not Harman's confirmed pricing — your design pack confirms the right tier, exact device count and pricing for your home.</p>
+  </div>
+</section>
+
+<section style="text-align:center;">
+  <div class="wrap" style="text-align:center;">
+    <span class="kicker">Get started</span>
+    <h2 class="sec">Ready to size this for your actual rooms?</h2>
+    <p class="sub" style="margin-left:auto;margin-right:auto;">Upload your drawing for a full lighting control design and BOQ, or explore the other smart home systems.</p>
+    <div class="cta-row" style="justify-content:center;">
+      <a class="btn big" href="services.html#contact">Upload your drawing</a>
+      <a class="btn big ghost" href="smart-home.html">Back to Smart Home</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>OnePoint Smart Home</h4>
+        <p>One platform for smart home knowledge, design, BOQ and installation. Brand-neutral by policy.</p>
+      </div>
+      <div>
+        <h4>Platform</h4>
+        <a href="index.html">Home</a>
+        <a href="lighting.html">Lighting comparison</a>
+        <a href="smart-home.html">Smart Home</a>
+        <a href="lighting-guide.html">Free lighting guide</a>
+        <a href="projects.html">Projects</a>
+        <a href="services.html#knowledge">Knowledge hub</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <!-- TODO: replace placeholders -->
+        <a href="https://wa.me/91XXXXXXXXXX">WhatsApp</a>
+        <a href="mailto:hello@example.com">hello@example.com</a>
+      </div>
+    </div>
+    <div class="foot-note">© 2026 OnePoint Smart Home (working name). Recommendations are independent; advertising on this platform is always labelled. BOQ quantities are confirmed on site; statutory electrical compliance remains with the installing contractor.</div>
+  </div>
+</footer>
+
+<!-- TODO: replace number -->
+<a class="wa-float" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">💬 WhatsApp</a>
+
+<script>
+(function(){
+  var btn = document.getElementById('showOptions');
+  var table = document.getElementById('lcTable');
+  var results = document.getElementById('lcResults');
+
+  var priceRanges = {
+    basic:  { lowPer: 600,  highPer: 1200, fixedLow: 0,     fixedHigh: 0 },
+    scenes: { lowPer: 1200, highPer: 2200, fixedLow: 800,   fixedHigh: 1500 },
+    full:   { lowPer: 2500, highPer: 5000, fixedLow: 12000, fixedHigh: 30000 }
+  };
+  var tierNames = {
+    basic: 'Smart Switches',
+    scenes: 'Smart Switches + Scenes',
+    full: 'Full Bus System (DALI/KNX)'
+  };
+
+  function fmt(n) {
+    return 'AED ' + Math.round(n).toLocaleString('en-US');
+  }
+
+  btn.addEventListener('click', function () {
+    var stage = document.getElementById('buildStage').value;
+    var pointsRaw = parseInt(document.getElementById('pointCount').value, 10);
+    var level = document.getElementById('controlLevel').value;
+    var priority = document.getElementById('priority').value;
+    var points = (!pointsRaw || pointsRaw < 1) ? 20 : pointsRaw;
+
+    // Highlight the matching column in the comparison table
+    var cells = table.querySelectorAll('[data-tier]');
+    for (var i = 0; i < cells.length; i++) {
+      if (cells[i].getAttribute('data-tier') === level) {
+        cells[i].classList.add('tier-highlight');
+      } else {
+        cells[i].classList.remove('tier-highlight');
+      }
+    }
+
+    var r = priceRanges[level];
+    var low = points * r.lowPer + r.fixedLow;
+    var high = points * r.highPer + r.fixedHigh;
+
+    var note;
+    if (stage === 'finished' && level === 'full') {
+      note = 'A full DALI/KNX bus needs dedicated cabling. In a finished home that usually means visible conduit or a partial renovation — many clients in this situation start with <b>Smart Switches + Scenes</b> and add a bus system at the next renovation.';
+    } else if ((stage === 'new' || stage === 'renovation') && level === 'full') {
+      note = 'Good timing — first-fix bus cabling can be planned now for the tightest integration with curtains, AC and AV scenes.';
+    } else if (level === 'basic' && priority === 'integration') {
+      note = 'For best long-term integration, <b>Smart Switches + Scenes</b> or a Full Bus System will connect more cleanly with curtains, AC and AV than basic switches alone.';
+    } else if (priority === 'cost' && level !== 'basic') {
+      note = 'If lowest upfront cost is the priority, <b>Smart Switches</b> (basic) is the cheaper starting point — you can still add scenes later via the hub.';
+    } else {
+      note = 'This tier fits your selection. Final device count, layout and pricing are confirmed once your design is reviewed.';
+    }
+
+    results.innerHTML =
+      '<div class="card">' +
+        '<h3>' + tierNames[level] + ' <small>· ~' + points + ' points</small></h3>' +
+        '<p><b>Indicative budget: ' + fmt(low) + ' – ' + fmt(high) + '</b></p>' +
+        '<p>' + note + '</p>' +
+      '</div>';
+
+    document.getElementById('compare').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+</script>
+<script src="assets/motion.js"></script>
+
+</body>
+</html>

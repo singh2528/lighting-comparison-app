@@ -15,14 +15,13 @@
     <nav class="nav-links">
       <a href="smart-home.html">Smart Home</a>
       <a href="lighting-guide.html" class="active">Free lighting guide</a>
-      <a class="btn ghost" href="services.html#contact">Upload your drawing</a>
-      <a class="btn" href="lighting.html">Start my project</a>
+      <a class="btn" href="services.html#contact">Start my project</a>
     </nav>
   </div>
 </header>
 
 <section class="hero" style="padding:56px 0 40px;">
-  <div class="wrap">
+  <div class="wrap reveal">
     <span class="kicker">Free tool</span>
     <h1 style="font-size:clamp(1.6rem,3.5vw,2.4rem);">Instant lighting guide for your home</h1>
     <p class="lead" style="margin-bottom:0;">Add your rooms and get recommended light levels, fixture counts, colour temperature and dimming advice — <b>calculated by the lumen method</b> (the same maths professional lighting designers use), not AI guesswork.</p>
@@ -104,6 +103,38 @@
   </div>
 </section>
 
+<!-- Educational lighting knowledge quiz -->
+<section style="padding-top:50px;">
+  <div class="wrap reveal" style="text-align:center;">
+    <span class="kicker">Test your knowledge</span>
+    <h2 class="sec">How much do you know about lighting?</h2>
+    <p class="sub" style="margin-left:auto;margin-right:auto;">Four quick questions. See how you score, and learn the numbers that professional designers use every day.</p>
+  </div>
+  <div class="wrap reveal reveal-d1">
+    <div class="quiz-card tilt-wrap">
+      <div class="tilt-card" id="lgQuiz">
+        <span class="quiz-kicker">Lighting knowledge quiz — 4 questions</span>
+        <div class="quiz-progress">
+          <span id="lgP1"></span><span id="lgP2"></span><span id="lgP3"></span><span id="lgP4"></span>
+        </div>
+
+        <div id="lgQWrap">
+          <p class="quiz-q" id="lgQ"></p>
+          <div class="quiz-options" id="lgOpts"></div>
+          <div id="lgFeedback" style="display:none;margin-top:14px;padding:12px 16px;border-radius:10px;font-size:.9rem;"></div>
+        </div>
+
+        <div id="lgResult" class="quiz-result" style="display:none;"></div>
+
+        <div class="quiz-nav">
+          <span class="quiz-step-label" id="lgLabel">Question 1 of 4</span>
+          <button class="btn" id="lgNext" style="display:none;">Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer class="site" style="margin-top:50px;">
   <div class="wrap">
     <div class="foot-note">© 2026 OnePoint Smart Home (working name). This guide covers the general lighting layer only and is indicative until verified against your floor plan. Statutory electrical compliance remains with the installing contractor.</div>
@@ -114,5 +145,120 @@
 <a class="wa-float" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">💬 WhatsApp</a>
 
 <script src="assets/calculator.js"></script>
+<script src="assets/motion.js"></script>
+
+<!-- Educational lighting quiz -->
+<script>
+(function(){
+  var Qs = [
+    {
+      q: "What's the recommended lux level for a living room?",
+      opts: ["150 – 300 lux", "500+ lux", "50 – 100 lux", "Lux doesn't matter — just pick a wattage"],
+      correct: 0,
+      explain: "150–300 lux is the professional target for living rooms — bright enough for tasks, low enough for relaxed ambience. 500+ lux is for kitchens and offices."
+    },
+    {
+      q: "Which colour temperature (CCT) is best for bedrooms?",
+      opts: ["2700–3000 K (warm white)", "4000 K (neutral white)", "5000–6500 K (cool daylight)", "CCT makes no difference"],
+      correct: 0,
+      explain: "2700–3000 K mimics warm incandescent light — ideal for relaxation and sleep. Cool 4000 K+ is stimulating and better suited to kitchens and study areas."
+    },
+    {
+      q: "What does a CRI of 90 tell you about a fixture?",
+      opts: [
+        "The light renders colours at 90% accuracy vs. true daylight",
+        "The fixture uses 90% less energy than halogen",
+        "It has a 90-degree beam angle",
+        "It's 90% as bright as an equivalent halogen"
+      ],
+      correct: 0,
+      explain: "CRI (Colour Rendering Index) is a 0–100 scale. CRI 90 means colours look very close to how they'd appear in natural daylight. Below 80, skin tones and food can look slightly off."
+    },
+    {
+      q: "A downlight rated 100 lm/W vs. 80 lm/W — what's the practical difference?",
+      opts: [
+        "The 100 lm/W fixture gives 25% more light for the same wattage",
+        "The 100 lm/W fixture runs 25% hotter",
+        "There's no real difference for home use",
+        "lm/W only matters for commercial buildings"
+      ],
+      correct: 0,
+      explain: "Efficacy (lumens per watt) tells you how efficiently electricity becomes light. 100 lm/W means 25% more brightness than 80 lm/W at identical running cost — it adds up across a full home BOQ."
+    }
+  ];
+
+  var current = 0;
+  var score = 0;
+  var answered = false;
+
+  var qEl = document.getElementById('lgQ');
+  var optsEl = document.getElementById('lgOpts');
+  var feedback = document.getElementById('lgFeedback');
+  var nextBtn = document.getElementById('lgNext');
+  var label = document.getElementById('lgLabel');
+  var resultEl = document.getElementById('lgResult');
+  var qWrap = document.getElementById('lgQWrap');
+  var pips = [document.getElementById('lgP1'), document.getElementById('lgP2'), document.getElementById('lgP3'), document.getElementById('lgP4')];
+  if (!qEl) return;
+
+  function render(idx){
+    answered = false;
+    feedback.style.display = 'none';
+    nextBtn.style.display = 'none';
+    var q = Qs[idx];
+    qEl.textContent = q.q;
+    label.textContent = 'Question ' + (idx + 1) + ' of ' + Qs.length;
+    pips.forEach(function(p, i){ p.classList.toggle('done', i < idx); });
+    optsEl.innerHTML = '';
+    q.opts.forEach(function(opt, i){
+      var btn = document.createElement('button');
+      btn.className = 'quiz-opt';
+      btn.textContent = opt;
+      btn.addEventListener('click', function(){
+        if (answered) return;
+        answered = true;
+        var correct = i === q.correct;
+        if (correct) { score++; btn.classList.add('correct'); }
+        else {
+          btn.classList.add('wrong');
+          optsEl.querySelectorAll('.quiz-opt')[q.correct].classList.add('correct');
+        }
+        feedback.style.cssText = 'display:block;margin-top:14px;padding:12px 16px;border-radius:10px;font-size:.9rem;background:' + (correct ? 'rgba(201,162,90,.12)' : 'rgba(200,50,50,.07)') + ';color:var(--ink);';
+        feedback.textContent = (correct ? '✓ Correct. ' : '✗ Not quite. ') + q.explain;
+        nextBtn.style.display = '';
+        nextBtn.textContent = idx < Qs.length - 1 ? 'Next →' : 'See my score';
+      });
+      optsEl.appendChild(btn);
+    });
+  }
+
+  nextBtn.addEventListener('click', function(){
+    current++;
+    if (current < Qs.length) {
+      render(current);
+    } else {
+      qWrap.style.display = 'none';
+      nextBtn.style.display = 'none';
+      pips.forEach(function(p){ p.classList.add('done'); });
+      label.textContent = 'Quiz complete';
+      resultEl.style.display = '';
+      var pct = Math.round(score / Qs.length * 100);
+      var verdict = score === 4 ? "Lighting pro — you clearly know your spec." :
+                    score >= 3 ? "Strong knowledge. One concept worth revisiting above." :
+                    score >= 2 ? "Good start. Re-read the sections on lux and CRI for the full picture." :
+                                 "The free guide above covers all of this — worth a read before your next project.";
+      resultEl.innerHTML =
+        '<div class="score">' + score + ' / ' + Qs.length + '</div>' +
+        '<p class="verdict">' + verdict + '</p>' +
+        '<div class="cta-row" style="justify-content:center;flex-wrap:wrap;gap:10px;margin-top:16px;">' +
+          '<a class="btn big" href="lighting.html">Compare fixture types</a>' +
+          '<a class="btn big ghost" href="services.html#contact">Get my full design</a>' +
+        '</div>';
+    }
+  });
+
+  render(0);
+})();
+</script>
 </body>
 </html>

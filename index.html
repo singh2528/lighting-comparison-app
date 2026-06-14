@@ -9,11 +9,25 @@
 <style>
   /* Minimal front page */
   .mini-hero {
+    position: relative;
+    overflow: hidden;
     min-height: calc(100vh - 64px);
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     text-align: center; padding: 40px 20px 60px;
-    background: radial-gradient(circle at 50% 0%, rgba(201,162,90,.16), transparent 55%), var(--dark);
+    background:
+      radial-gradient(ellipse at 28% -8%,  rgba(0,212,255,.10), transparent 50%),
+      radial-gradient(ellipse at 80% 108%, rgba(201,162,90,.07), transparent 44%),
+      var(--dark);
     color: var(--on-dark);
+  }
+  .hero-3d {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    z-index: 0; opacity: .55; pointer-events: none;
+  }
+  .hero-content {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; align-items: center;
+    width: 100%;
   }
   .mini-hero h1 { font-size: clamp(1.9rem, 4.5vw, 3rem); line-height: 1.18; max-width: 720px; color: var(--on-dark); }
   .mini-hero h1 em { font-style: normal; color: var(--accent); }
@@ -24,7 +38,7 @@
     box-shadow: 0 14px 40px rgba(0,0,0,.35); overflow: hidden;
     transition: border-color .15s ease, box-shadow .15s ease;
   }
-  .searchbox:focus-within { border-color: var(--accent); box-shadow: 0 14px 40px rgba(201,162,90,.25); }
+  .searchbox:focus-within { border-color: var(--accent); box-shadow: 0 14px 40px rgba(0,212,255,.18); }
   .searchbox input {
     flex: 1; border: none; padding: 18px 26px; font-size: 1.05rem; color: var(--ink); background: transparent;
     font-family: var(--font-body);
@@ -53,6 +67,23 @@
   .answer-panel.show { display: block; }
   .answer-panel p { color: var(--on-dark-soft); font-size: .95rem; margin-bottom: 12px; }
   .answer-panel .acts { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* Lifestyle scenes */
+  .scene-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; margin-top: 28px; }
+  .scene-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 16px; padding: 26px 22px 22px; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .scene-card:hover { transform: translateY(-5px); border-color: rgba(0,212,255,.45); box-shadow: 0 20px 40px rgba(0,0,0,.4), 0 0 24px rgba(0,212,255,.08); }
+  .scene-emoji { font-size: 2rem; margin-bottom: 12px; display: block; }
+  .scene-name { font-size: 1rem; font-family: var(--font-display); font-weight: 600; color: var(--on-dark); margin: 0 0 10px; }
+  .scene-systems { list-style: none; margin: 0; padding: 0; }
+  .scene-systems li { font-size: .82rem; color: var(--ink-soft); padding: 2px 0; display: flex; align-items: center; gap: 7px; }
+  .scene-systems li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  .scene-tag { display: inline-block; margin-top: 14px; font-size: .75rem; background: var(--accent-soft); color: var(--accent); border: 1px solid rgba(0,212,255,.2); border-radius: 999px; padding: 3px 10px; font-weight: 600; letter-spacing: .03em; }
+
+  /* Animated stats */
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 28px; margin-top: 36px; }
+  .stat-block { text-align: center; }
+  .stat-num { font-size: clamp(2rem, 4vw, 2.8rem); font-family: var(--font-display); font-weight: 700; color: var(--accent); display: block; line-height: 1.05; }
+  .stat-label { font-size: .82rem; color: var(--ink-soft); margin-top: 8px; line-height: 1.5; }
 </style>
 </head>
 <body>
@@ -63,13 +94,14 @@
     <nav class="nav-links">
       <a href="smart-home.html">Smart Home</a>
       <a href="lighting-guide.html">Free lighting guide</a>
-      <a class="btn ghost" href="services.html#contact">Upload your drawing</a>
-      <a class="btn" href="lighting.html">Start my project</a>
+      <a class="btn" href="services.html#contact">Start my project</a>
     </nav>
   </div>
 </header>
 
 <div class="mini-hero">
+  <canvas id="heroCanvas" class="hero-3d" aria-hidden="true"></canvas>
+  <div class="hero-content">
   <h1>Everything smart home. <em>One question away.</em></h1>
   <p class="tag">Lighting, automation, brands, costs, installation — ask anything, or upload your floor plan and get a complete design.</p>
 
@@ -93,15 +125,152 @@
     <a href="services.html#service"><b>Design &amp; BOQ service</b>Full design pack in 7 days</a>
     <a href="services.html#knowledge"><b>Knowledge hub</b>Honest, brand-neutral guides</a>
   </div>
+  </div>
 </div>
 
 <section class="alt">
-  <div class="wrap" style="text-align:center;">
+  <div class="wrap reveal" style="text-align:center;">
     <span class="kicker">Start here</span>
     <h2 class="sec">Compare lighting types, specs and brand tiers — with real numbers</h2>
     <p class="sub" style="margin-left:auto;margin-right:auto;">6 fixture types · lumens, CRI, efficacy &amp; beam angle by spec · Economy vs Standard vs Premium pricing, AED 150-700+ per downlight. No brand can buy a place in your recommendation.</p>
-    <div class="cta-row" style="justify-content:center;">
-      <a class="btn big" href="lighting.html">Start my project</a>
+  </div>
+</section>
+
+<!-- Lifestyle scenes -->
+<section>
+  <div class="wrap reveal" style="text-align:center;">
+    <span class="kicker">Smart home scenes</span>
+    <h2 class="sec">One tap. Your whole home responds.</h2>
+    <p class="sub" style="margin-left:auto;margin-right:auto;">Scenes link every system together — lighting, climate, curtains and AV all change in sync. No five apps. No hunting for switches.</p>
+  </div>
+  <div class="wrap reveal reveal-d1">
+    <div class="scene-grid">
+
+      <div class="scene-card tilt-wrap">
+        <div class="tilt-card" style="display:flex;flex-direction:column;height:100%;">
+          <span class="scene-emoji" style="animation:float-y 3.5s ease-in-out infinite;">🌅</span>
+          <p class="scene-name">Good Morning</p>
+          <ul class="scene-systems">
+            <li>Curtains open slowly over 10 min</li>
+            <li>Lighting fades up to warm 2700 K</li>
+            <li>AC ramps to 22 °C</li>
+            <li>Hallway lights at 30% until you move</li>
+          </ul>
+          <span class="scene-tag">Comfort + Circadian</span>
+        </div>
+      </div>
+
+      <div class="scene-card tilt-wrap">
+        <div class="tilt-card" style="display:flex;flex-direction:column;height:100%;">
+          <span class="scene-emoji" style="animation:float-y 3.5s ease-in-out infinite 0.5s;">🎬</span>
+          <p class="scene-name">Movie Night</p>
+          <ul class="scene-systems">
+            <li>Lights dim to 4%, bias light on</li>
+            <li>Blackout curtains close</li>
+            <li>AV system switches to cinema preset</li>
+            <li>AC stays quiet on sleep mode</li>
+          </ul>
+          <span class="scene-tag">AV + Lighting + Curtains</span>
+        </div>
+      </div>
+
+      <div class="scene-card tilt-wrap">
+        <div class="tilt-card" style="display:flex;flex-direction:column;height:100%;">
+          <span class="scene-emoji" style="animation:float-y 3.5s ease-in-out infinite 1s;">🔒</span>
+          <p class="scene-name">Away Mode</p>
+          <ul class="scene-systems">
+            <li>CCTV armed, motion alerts on</li>
+            <li>Lighting randomises to deter</li>
+            <li>AC to eco 26 °C</li>
+            <li>Smart locks confirmed closed</li>
+          </ul>
+          <span class="scene-tag">Security + Energy</span>
+        </div>
+      </div>
+
+      <div class="scene-card tilt-wrap">
+        <div class="tilt-card" style="display:flex;flex-direction:column;height:100%;">
+          <span class="scene-emoji" style="animation:float-y 3.5s ease-in-out infinite 1.5s;">🌙</span>
+          <p class="scene-name">Good Night</p>
+          <ul class="scene-systems">
+            <li>All lights off, night light at 1%</li>
+            <li>Curtains fully closed</li>
+            <li>AC to 20 °C sleep ramp</li>
+            <li>Do-not-disturb on all displays</li>
+          </ul>
+          <span class="scene-tag">Comfort + Sleep</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap reveal" style="text-align:center;">
+    <span class="kicker">60-second quiz</span>
+    <h2 class="sec">Not sure where to start? Answer two questions.</h2>
+    <p class="sub" style="margin-left:auto;margin-right:auto;">We'll point you to the right page — lighting comparison, full smart-home systems, or the free lighting guide.</p>
+  </div>
+  <div class="wrap reveal reveal-d1">
+    <div class="quiz-card tilt-wrap">
+      <div class="tilt-card" id="startQuiz">
+        <span class="quiz-kicker">Find your starting point</span>
+        <div class="quiz-progress"><span id="sqStep1"></span><span id="sqStep2"></span></div>
+
+        <div id="sqQ1">
+          <p class="quiz-q">What are you working on right now?</p>
+          <div class="quiz-options">
+            <button class="quiz-opt" data-q="1" data-v="new">A new build — first fix not done yet</button>
+            <button class="quiz-opt" data-q="1" data-v="renovation">A renovation — walls/ceiling open</button>
+            <button class="quiz-opt" data-q="1" data-v="finished">A finished home — retrofit only</button>
+            <button class="quiz-opt" data-q="1" data-v="explore">Just exploring ideas, nothing started</button>
+          </div>
+        </div>
+
+        <div id="sqQ2" style="display:none;">
+          <p class="quiz-q">What matters most to you right now?</p>
+          <div class="quiz-options">
+            <button class="quiz-opt" data-q="2" data-v="lighting">Lighting design &amp; fixtures</button>
+            <button class="quiz-opt" data-q="2" data-v="automation">Whole-home automation — AV, climate, security, curtains</button>
+            <button class="quiz-opt" data-q="2" data-v="both">Both — I want the full picture</button>
+            <button class="quiz-opt" data-q="2" data-v="unsure">Not sure — show me the basics first</button>
+          </div>
+        </div>
+
+        <div id="sqResult" class="quiz-result" style="display:none;"></div>
+
+        <div class="quiz-nav">
+          <span class="quiz-step-label" id="sqLabel">Question 1 of 2</span>
+          <button class="btn ghost" id="sqBack" disabled>Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats counters -->
+<section class="alt">
+  <div class="wrap reveal" style="text-align:center;">
+    <span class="kicker">By the numbers</span>
+    <h2 class="sec">One platform. Everything you need.</h2>
+    <div class="stats-grid">
+      <div class="stat-block reveal reveal-d1">
+        <span class="stat-num" data-count="5" data-suffix="">5</span>
+        <span class="stat-label">Smart systems covered<br>(lighting, AV, HVAC, CCTV, curtains)</span>
+      </div>
+      <div class="stat-block reveal reveal-d2">
+        <span class="stat-num" data-count="6" data-suffix="">6</span>
+        <span class="stat-label">Fixture types compared<br>with live AED pricing</span>
+      </div>
+      <div class="stat-block reveal reveal-d3">
+        <span class="stat-num" data-count="100" data-suffix="%">100%</span>
+        <span class="stat-label">Brand-neutral<br>recommendations</span>
+      </div>
+      <div class="stat-block reveal reveal-d4">
+        <span class="stat-num" data-count="7" data-suffix="">7</span>
+        <span class="stat-label">Days to a full<br>design pack</span>
+      </div>
     </div>
   </div>
 </section>
@@ -135,6 +304,307 @@
 <!-- TODO: replace number -->
 <a class="wa-float" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">💬 WhatsApp</a>
 
+<script src="assets/motion.js"></script>
 <script src="assets/search.js"></script>
+
+<!-- 60-second starting-point quiz -->
+<script>
+(function(){
+  var answers = {};
+  var q1 = document.getElementById('sqQ1');
+  var q2 = document.getElementById('sqQ2');
+  var result = document.getElementById('sqResult');
+  var step1 = document.getElementById('sqStep1');
+  var step2 = document.getElementById('sqStep2');
+  var label = document.getElementById('sqLabel');
+  var backBtn = document.getElementById('sqBack');
+  if (!q1) return;
+
+  function showQ1(){
+    q1.style.display = ''; q2.style.display = 'none'; result.style.display = 'none';
+    step1.classList.remove('done'); step2.classList.remove('done');
+    label.textContent = 'Question 1 of 2';
+    backBtn.disabled = true;
+  }
+  function showQ2(){
+    q1.style.display = 'none'; q2.style.display = ''; result.style.display = 'none';
+    step1.classList.add('done'); step2.classList.remove('done');
+    label.textContent = 'Question 2 of 2';
+    backBtn.disabled = false;
+  }
+  function showResult(){
+    q1.style.display = 'none'; q2.style.display = 'none'; result.style.display = '';
+    step1.classList.add('done'); step2.classList.add('done');
+    label.textContent = 'Your starting point';
+    backBtn.disabled = false;
+
+    var dest, destLabel, note;
+    if (answers[2] === 'lighting') {
+      dest = 'lighting.html'; destLabel = 'Lighting comparison';
+      note = 'Compare fixture types, specs and brand tiers, with real AED pricing.';
+    } else if (answers[2] === 'automation') {
+      dest = 'smart-home.html'; destLabel = 'Smart Home systems';
+      note = 'See lighting control, AV, climate, CCTV and curtains — each with its own pricing tool.';
+    } else if (answers[2] === 'both') {
+      dest = 'smart-home.html'; destLabel = 'Smart Home systems';
+      note = 'Start with the systems overview, then explore lighting.html for fixture-level detail.';
+    } else {
+      dest = 'lighting-guide.html'; destLabel = 'Free lighting guide';
+      note = 'A quick, no-signup guide to lux, colour temperature and dimming for your rooms.';
+    }
+
+    var stageNote = '';
+    if (answers[1] === 'finished' && (answers[2] === 'automation' || answers[2] === 'both')) {
+      stageNote = ' In a finished home, retrofit-friendly options (Wi-Fi/Zigbee) are usually the practical starting point — your design pack will confirm.';
+    } else if ((answers[1] === 'new' || answers[1] === 'renovation') && (answers[2] === 'automation' || answers[2] === 'both')) {
+      stageNote = ' Good timing — wired/bus options become possible while first fix is still open.';
+    }
+
+    result.innerHTML =
+      '<div class="score">' + destLabel + '</div>' +
+      '<p class="verdict">' + note + stageNote + '</p>' +
+      '<a class="btn big" href="' + dest + '">Go to ' + destLabel + '</a>';
+  }
+
+  document.querySelectorAll('.quiz-opt').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var q = this.getAttribute('data-q');
+      var v = this.getAttribute('data-v');
+      answers[q] = v;
+      var siblings = this.parentElement.querySelectorAll('.quiz-opt');
+      siblings.forEach(function (s) { s.classList.remove('selected'); });
+      this.classList.add('selected');
+
+      if (q === '1') {
+        setTimeout(showQ2, 150);
+      } else {
+        setTimeout(showResult, 150);
+      }
+    });
+  });
+
+  backBtn.addEventListener('click', function () {
+    if (result.style.display !== 'none') {
+      showQ2();
+    } else if (q2.style.display !== 'none') {
+      showQ1();
+    }
+  });
+
+  showQ1();
+})();
+</script>
+
+<!-- Animated stats counters (scroll-triggered) -->
+<script>
+(function(){
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('[data-count]').forEach(function(el){
+    var target = parseFloat(el.getAttribute('data-count'));
+    var suffix = el.getAttribute('data-suffix') || '';
+    var io = new IntersectionObserver(function(entries){
+      if (!entries[0].isIntersecting) return;
+      io.disconnect();
+      var startTime = null;
+      var duration = 1600;
+      function step(ts){
+        if (!startTime) startTime = ts;
+        var p = Math.min((ts - startTime) / duration, 1);
+        var ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * ease) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }, { threshold: 0.5 });
+    io.observe(el);
+  });
+})();
+</script>
+
+<!-- Smart Home Hero — 6-system orbit around glowing house, no external deps -->
+<script>
+(function(){
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var canvas = document.getElementById('heroCanvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var hero = canvas.parentElement;
+
+  /* ── Smart home systems – evenly spaced around the house ── */
+  var SYS = [
+    { icon: '💡', label: 'Lighting',  a0: 0,              spd: 1.00 },
+    { icon: '🎬', label: 'AV',        a0: Math.PI/3,      spd: 1.07 },
+    { icon: '🌡',  label: 'Climate',   a0: 2*Math.PI/3,    spd: 0.93 },
+    { icon: '📷', label: 'CCTV',      a0: Math.PI,        spd: 1.11 },
+    { icon: '🔒', label: 'Security',  a0: 4*Math.PI/3,    spd: 0.97 },
+    { icon: '🪟', label: 'Curtains',  a0: 5*Math.PI/3,    spd: 1.04 },
+  ];
+
+  var W=0, H=0, CX=0, CY=0, OX=0, OY=0, HS=0;
+
+  function resize(){
+    W  = canvas.width  = hero.offsetWidth  || 800;
+    H  = canvas.height = hero.offsetHeight || 500;
+    CX = W/2; CY = H/2;
+    OX = W * 0.28;          /* elliptical orbit — wider than tall */
+    OY = Math.min(H, W) * (W < 600 ? 0.20 : 0.26);
+    HS = Math.min(W, H) * 0.072; /* house half-size */
+  }
+  resize();
+  window.addEventListener('resize', resize, {passive:true});
+
+  var SPEED  = 0.000135; /* rad/ms — one orbit ≈ 46 s */
+  var pulses = SYS.map(function(_,i){ return i/SYS.length; });
+  var scanR  = 0;
+  var lastTs = 0, t = 0;
+
+  /* ─── House silhouette ─── */
+  function drawHouse(x, y, s){
+    ctx.save();
+    ctx.strokeStyle = 'rgba(0,212,255,0.72)';
+    ctx.lineWidth   = 1.5;
+    ctx.lineCap     = 'round';
+    ctx.lineJoin    = 'round';
+    ctx.shadowBlur  = 14;
+    ctx.shadowColor = 'rgba(0,212,255,0.55)';
+    /* Roof */
+    ctx.beginPath();
+    ctx.moveTo(x - s*0.66, y);
+    ctx.lineTo(x,           y - s*0.78);
+    ctx.lineTo(x + s*0.66, y);
+    ctx.stroke();
+    /* Walls */
+    ctx.strokeRect(x - s*0.55, y, s*1.10, s*0.76);
+    /* Door */
+    ctx.strokeRect(x - s*0.14, y + s*0.34, s*0.28, s*0.42);
+    /* Left window */
+    ctx.strokeRect(x - s*0.50, y + s*0.10, s*0.22, s*0.18);
+    /* Right window */
+    ctx.strokeRect(x + s*0.28, y + s*0.10, s*0.22, s*0.18);
+    /* Hub dot (smart controller inside house) */
+    ctx.beginPath();
+    ctx.arc(x, y + s*0.20, s*0.075, 0, Math.PI*2);
+    ctx.fillStyle   = 'rgba(0,212,255,0.92)';
+    ctx.shadowBlur  = 20;
+    ctx.shadowColor = 'rgba(0,212,255,1)';
+    ctx.fill();
+    ctx.restore();
+  }
+
+  /* ─── Device node ─── */
+  function drawNode(x, y, icon, label){
+    var r = W < 600 ? 14 : 19;
+    ctx.save();
+    /* Glow halo */
+    var g = ctx.createRadialGradient(x,y,0, x,y, r*2.8);
+    g.addColorStop(0, 'rgba(0,212,255,0.13)');
+    g.addColorStop(1, 'rgba(0,212,255,0)');
+    ctx.beginPath();
+    ctx.arc(x,y, r*2.8, 0, Math.PI*2);
+    ctx.fillStyle = g;
+    ctx.fill();
+    /* Circle */
+    ctx.beginPath();
+    ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fillStyle   = 'rgba(4,7,15,0.68)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(0,212,255,0.58)';
+    ctx.lineWidth   = 1.2;
+    ctx.shadowBlur  = 8;
+    ctx.shadowColor = 'rgba(0,212,255,0.5)';
+    ctx.stroke();
+    /* Emoji icon */
+    ctx.shadowBlur = 0;
+    ctx.font = (W < 600 ? '11' : '13') + 'px serif';
+    ctx.textAlign    = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(icon, x, y);
+    /* Label */
+    if (W >= 480){
+      ctx.font      = '9px -apple-system,Segoe UI,sans-serif';
+      ctx.fillStyle = 'rgba(180,208,245,0.62)';
+      ctx.fillText(label, x, y + r + 11);
+    }
+    ctx.restore();
+  }
+
+  /* ─── Connection line (hub → device) ─── */
+  function drawLine(x1,y1,x2,y2){
+    var g = ctx.createLinearGradient(x1,y1,x2,y2);
+    g.addColorStop(0, 'rgba(0,212,255,0.28)');
+    g.addColorStop(1, 'rgba(0,212,255,0.04)');
+    ctx.beginPath();
+    ctx.moveTo(x1,y1);
+    ctx.lineTo(x2,y2);
+    ctx.strokeStyle = g;
+    ctx.lineWidth   = 0.75;
+    ctx.stroke();
+  }
+
+  /* ─── Pulse bead traveling along a line ─── */
+  function drawPulse(x1,y1,x2,y2,p){
+    var px   = x1 + (x2-x1)*p;
+    var py   = y1 + (y2-y1)*p;
+    var fade = Math.sin(p * Math.PI);
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(px,py, 3, 0, Math.PI*2);
+    ctx.fillStyle   = 'rgba(0,212,255,' + (fade*0.88).toFixed(2) + ')';
+    ctx.shadowBlur  = 10;
+    ctx.shadowColor = 'rgba(0,212,255,0.85)';
+    ctx.fill();
+    ctx.restore();
+  }
+
+  /* ─── Animation loop ─── */
+  function animate(ts){
+    var dt = Math.min(ts - lastTs, 80);
+    lastTs = ts;
+    t += dt;
+
+    ctx.clearRect(0,0,W,H);
+
+    var hubX = CX;
+    var hubY = CY + HS*0.20; /* aligns with hub dot inside house */
+
+    /* Expanding scan ring from hub dot */
+    var maxR = Math.max(OX, OY) * 1.35;
+    scanR = (scanR + dt*0.07) % maxR;
+    var sa = Math.max(0, (1 - scanR/maxR)) * 0.16;
+    if (sa > 0.003){
+      ctx.beginPath();
+      ctx.ellipse(CX, CY + HS*0.20, scanR * (OX/OY), scanR, 0, 0, Math.PI*2);
+      ctx.strokeStyle = 'rgba(0,212,255,' + sa.toFixed(3) + ')';
+      ctx.lineWidth   = 1;
+      ctx.stroke();
+    }
+
+    /* Device positions on ellipse */
+    var pos = SYS.map(function(s){
+      var a = s.a0 + t * SPEED * s.spd;
+      return { x: CX + Math.cos(a)*OX, y: CY + Math.sin(a)*OY, s: s };
+    });
+
+    /* Lines */
+    pos.forEach(function(p){ drawLine(hubX, hubY, p.x, p.y); });
+
+    /* Pulses */
+    pos.forEach(function(p,i){
+      pulses[i] = (pulses[i] + dt*0.00048) % 1;
+      drawPulse(hubX, hubY, p.x, p.y, pulses[i]);
+    });
+
+    /* House */
+    drawHouse(CX, CY, HS);
+
+    /* Device nodes */
+    pos.forEach(function(p){ drawNode(p.x, p.y, p.s.icon, p.s.label); });
+
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+})();
+</script>
 </body>
 </html>

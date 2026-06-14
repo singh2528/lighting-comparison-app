@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Curtains &amp; Blinds — Motorised, Scheduled &amp; Scene-Ready | OnePoint Smart Home</title>
+<meta name="description" content="Compare plug-and-play motors, wired motors with scenes, and bus-integrated control — with general-market indicative pricing per window." />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="index.html">OnePoint <span>Smart Home</span></a>
+    <nav class="nav-links">
+      <a href="smart-home.html">Smart Home</a>
+      <a href="lighting-guide.html">Free lighting guide</a>
+      <a class="btn" href="services.html#contact">Start my project</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" style="padding:48px 0 36px;">
+  <div class="wrap reveal">
+    <span class="kicker">Smart Home · 05 of 5</span>
+    <h1 style="font-size:clamp(1.6rem,3.5vw,2.4rem);">Curtains &amp; Blinds</h1>
+    <p class="lead" style="margin-bottom:0;">Motorised, scheduled, and part of every scene. Answer a few questions and see how plug-and-play motors, wired motors with scenes, and bus-integrated control compare for your home — with indicative pricing.</p>
+  </div>
+</section>
+
+<section style="padding-top:40px;">
+  <div class="wrap calc-shell">
+
+    <div class="panel">
+      <h3>Tell us about your home</h3>
+      <div class="field">
+        <label for="buildStage">Build stage</label>
+        <select id="buildStage">
+          <option value="new">New construction (first-fix not yet done)</option>
+          <option value="renovation">Renovation — walls/ceiling open</option>
+          <option value="finished">Finished home — retrofit only</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="pointCount">Approx. number of windows / curtain tracks to motorize</label>
+        <input type="number" id="pointCount" placeholder="e.g. 8" min="1" max="50" />
+      </div>
+      <div class="field">
+        <label for="controlLevel">Control level you're considering</label>
+        <select id="controlLevel">
+          <option value="basic">Plug-and-play motors (rechargeable/battery, app control)</option>
+          <option value="scenes">Wired motors + scenes (app, voice, schedules, sun sensor)</option>
+          <option value="full">Bus-integrated control (central processor, synced with lighting &amp; AC)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="priority">Your priority</label>
+        <select id="priority">
+          <option value="cost">Lowest upfront cost</option>
+          <option value="balance">Balance of cost and capability</option>
+          <option value="integration">Best long-term integration with other systems</option>
+        </select>
+      </div>
+      <button class="btn" id="showOptions" style="width:100%;">Show my options</button>
+      <p class="disclaimer">This gives a quick indicative estimate. Your design pack confirms exact track lengths, motor sizing and pricing for your home.</p>
+    </div>
+
+    <div>
+      <div class="panel" style="border:none;background:transparent;padding:0;">
+        <h3 style="padding-left:4px;">Your result</h3>
+        <div id="curtainsResults">
+          <div class="card">
+            <p>Fill in the form and click <b>Show my options</b> to see your indicative budget and recommendation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="alt" id="compare">
+  <div class="wrap">
+    <span class="kicker">Compare</span>
+    <h2 class="sec">Plug-and-play motors vs. wired motors + scenes vs. bus-integrated control</h2>
+    <p class="sub">Two ways to get there: retrofit rechargeable motors onto existing tracks with no rewiring needed, or wire motors to a hub or central processor during first fix for scene-based, whole-home control.</p>
+    <div class="brand-tier-table">
+      <table id="curtainsTable">
+        <thead>
+          <tr>
+            <th>&nbsp;</th>
+            <th data-tier="basic">Plug-and-Play Motors</th>
+            <th data-tier="scenes">Wired Motors + Scenes</th>
+            <th data-tier="full">Bus-Integrated Control</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>What it is</th>
+            <td data-tier="basic">Rechargeable/battery motors retrofit onto existing tracks, app control</td>
+            <td data-tier="scenes">Wired motors on new or replacement tracks, linked via a hub for app, voice and schedules</td>
+            <td data-tier="full">Motors wired to a central processor — synced with lighting and AC scenes building-wide</td>
+          </tr>
+          <tr>
+            <th>Wiring</th>
+            <td data-tier="basic">None — rechargeable or plug-in</td>
+            <td data-tier="scenes">Motor power wiring to each track — first-fix or accessible ceiling</td>
+            <td data-tier="full">Motor + bus wiring to every track, tied to the central processor — first-fix only</td>
+          </tr>
+          <tr>
+            <th>Control</th>
+            <td data-tier="basic">App + remote</td>
+            <td data-tier="scenes">App, voice, remote, schedules, sun/light sensor</td>
+            <td data-tier="full">App, voice, wall keypads, whole-home scenes</td>
+          </tr>
+          <tr>
+            <th>Scenes &amp; automation</th>
+            <td data-tier="basic">Per-track schedules only</td>
+            <td data-tier="scenes">Cross-device scenes (e.g. curtains close + lights dim for movie night)</td>
+            <td data-tier="full">Whole-building scenes (e.g. curtains close + AC adjusts before peak heat)</td>
+          </tr>
+          <tr>
+            <th>Voice control</th>
+            <td data-tier="basic">Often (brand-dependent)</td>
+            <td data-tier="scenes">Yes</td>
+            <td data-tier="full">Yes</td>
+          </tr>
+          <tr>
+            <th>Best for</th>
+            <td data-tier="basic">Rentals, finished homes, a few windows</td>
+            <td data-tier="scenes">Most villas — most or all windows</td>
+            <td data-tier="full">Villas/new builds wanting full lighting + AC + curtain integration</td>
+          </tr>
+          <tr>
+            <th>Typical price per window</th>
+            <td data-tier="basic" class="price-level">AED 800-1,600</td>
+            <td data-tier="scenes" class="price-level">AED 1,600-2,800 (+ hub/sensor ~800-2,000)</td>
+            <td data-tier="full" class="price-level">AED 2,800-4,500 (+ bus module/processor ~5,000-12,000)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="disclaimer">These are general market indicative figures, not Harman's confirmed pricing — your design pack confirms the right tier, exact window count and pricing for your home.</p>
+  </div>
+</section>
+
+<section style="text-align:center;">
+  <div class="wrap" style="text-align:center;">
+    <span class="kicker">Get started</span>
+    <h2 class="sec">Ready to size this for your actual rooms?</h2>
+    <p class="sub" style="margin-left:auto;margin-right:auto;">Upload your drawing for a full curtains &amp; blinds design and BOQ, or explore the other smart home systems.</p>
+    <div class="cta-row" style="justify-content:center;">
+      <a class="btn big" href="services.html#contact">Upload your drawing</a>
+      <a class="btn big ghost" href="smart-home.html">Back to Smart Home</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>OnePoint Smart Home</h4>
+        <p>One platform for smart home knowledge, design, BOQ and installation. Brand-neutral by policy.</p>
+      </div>
+      <div>
+        <h4>Platform</h4>
+        <a href="index.html">Home</a>
+        <a href="lighting.html">Lighting comparison</a>
+        <a href="smart-home.html">Smart Home</a>
+        <a href="lighting-guide.html">Free lighting guide</a>
+        <a href="projects.html">Projects</a>
+        <a href="services.html#knowledge">Knowledge hub</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <!-- TODO: replace placeholders -->
+        <a href="https://wa.me/91XXXXXXXXXX">WhatsApp</a>
+        <a href="mailto:hello@example.com">hello@example.com</a>
+      </div>
+    </div>
+    <div class="foot-note">© 2026 OnePoint Smart Home (working name). Recommendations are independent; advertising on this platform is always labelled. BOQ quantities are confirmed on site; statutory electrical compliance remains with the installing contractor.</div>
+  </div>
+</footer>
+
+<!-- TODO: replace number -->
+<a class="wa-float" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">💬 WhatsApp</a>
+
+<script>
+(function(){
+  var btn = document.getElementById('showOptions');
+  var table = document.getElementById('curtainsTable');
+  var results = document.getElementById('curtainsResults');
+
+  var priceRanges = {
+    basic:  { lowPer: 800,  highPer: 1600, fixedLow: 0,    fixedHigh: 0 },
+    scenes: { lowPer: 1600, highPer: 2800, fixedLow: 800,  fixedHigh: 2000 },
+    full:   { lowPer: 2800, highPer: 4500, fixedLow: 5000, fixedHigh: 12000 }
+  };
+  var tierNames = {
+    basic: 'Plug-and-Play Motors',
+    scenes: 'Wired Motors + Scenes',
+    full: 'Bus-Integrated Control'
+  };
+
+  function fmt(n) {
+    return 'AED ' + Math.round(n).toLocaleString('en-US');
+  }
+
+  btn.addEventListener('click', function () {
+    var stage = document.getElementById('buildStage').value;
+    var pointsRaw = parseInt(document.getElementById('pointCount').value, 10);
+    var level = document.getElementById('controlLevel').value;
+    var priority = document.getElementById('priority').value;
+    var points = (!pointsRaw || pointsRaw < 1) ? 8 : pointsRaw;
+
+    // Highlight the matching column in the comparison table
+    var cells = table.querySelectorAll('[data-tier]');
+    for (var i = 0; i < cells.length; i++) {
+      if (cells[i].getAttribute('data-tier') === level) {
+        cells[i].classList.add('tier-highlight');
+      } else {
+        cells[i].classList.remove('tier-highlight');
+      }
+    }
+
+    var r = priceRanges[level];
+    var low = points * r.lowPer + r.fixedLow;
+    var high = points * r.highPer + r.fixedHigh;
+
+    var note;
+    if (stage === 'finished' && level === 'full') {
+      note = 'Bus-integrated control needs motor and bus wiring to every track, tied to a central processor. In a finished home that usually means surface conduit or a partial renovation — many clients in this situation start with <b>Plug-and-Play Motors</b> and integrate further at the next renovation.';
+    } else if ((stage === 'new' || stage === 'renovation') && level === 'full') {
+      note = 'Good timing — motor and bus wiring to every track can be planned now for the tightest integration with lighting and AC scenes.';
+    } else if (level === 'basic' && priority === 'integration') {
+      note = 'For best long-term integration, <b>Wired Motors + Scenes</b> or Bus-Integrated Control will sync with lighting and AC (e.g. curtains close + AC adjusts before peak heat) far better than standalone plug-and-play motors.';
+    } else if (priority === 'cost' && level !== 'basic') {
+      note = 'If lowest upfront cost is the priority, <b>Plug-and-Play Motors</b> (basic) is the cheaper starting point — you can still add wired motors and scenes later.';
+    } else {
+      note = 'This tier fits your selection. Final track count, motor sizing and pricing are confirmed once your design is reviewed.';
+    }
+
+    results.innerHTML =
+      '<div class="card">' +
+        '<h3>' + tierNames[level] + ' <small>· ~' + points + ' windows</small></h3>' +
+        '<p><b>Indicative budget: ' + fmt(low) + ' – ' + fmt(high) + '</b></p>' +
+        '<p>' + note + '</p>' +
+      '</div>';
+
+    document.getElementById('compare').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+</script>
+<script src="assets/motion.js"></script>
+
+</body>
+</html>

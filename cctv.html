@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CCTV &amp; Security — Cameras, Access Control &amp; Alarms | OnePoint Smart Home</title>
+<meta name="description" content="Compare Wi-Fi cameras, PoE cameras with NVR, and full security with access control — with general-market indicative pricing per camera." />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="index.html">OnePoint <span>Smart Home</span></a>
+    <nav class="nav-links">
+      <a href="smart-home.html">Smart Home</a>
+      <a href="lighting-guide.html">Free lighting guide</a>
+      <a class="btn" href="services.html#contact">Start my project</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" style="padding:48px 0 36px;">
+  <div class="wrap reveal">
+    <span class="kicker">Smart Home · 04 of 5</span>
+    <h1 style="font-size:clamp(1.6rem,3.5vw,2.4rem);">CCTV &amp; Security</h1>
+    <p class="lead" style="margin-bottom:0;">Cameras, access and alarms — one app, not three. Answer a few questions and see how Wi-Fi cameras, PoE cameras with NVR, and full security with access control compare for your home — with indicative pricing.</p>
+  </div>
+</section>
+
+<section style="padding-top:40px;">
+  <div class="wrap calc-shell">
+
+    <div class="panel">
+      <h3>Tell us about your home</h3>
+      <div class="field">
+        <label for="buildStage">Build stage</label>
+        <select id="buildStage">
+          <option value="new">New construction (first-fix not yet done)</option>
+          <option value="renovation">Renovation — walls/ceiling open</option>
+          <option value="finished">Finished home — retrofit only</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="pointCount">Approx. number of cameras / entry points to cover</label>
+        <input type="number" id="pointCount" placeholder="e.g. 6" min="1" max="50" />
+      </div>
+      <div class="field">
+        <label for="controlLevel">Control level you're considering</label>
+        <select id="controlLevel">
+          <option value="basic">Wi-Fi cameras (DIY, app-based, cloud storage)</option>
+          <option value="scenes">PoE cameras + NVR (wired, local recording, app + alerts)</option>
+          <option value="full">Full security &amp; access control (cameras, smart locks, alarm panel, intercom)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="priority">Your priority</label>
+        <select id="priority">
+          <option value="cost">Lowest upfront cost</option>
+          <option value="balance">Balance of cost and capability</option>
+          <option value="integration">Best long-term integration with other systems</option>
+        </select>
+      </div>
+      <button class="btn" id="showOptions" style="width:100%;">Show my options</button>
+      <p class="disclaimer">This gives a quick indicative estimate. Your design pack confirms exact camera counts, placement and pricing for your home.</p>
+    </div>
+
+    <div>
+      <div class="panel" style="border:none;background:transparent;padding:0;">
+        <h3 style="padding-left:4px;">Your result</h3>
+        <div id="cctvResults">
+          <div class="card">
+            <p>Fill in the form and click <b>Show my options</b> to see your indicative budget and recommendation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="alt" id="compare">
+  <div class="wrap">
+    <span class="kicker">Compare</span>
+    <h2 class="sec">Wi-Fi cameras vs. PoE + NVR vs. full security &amp; access control</h2>
+    <p class="sub">Two ways to get there: add Wi-Fi cameras with no cabling needed, or run PoE cabling to every camera and entry point during first fix for local recording, smart locks and an alarm panel.</p>
+    <div class="brand-tier-table">
+      <table id="cctvTable">
+        <thead>
+          <tr>
+            <th>&nbsp;</th>
+            <th data-tier="basic">Wi-Fi Cameras (DIY)</th>
+            <th data-tier="scenes">PoE Cameras + NVR</th>
+            <th data-tier="full">Full Security &amp; Access Control</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>What it is</th>
+            <td data-tier="basic">Wi-Fi/battery cameras, app viewing, cloud storage subscription</td>
+            <td data-tier="scenes">PoE cameras wired to a local NVR — app viewing, no subscription needed</td>
+            <td data-tier="full">PoE cameras + NVR, smart door locks, door/window sensors, alarm panel and video intercom — all in one app</td>
+          </tr>
+          <tr>
+            <th>Wiring</th>
+            <td data-tier="basic">None — power only, Wi-Fi connection</td>
+            <td data-tier="scenes">PoE cable to each camera and the NVR — first-fix or accessible ceiling</td>
+            <td data-tier="full">PoE + access control + intercom wiring to every point — first-fix only</td>
+          </tr>
+          <tr>
+            <th>Control</th>
+            <td data-tier="basic">App, motion alerts</td>
+            <td data-tier="scenes">App, local NVR playback, motion/zone alerts</td>
+            <td data-tier="full">App, NVR, alarm panel, intercom, remote door unlock</td>
+          </tr>
+          <tr>
+            <th>Scenes &amp; automation</th>
+            <td data-tier="basic">Limited — per-camera alerts only</td>
+            <td data-tier="scenes">Cross-device scenes (e.g. motion at night triggers lights)</td>
+            <td data-tier="full">Whole-home scenes incl. door unlock + lights + alarm arm/disarm by schedule or geofence</td>
+          </tr>
+          <tr>
+            <th>Voice control</th>
+            <td data-tier="basic">Often (brand-dependent)</td>
+            <td data-tier="scenes">Often (brand-dependent)</td>
+            <td data-tier="full">Yes</td>
+          </tr>
+          <tr>
+            <th>Best for</th>
+            <td data-tier="basic">Apartments, rentals, single entry points</td>
+            <td data-tier="scenes">Most villas — perimeter + key internal areas, no recurring fees</td>
+            <td data-tier="full">Villas/commercial wanting cameras, access control and alarm in one system</td>
+          </tr>
+          <tr>
+            <th>Typical price per camera</th>
+            <td data-tier="basic" class="price-level">AED 300-700</td>
+            <td data-tier="scenes" class="price-level">AED 700-1,500 (+ NVR ~1,500-3,500)</td>
+            <td data-tier="full" class="price-level">AED 1,200-2,500 (+ access control &amp; alarm panel ~8,000-20,000)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="disclaimer">These are general market indicative figures, not Harman's confirmed pricing — your design pack confirms the right tier, exact camera count and pricing for your home.</p>
+  </div>
+</section>
+
+<section style="text-align:center;">
+  <div class="wrap" style="text-align:center;">
+    <span class="kicker">Get started</span>
+    <h2 class="sec">Ready to size this for your actual rooms?</h2>
+    <p class="sub" style="margin-left:auto;margin-right:auto;">Upload your drawing for a full security design and BOQ, or explore the other smart home systems.</p>
+    <div class="cta-row" style="justify-content:center;">
+      <a class="btn big" href="services.html#contact">Upload your drawing</a>
+      <a class="btn big ghost" href="smart-home.html">Back to Smart Home</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>OnePoint Smart Home</h4>
+        <p>One platform for smart home knowledge, design, BOQ and installation. Brand-neutral by policy.</p>
+      </div>
+      <div>
+        <h4>Platform</h4>
+        <a href="index.html">Home</a>
+        <a href="lighting.html">Lighting comparison</a>
+        <a href="smart-home.html">Smart Home</a>
+        <a href="lighting-guide.html">Free lighting guide</a>
+        <a href="projects.html">Projects</a>
+        <a href="services.html#knowledge">Knowledge hub</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <!-- TODO: replace placeholders -->
+        <a href="https://wa.me/91XXXXXXXXXX">WhatsApp</a>
+        <a href="mailto:hello@example.com">hello@example.com</a>
+      </div>
+    </div>
+    <div class="foot-note">© 2026 OnePoint Smart Home (working name). Recommendations are independent; advertising on this platform is always labelled. BOQ quantities are confirmed on site; statutory electrical compliance remains with the installing contractor.</div>
+  </div>
+</footer>
+
+<!-- TODO: replace number -->
+<a class="wa-float" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">💬 WhatsApp</a>
+
+<script>
+(function(){
+  var btn = document.getElementById('showOptions');
+  var table = document.getElementById('cctvTable');
+  var results = document.getElementById('cctvResults');
+
+  var priceRanges = {
+    basic:  { lowPer: 300,  highPer: 700,  fixedLow: 0,    fixedHigh: 0 },
+    scenes: { lowPer: 700,  highPer: 1500, fixedLow: 1500, fixedHigh: 3500 },
+    full:   { lowPer: 1200, highPer: 2500, fixedLow: 8000, fixedHigh: 20000 }
+  };
+  var tierNames = {
+    basic: 'Wi-Fi Cameras (DIY)',
+    scenes: 'PoE Cameras + NVR',
+    full: 'Full Security & Access Control'
+  };
+
+  function fmt(n) {
+    return 'AED ' + Math.round(n).toLocaleString('en-US');
+  }
+
+  btn.addEventListener('click', function () {
+    var stage = document.getElementById('buildStage').value;
+    var pointsRaw = parseInt(document.getElementById('pointCount').value, 10);
+    var level = document.getElementById('controlLevel').value;
+    var priority = document.getElementById('priority').value;
+    var points = (!pointsRaw || pointsRaw < 1) ? 6 : pointsRaw;
+
+    // Highlight the matching column in the comparison table
+    var cells = table.querySelectorAll('[data-tier]');
+    for (var i = 0; i < cells.length; i++) {
+      if (cells[i].getAttribute('data-tier') === level) {
+        cells[i].classList.add('tier-highlight');
+      } else {
+        cells[i].classList.remove('tier-highlight');
+      }
+    }
+
+    var r = priceRanges[level];
+    var low = points * r.lowPer + r.fixedLow;
+    var high = points * r.highPer + r.fixedHigh;
+
+    var note;
+    if (stage === 'finished' && level === 'full') {
+      note = 'Full security with access control and intercom needs PoE and door wiring to every point. In a finished home that usually means surface conduit or a partial renovation — many clients in this situation start with <b>Wi-Fi Cameras (DIY)</b> and add access control at the next renovation.';
+    } else if ((stage === 'new' || stage === 'renovation') && level === 'full') {
+      note = 'Good timing — PoE cabling, door lock wiring and intercom can be planned now alongside your electrical first fix.';
+    } else if (level === 'basic' && priority === 'integration') {
+      note = 'For best long-term integration, <b>PoE Cameras + NVR</b> or Full Security &amp; Access Control will tie into lighting scenes (e.g. motion at night triggers lights) far better than standalone Wi-Fi cameras.';
+    } else if (priority === 'cost' && level !== 'basic') {
+      note = 'If lowest upfront cost is the priority, <b>Wi-Fi Cameras (DIY)</b> (basic) is the cheaper starting point — note this usually comes with a cloud storage subscription.';
+    } else {
+      note = 'This tier fits your selection. Final camera count, placement and pricing are confirmed once your design is reviewed.';
+    }
+
+    results.innerHTML =
+      '<div class="card">' +
+        '<h3>' + tierNames[level] + ' <small>· ~' + points + ' cameras</small></h3>' +
+        '<p><b>Indicative budget: ' + fmt(low) + ' – ' + fmt(high) + '</b></p>' +
+        '<p>' + note + '</p>' +
+      '</div>';
+
+    document.getElementById('compare').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+</script>
+<script src="assets/motion.js"></script>
+
+</body>
+</html>
