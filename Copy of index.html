@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OnePoint Smart Home — Ask anything about smart home</title>
+<meta name="description" content="One place for every smart home question — lighting, automation, brands, costs and installation. Ask, and get a complete design, BOQ and installer." />
+<link rel="stylesheet" href="assets/style.css" />
+<style>
+  /* Minimal front page */
+  .mini-hero {
+    min-height: calc(100vh - 64px);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 40px 20px 60px;
+    background: radial-gradient(circle at 50% 0%, rgba(201,162,90,.16), transparent 55%), var(--dark);
+    color: var(--on-dark);
+  }
+  .mini-hero h1 { font-size: clamp(1.9rem, 4.5vw, 3rem); line-height: 1.18; max-width: 720px; color: var(--on-dark); }
+  .mini-hero h1 em { font-style: normal; color: var(--accent); }
+  .mini-hero p.tag { color: var(--on-dark-soft); margin: 16px 0 36px; font-size: 1.05rem; max-width: 540px; }
+  .searchbox {
+    width: 100%; max-width: 640px; display: flex; gap: 0;
+    border: 1.5px solid rgba(255,255,255,.1); border-radius: 999px; background: var(--cream);
+    box-shadow: 0 14px 40px rgba(0,0,0,.35); overflow: hidden;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .searchbox:focus-within { border-color: var(--accent); box-shadow: 0 14px 40px rgba(201,162,90,.25); }
+  .searchbox input {
+    flex: 1; border: none; padding: 18px 26px; font-size: 1.05rem; color: var(--ink); background: transparent;
+    font-family: var(--font-body);
+  }
+  .searchbox input:focus { outline: none; }
+  .searchbox button {
+    border: none; background: var(--accent); color: var(--dark); font-weight: 700; font-size: 1rem;
+    padding: 0 30px; cursor: pointer; transition: background .15s ease;
+  }
+  .searchbox button:hover { background: var(--accent-dark); }
+  .chips { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 22px; max-width: 640px; }
+  .chip {
+    border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 8px 16px; font-size: .87rem;
+    color: var(--on-dark-soft); background: rgba(255,255,255,.04); cursor: pointer; transition: all .12s ease;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+  .mini-links { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; margin-top: 56px; }
+  .mini-links a { color: var(--on-dark-soft); text-decoration: none; font-size: .95rem; }
+  .mini-links a b { color: var(--on-dark); display: block; font-size: 1rem; margin-bottom: 2px; font-family: var(--font-display); }
+  .mini-links a:hover b { color: var(--accent); }
+  .answer-panel {
+    width: 100%; max-width: 640px; margin-top: 18px; text-align: left;
+    background: var(--dark-soft); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 20px 24px;
+    display: none;
+  }
+  .answer-panel.show { display: block; }
+  .answer-panel p { color: var(--on-dark-soft); font-size: .95rem; margin-bottom: 12px; }
+  .answer-panel .acts { display: flex; gap: 10px; flex-wrap: wrap; }
+  .mini-foot { text-align: center; padding: 22px; font-size: .8rem; color: var(--ink-soft); border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="index.html">OnePoint <span>Smart Home</span></a>
+    <nav class="nav-links">
+      <a href="lighting-guide.html">Free lighting guide</a>
+      <a href="services.html#service">Design service</a>
+      <a href="projects.html">Projects</a>
+      <a href="services.html#knowledge">Learn</a>
+      <a class="btn" href="services.html#contact">Start my project</a>
+    </nav>
+  </div>
+</header>
+
+<div class="mini-hero">
+  <h1>Everything smart home. <em>One question away.</em></h1>
+  <p class="tag">Lighting, automation, brands, costs, installation — ask anything, or upload your floor plan and get a complete design.</p>
+
+  <form class="searchbox" id="askForm">
+    <input type="text" id="askInput" placeholder="Ask anything… e.g. what does automation cost for a 3BHK?" autocomplete="off" />
+    <button type="submit">Ask</button>
+  </form>
+
+  <div class="answer-panel" id="answerPanel"></div>
+
+  <div class="chips">
+    <span class="chip">How many lights does my living room need?</span>
+    <span class="chip">Warm white or cool white?</span>
+    <span class="chip">What does a 3BHK smart home cost?</span>
+    <span class="chip">Which automation brand is best?</span>
+    <span class="chip">I have a floor plan — design my home</span>
+  </div>
+
+  <div class="mini-links">
+    <a href="lighting-guide.html"><b>Free lighting guide</b>Instant lux, colour &amp; dimming advice</a>
+    <a href="services.html#service"><b>Design &amp; BOQ service</b>Full design pack in 7 days</a>
+    <a href="services.html#knowledge"><b>Knowledge hub</b>Honest, brand-neutral guides</a>
+  </div>
+</div>
+
+<div class="mini-foot">
+  © 2026 OnePoint Smart Home (working name) · Brand-neutral by policy — no brand can buy a place in your recommendation · <a href="services.html#faq" style="color:var(--ink-soft);">FAQ</a>
+</div>
+
+<!-- TODO: replace number -->
+<a class="wa-float" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">💬 WhatsApp</a>
+
+<script src="assets/search.js"></script>
+</body>
+</html>

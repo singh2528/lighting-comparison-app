@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free Instant Lighting Guide — Lux, Colour Temperature & Dimming | OnePoint Smart Home</title>
+<meta name="description" content="Enter your rooms and instantly get recommended lux levels, fixture counts, colour temperature and dimming advice — calculated by the lumen method, not guessed." />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="index.html">OnePoint <span>Smart Home</span></a>
+    <nav class="nav-links">
+      <a href="services.html#how">How it works</a>
+      <a href="services.html#service">Design service</a>
+      <a href="lighting-guide.html">Free lighting guide</a>
+      <a href="projects.html">Projects</a>
+      <a href="services.html#knowledge">Learn</a>
+      <a class="btn" href="services.html#service">Start my project</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" style="padding:56px 0 40px;">
+  <div class="wrap">
+    <span class="kicker">Free tool</span>
+    <h1 style="font-size:clamp(1.6rem,3.5vw,2.4rem);">Instant lighting guide for your home</h1>
+    <p class="lead" style="margin-bottom:0;">Add your rooms and get recommended light levels, fixture counts, colour temperature and dimming advice — <b>calculated by the lumen method</b> (the same maths professional lighting designers use), not AI guesswork.</p>
+  </div>
+</section>
+
+<section style="padding-top:30px;">
+  <div class="wrap calc-shell">
+
+    <div class="panel">
+      <h3>1 · Add your rooms</h3>
+      <div class="field">
+        <label for="roomType">Room type</label>
+        <select id="roomType">
+          <option value="living">Living room</option>
+          <option value="bedroom">Bedroom</option>
+          <option value="kids">Kids room</option>
+          <option value="kitchen">Kitchen</option>
+          <option value="dining">Dining</option>
+          <option value="bathroom">Bathroom</option>
+          <option value="study">Study / Home office</option>
+          <option value="hallway">Hallway / Passage</option>
+          <option value="balcony">Balcony / Outdoor</option>
+          <option value="pooja">Pooja room</option>
+        </select>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="roomArea">Area (sq ft)</label>
+          <input type="number" id="roomArea" placeholder="e.g. 180" min="15" max="2000" />
+        </div>
+        <div class="field">
+          <label for="ceiling">Ceiling height (ft)</label>
+          <select id="ceiling">
+            <option value="9">9 ft (standard)</option>
+            <option value="10">10 ft</option>
+            <option value="11">11 ft</option>
+            <option value="12">12+ ft / double height</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Decorative lighting (optional)</label>
+        <div class="decor-options">
+          <label class="decor-opt"><input type="checkbox" class="decorCheck" value="chandelier"> Chandelier / statement pendant</label>
+          <label class="decor-opt"><input type="checkbox" class="decorCheck" value="pendant"> Pendant lights (island / bedside)</label>
+          <label class="decor-opt"><input type="checkbox" class="decorCheck" value="wall"> Wall sconces / wall lights</label>
+          <label class="decor-opt"><input type="checkbox" class="decorCheck" value="cove"> Cove / false-ceiling LED strip</label>
+          <label class="decor-opt"><input type="checkbox" class="decorCheck" value="accent"> Accent spotlights (art / display)</label>
+        </div>
+      </div>
+      <div class="field">
+        <label for="roomControl">Lighting control for this room</label>
+        <select id="roomControl">
+          <option value="basic">Basic switches (manual on/off, optional dimmer)</option>
+          <option value="smart">Smart switches &amp; scenes (app/voice control)</option>
+          <option value="full">Full automation (DALI / KNX-based systems)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="roomMood">Describe the mood you want (optional)</label>
+        <textarea id="roomMood" rows="2" placeholder="e.g. cozy and romantic for movie nights, or bright and energetic for morning workouts"></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="addRoom">+ Add room</button>
+        <button class="btn ghost" id="showResults">Show results</button>
+      </div>
+      <div class="room-list" id="roomList"></div>
+      <p class="disclaimer">Results assume light-coloured walls and ceiling. Dark interiors, false-ceiling coves and decorative layers change the numbers — that's what the full design verifies on your actual plan.</p>
+    </div>
+
+    <div>
+      <div class="panel" style="border:none;background:transparent;padding:0;">
+        <h3 style="padding-left:4px;">2 · Your lighting guide</h3>
+        <div id="results"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site" style="margin-top:50px;">
+  <div class="wrap">
+    <div class="foot-note">© 2026 OnePoint Smart Home (working name). This guide covers the general lighting layer only and is indicative until verified against your floor plan. Statutory electrical compliance remains with the installing contractor.</div>
+  </div>
+</footer>
+
+<!-- TODO: replace number -->
+<a class="wa-float" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">💬 WhatsApp</a>
+
+<script src="assets/calculator.js"></script>
+</body>
+</html>
