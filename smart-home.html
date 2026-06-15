@@ -10,6 +10,36 @@
   /* tilt-wrap as grid child — ensure card fills the cell */
   .system-grid .tilt-wrap { display: flex; }
   .system-grid .tilt-card { flex: 1; }
+
+  /* AI search bar */
+  .sh-ask-wrap { text-align:center; padding:32px 0 20px; }
+  .sh-searchbox { width:100%; max-width:640px; display:flex; margin:0 auto; border:1.5px solid rgba(0,212,255,.28); border-radius:999px; background:rgba(224,240,255,.96); box-shadow:0 12px 40px rgba(0,0,0,.35),0 0 0 4px rgba(0,212,255,.08); overflow:hidden; transition:border-color .2s,box-shadow .2s; }
+  .sh-searchbox:focus-within { border-color:var(--accent); box-shadow:0 12px 40px rgba(0,0,0,.35),0 0 0 5px rgba(0,212,255,.16); }
+  .sh-searchbox input { flex:1; border:none; padding:18px 24px; font-size:1rem; color:#071428; background:transparent; font-family:var(--font-body); }
+  .sh-searchbox input::placeholder { color:rgba(7,20,40,.38); }
+  .sh-searchbox input:focus { outline:none; }
+  .sh-searchbox button { border:none; background:var(--accent); color:var(--dark); font-weight:700; font-size:.95rem; padding:0 28px; cursor:pointer; transition:background .15s; }
+  .sh-searchbox button:hover { background:var(--accent-dark); }
+  .sh-answer-panel { max-width:640px; margin:14px auto 0; display:none; }
+  .sh-answer-panel.show { display:block; animation:ap-enter .45s cubic-bezier(.16,1,.3,1) both; }
+  .sh-chips { display:flex; gap:9px; flex-wrap:wrap; justify-content:center; margin-top:16px; max-width:600px; margin-left:auto; margin-right:auto; }
+  .sh-chip { border:1px solid rgba(255,255,255,.1); border-radius:999px; padding:6px 14px; font-size:.8rem; color:rgba(200,220,250,.45); background:rgba(255,255,255,.03); cursor:pointer; transition:all .15s; }
+  .sh-chip:hover { border-color:var(--accent); color:var(--accent); background:rgba(0,212,255,.05); }
+
+  /* Premium quiz result */
+  .sh-result-card { background:rgba(6,14,34,.92); border:1px solid rgba(0,212,255,.2); border-radius:16px; overflow:hidden; text-align:left; }
+  .sh-result-bar { height:2px; background:linear-gradient(90deg,var(--accent) 0%,rgba(0,212,255,.3) 60%,transparent); }
+  .sh-result-head { padding:14px 20px 10px; border-bottom:1px solid rgba(0,212,255,.08); font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); }
+  .sh-result-body { padding:16px 20px 6px; }
+  .sh-result-label { font-size:.82rem; color:var(--ink-soft); margin-bottom:12px; }
+  .sh-sys-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin-bottom:14px; }
+  .sh-sys-card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.09); border-radius:12px; padding:14px 12px; text-align:center; transition:border-color .2s,background .2s; }
+  .sh-sys-card:hover { border-color:rgba(0,212,255,.3); background:rgba(0,212,255,.05); }
+  .sh-sys-card a { text-decoration:none; display:block; }
+  .sh-sys-icon { font-size:1.5rem; margin-bottom:6px; }
+  .sh-sys-name { font-size:.82rem; font-weight:600; color:var(--on-dark); }
+  .sh-sys-desc { font-size:.72rem; color:var(--ink-soft); margin-top:3px; }
+  .sh-result-footer { padding:10px 20px 14px; border-top:1px solid rgba(255,255,255,.05); display:flex; gap:10px; flex-wrap:wrap; }
 </style>
 </head>
 <body>
@@ -30,6 +60,25 @@
     <span class="kicker">Smart Home</span>
     <h1 style="font-size:clamp(1.6rem,3.5vw,2.4rem);">Every system, designed to work as one</h1>
     <p class="lead" style="margin-bottom:0;">A smart home is more than smart lighting. It's lighting, entertainment, climate, security and curtains, all responding to the same scenes and schedules — instead of five separate apps that don't talk to each other.</p>
+  </div>
+</section>
+
+<!-- AI advisor bar -->
+<section class="alt" style="padding:36px 0 28px;">
+  <div class="wrap sh-ask-wrap reveal">
+    <span class="kicker">AI advisor</span>
+    <h2 class="sec" style="font-size:clamp(1.3rem,3vw,1.9rem);margin-bottom:10px;">Ask anything about smart home</h2>
+    <p class="sub" style="margin-bottom:22px;max-width:520px;margin-left:auto;margin-right:auto;">Costs, systems, brands, what works in a retrofit — ask and get a real answer.</p>
+    <form class="sh-searchbox" id="askForm">
+      <input type="text" id="askInput" placeholder="e.g. What does a 4BHK smart home cost in Dubai?" autocomplete="off" />
+      <button type="submit">Ask</button>
+    </form>
+    <div class="sh-answer-panel" id="answerPanel"></div>
+    <div class="sh-chips">
+      <span class="chip">What does a 3BHK smart home cost?</span>
+      <span class="chip">Can I add smart home to a finished villa?</span>
+      <span class="chip">KNX vs smart switches — which is better?</span>
+    </div>
   </div>
 </section>
 
@@ -242,6 +291,7 @@
 <a class="wa-float" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">💬 WhatsApp</a>
 
 <script src="assets/motion.js"></script>
+<script src="assets/search.js"></script>
 
 <!-- System finder quiz logic -->
 <script>
@@ -311,10 +361,49 @@
       if (!links.length) links.push('<a class="btn" href="lighting-control.html">Lighting Control →</a>');
     }
 
+    /* Map each recommended link to a rich system card */
+    var SYS_META = {
+      'lighting-control': { icon: '💡', name: 'Lighting Control', desc: 'Scenes, dimming & automation', href: 'lighting-control.html' },
+      'av':               { icon: '🔊', name: 'AV & Entertainment', desc: 'Multi-room audio & cinema', href: 'av.html' },
+      'hvac':             { icon: '❄️', name: 'Climate / HVAC',    desc: 'Smart zoned AC control', href: 'hvac.html' },
+      'cctv':             { icon: '📷', name: 'CCTV & Security',    desc: 'Cameras, access & alarm', href: 'cctv.html' },
+      'curtains':         { icon: '🪟', name: 'Curtains & Blinds',  desc: 'Motorised with scene sync', href: 'curtains.html' },
+    };
+
+    function linkToKey(href) {
+      if (href.indexOf('lighting-control') > -1) return 'lighting-control';
+      if (href.indexOf('av.html') > -1)         return 'av';
+      if (href.indexOf('hvac') > -1)            return 'hvac';
+      if (href.indexOf('cctv') > -1)            return 'cctv';
+      if (href.indexOf('curtains') > -1)        return 'curtains';
+      return null;
+    }
+
+    var sysCards = links.slice(0, 5).map(function(l) {
+      var hrefMatch = l.match(/href="([^"]+)"/);
+      var key = hrefMatch ? linkToKey(hrefMatch[1]) : null;
+      if (!key) return '';
+      var m = SYS_META[key];
+      return '<div class="sh-sys-card"><a href="' + m.href + '">' +
+        '<div class="sh-sys-icon">' + m.icon + '</div>' +
+        '<div class="sh-sys-name">' + m.name + '</div>' +
+        '<div class="sh-sys-desc">' + m.desc + '</div>' +
+        '</a></div>';
+    }).join('');
+
     result.innerHTML =
-      '<p class="verdict">Based on your priorities, start with these systems:</p>' +
-      '<div class="cta-row" style="justify-content:center;flex-wrap:wrap;gap:10px;margin-top:16px;">' +
-      links.slice(0, 5).join('') + '</div>';
+      '<div class="sh-result-card">' +
+        '<div class="sh-result-bar"></div>' +
+        '<div class="sh-result-head">Recommended for your home</div>' +
+        '<div class="sh-result-body">' +
+          '<div class="sh-result-label">Based on your priorities — click a system to explore options and pricing:</div>' +
+          '<div class="sh-sys-grid">' + sysCards + '</div>' +
+        '</div>' +
+        '<div class="sh-result-footer">' +
+          '<a class="btn" href="services.html#contact">Get a full design →</a>' +
+          '<a class="btn ghost" href="index.html">Ask the AI advisor</a>' +
+        '</div>' +
+      '</div>';
   }
 
   document.querySelectorAll('#shQuiz .quiz-opt').forEach(function (btn) {

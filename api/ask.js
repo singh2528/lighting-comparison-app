@@ -76,7 +76,19 @@ RULES:
 - For lux/fixture count questions, show the formula working briefly.
 - For "design my home / upload floor plan" requests → link to services.html#contact.
 - If unsure, say so. Never invent specs or prices.
-- No filler phrases. Friendly but professional.`;
+- No filler phrases. Friendly but professional.
+
+VISUAL DATA (optional — only when it adds real clarity to numerical comparisons):
+If your answer includes budget ranges or tier comparisons, append ONE visual block at the very end of your text — after everything else.
+
+For budget / price comparisons:
+[VISUAL]{"type":"bar","title":"Budget comparison","unit":"AED","items":[{"label":"Economy","value":80000},{"label":"Standard","value":200000},{"label":"Premium","value":500000}]}[/VISUAL]
+
+For economy / standard / premium tier breakdowns:
+[VISUAL]{"type":"tier","items":[{"label":"Economy","range":"AED 80K–140K","tag":"Smart switches + Wi-Fi"},{"label":"Standard","range":"AED 140K–260K","tag":"Scenes + Wired cameras"},{"label":"Premium","range":"AED 260K–500K","tag":"DALI/KNX + Full AV"}]}[/VISUAL]
+
+Use a visual for: whole-home budget questions, "how much does X cost", tier comparison questions.
+Skip it for: lux/lumen calculations, brand questions, definitions, retrofit advice, simple yes/no answers.`;
 }
 
 /* ── Handler ── */
@@ -104,8 +116,19 @@ module.exports = async function handler(req, res) {
       messages:   [{ role: 'user', content: question }]
     });
 
+    /* parse optional [VISUAL]...[/VISUAL] block */
+    var rawText    = msg.content[0].text;
+    var visualMatch = rawText.match(/\[VISUAL\]([\s\S]*?)\[\/VISUAL\]/);
+    var visual     = null;
+    var answer     = rawText.replace(/\[VISUAL\][\s\S]*?\[\/VISUAL\]/g, '').trim();
+
+    if (visualMatch) {
+      try { visual = JSON.parse(visualMatch[1].trim()); } catch (_) { visual = null; }
+    }
+
     return res.status(200).json({
-      answer:       msg.content[0].text,
+      answer,
+      visual,
       hasWebSearch: !!webContext
     });
 

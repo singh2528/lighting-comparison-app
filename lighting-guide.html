@@ -6,6 +6,100 @@
 <title>Free Instant Lighting Guide — Lux, Colour Temperature & Dimming | OnePoint Smart Home</title>
 <meta name="description" content="Enter your rooms and instantly get recommended lux levels, fixture counts, colour temperature and dimming advice — calculated by the lumen method, not guessed." />
 <link rel="stylesheet" href="assets/style.css" />
+<style>
+  /* ── Premium result cards ── */
+  .res-animate { animation: res-in .4s ease both; }
+  @keyframes res-in { from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);} }
+
+  .res-card {
+    background: rgba(6,14,34,.92); border:1px solid rgba(0,212,255,.15); border-radius:18px;
+    overflow:hidden; margin-bottom:16px;
+    box-shadow:0 8px 40px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .res-card-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px 12px; border-bottom:1px solid rgba(0,212,255,.08); }
+  .res-room-name { font-family:var(--font-display); font-size:1rem; font-weight:600; color:var(--on-dark); }
+  .res-room-name small { display:block; font-family:var(--font-body); font-size:.74rem; color:var(--ink-soft); font-weight:400; margin-top:2px; }
+  .res-lux-badge { background:rgba(0,212,255,.1); border:1px solid rgba(0,212,255,.25); border-radius:999px; padding:4px 12px; font-size:.78rem; font-weight:700; color:var(--accent); }
+
+  /* CCT strip */
+  .res-cct-section { padding:14px 20px 12px; border-bottom:1px solid rgba(255,255,255,.04); }
+  .res-cct-track { position:relative; height:8px; border-radius:999px; background:linear-gradient(to right,#ffb347,#ffd680,#fff9ea,#dfeeff,#b8d4ff); margin-bottom:8px; }
+  .res-cct-needle { position:absolute; top:50%; transform:translate(-50%,-50%); width:14px; height:14px; border-radius:50%; background:white; border:2.5px solid var(--dark); box-shadow:0 0 0 2.5px rgba(0,212,255,.65),0 2px 8px rgba(0,0,0,.4); transition:left .6s cubic-bezier(.16,1,.3,1); }
+  .res-cct-labels { display:flex; justify-content:space-between; font-size:.64rem; color:rgba(180,208,245,.35); margin-bottom:4px; }
+  .res-cct-value { font-size:.8rem; color:var(--ink-soft); }
+
+  /* Fixture dots */
+  .res-fixtures-section { padding:14px 20px 12px; border-bottom:1px solid rgba(255,255,255,.04); }
+  .res-fixture-dots { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:9px; }
+  .res-dot { width:20px; height:20px; border-radius:50%; background:radial-gradient(circle at 38% 32%,rgba(201,162,90,.95),rgba(201,162,90,.2)); border:1px solid rgba(201,162,90,.35); box-shadow:0 0 7px rgba(201,162,90,.3); }
+  .res-dot-extra { font-size:.73rem; color:var(--ink-soft); align-self:center; margin-left:4px; }
+  .res-fixture-text { font-size:.87rem; color:rgba(200,220,250,.8); }
+  .res-fixture-text strong { color:var(--on-dark); }
+  .res-dim-tag { display:inline-block; background:rgba(0,212,255,.08); border:1px solid rgba(0,212,255,.2); border-radius:999px; padding:1px 8px; font-size:.7rem; color:var(--accent); }
+
+  /* Details */
+  .res-details { padding:12px 20px 14px; }
+  .res-detail-row { display:flex; gap:10px; padding:5px 0; border-bottom:1px solid rgba(255,255,255,.03); font-size:.84rem; }
+  .res-detail-row:last-child { border-bottom:none; }
+  .res-detail-label { color:var(--ink-soft); flex-shrink:0; min-width:70px; }
+  .res-note-text { color:rgba(200,220,250,.6); font-size:.81rem; line-height:1.5; }
+
+  /* Decor */
+  .res-decor { padding:0 20px 14px; }
+  .res-decor-item { font-size:.82rem; margin-bottom:8px; padding:8px 12px; background:rgba(201,162,90,.05); border-left:2px solid rgba(201,162,90,.3); border-radius:0 8px 8px 0; }
+  .res-decor-item strong { color:var(--gold); display:block; margin-bottom:2px; }
+  .res-decor-item span { color:rgba(200,220,250,.65); }
+
+  /* Mood */
+  .mood-block { padding:12px 20px 14px; border-top:1px solid rgba(0,212,255,.06); }
+  .mood-block h4 { font-size:.75rem; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin:0 0 8px; }
+  .mood-block ul { margin:0; padding:0; list-style:none; }
+  .mood-block li { font-size:.83rem; color:rgba(200,220,250,.75); padding:4px 0 4px 14px; position:relative; }
+  .mood-block li::before { content:''; position:absolute; left:0; top:11px; width:4px; height:4px; border-radius:50%; background:var(--accent); }
+  .mood-block.loading { font-size:.84rem; color:var(--ink-soft); font-style:italic; padding:12px 20px; }
+
+  /* Summary card */
+  .res-summary-card { background:linear-gradient(135deg,rgba(0,212,255,.09) 0%,rgba(6,14,34,.96) 100%); border:1px solid rgba(0,212,255,.22); border-radius:18px; padding:22px 20px; margin-bottom:16px; box-shadow:0 8px 40px rgba(0,0,0,.4); }
+  .res-summary-title { font-family:var(--font-display); font-size:.95rem; font-weight:600; color:var(--on-dark); margin-bottom:18px; padding-bottom:12px; border-bottom:1px solid rgba(0,212,255,.12); }
+  .res-summary-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .res-stat { text-align:center; }
+  .res-stat-num { font-family:var(--font-display); font-size:1.55rem; font-weight:700; color:var(--accent); line-height:1; }
+  .res-stat-label { font-size:.68rem; color:var(--ink-soft); margin-top:4px; }
+
+  /* Brand / control tier cards */
+  .res-tier-section { padding:0; }
+  .res-tier-head { padding:18px 20px 0; }
+  .res-section-title { font-family:var(--font-display); font-size:.95rem; font-weight:600; color:var(--on-dark); margin-bottom:2px; }
+  .res-brand-cards, .res-control-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; padding:14px 16px 18px; }
+  .res-brand-card, .res-control-card { background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:16px 14px; }
+  .res-brand-mid, .res-control-mid { background:rgba(0,212,255,.06); border-color:rgba(0,212,255,.25); }
+  .res-brand-tier, .res-control-tier { font-size:.78rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--on-dark); margin-bottom:3px; }
+  .res-price-level { color:var(--gold); margin-left:6px; }
+  .res-brand-price, .res-control-cost { font-size:.82rem; color:var(--accent); font-weight:600; margin-bottom:12px; line-height:1.4; }
+  .res-brand-specs { margin-bottom:10px; }
+  .res-brand-spec { display:flex; gap:6px; font-size:.76rem; padding:3px 0; color:rgba(200,220,250,.75); }
+  .res-spec-label { color:var(--ink-soft); flex-shrink:0; width:58px; }
+  .res-brand-brands { font-size:.72rem; color:var(--ink-soft); margin-bottom:8px; font-style:italic; }
+  .res-brand-best, .res-control-best { font-size:.76rem; color:rgba(200,220,250,.6); }
+  .res-control-desc { font-size:.8rem; color:rgba(200,220,250,.7); margin-bottom:10px; line-height:1.5; }
+
+  /* AI search bar (same as index.html) */
+  .lg-ask-section { padding:40px 0 20px; }
+  .lg-searchbox { width:100%; max-width:640px; display:flex; margin:0 auto; border:1.5px solid rgba(0,212,255,.28); border-radius:999px; background:rgba(224,240,255,.96); box-shadow:0 12px 40px rgba(0,0,0,.35),0 0 0 4px rgba(0,212,255,.08); overflow:hidden; transition:border-color .2s,box-shadow .2s; }
+  .lg-searchbox:focus-within { border-color:var(--accent); box-shadow:0 12px 40px rgba(0,0,0,.35),0 0 0 5px rgba(0,212,255,.16); }
+  .lg-searchbox input { flex:1; border:none; padding:18px 24px; font-size:1rem; color:#071428; background:transparent; font-family:var(--font-body); }
+  .lg-searchbox input::placeholder { color:rgba(7,20,40,.38); }
+  .lg-searchbox input:focus { outline:none; }
+  .lg-searchbox button { border:none; background:var(--accent); color:var(--dark); font-weight:700; font-size:.95rem; padding:0 28px; cursor:pointer; transition:background .15s; }
+  .lg-searchbox button:hover { background:var(--accent-dark); }
+  .lg-answer-panel { max-width:640px; margin:14px auto 0; display:none; }
+  .lg-answer-panel.show { display:block; animation:ap-enter .45s cubic-bezier(.16,1,.3,1) both; }
+
+  @media(max-width:600px) {
+    .res-summary-stats { grid-template-columns:repeat(2,1fr); }
+    .res-brand-cards, .res-control-cards { grid-template-columns:1fr; }
+  }
+</style>
 </head>
 <body>
 
@@ -103,6 +197,20 @@
   </div>
 </section>
 
+<!-- AI lighting advisor -->
+<section class="lg-ask-section">
+  <div class="wrap reveal" style="text-align:center;">
+    <span class="kicker">AI advisor</span>
+    <h2 class="sec" style="font-size:clamp(1.3rem,3vw,1.9rem);margin-bottom:10px;">Still have lighting questions?</h2>
+    <p class="sub" style="margin-bottom:22px;max-width:520px;margin-left:auto;margin-right:auto;">Ask anything — lux levels, fixture types, CCT, dimming, brands, costs.</p>
+    <form class="lg-searchbox" id="askForm">
+      <input type="text" id="askInput" placeholder="e.g. How many downlights for a 200 sq ft kitchen?" autocomplete="off" />
+      <button type="submit">Ask</button>
+    </form>
+    <div class="lg-answer-panel" id="answerPanel"></div>
+  </div>
+</section>
+
 <!-- Educational lighting knowledge quiz -->
 <section style="padding-top:50px;">
   <div class="wrap reveal" style="text-align:center;">
@@ -146,6 +254,7 @@
 
 <script src="assets/calculator.js"></script>
 <script src="assets/motion.js"></script>
+<script src="assets/search.js"></script>
 
 <!-- Educational lighting quiz -->
 <script>

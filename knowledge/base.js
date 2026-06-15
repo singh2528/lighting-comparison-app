@@ -268,6 +268,56 @@ BOQ philosophy:
 - Premium brands available through specialist distributors: Crestron, Savant, Control4, Lutron RadioRA3, Ajax (security)
 - Labour rates (installation): AED 80–150/hour for electricians; specialist automation programmers AED 200–400/hour
 - Dubai building code: lighting design must comply with Green Building Regulations (minimum energy efficiency requirements)
+
+---
+
+## 12. UAE LIGHTING SUPPLIERS & BRAND ECOSYSTEM
+
+### Scientechnic (Al Gurg Group)
+- One of UAE's largest and most established lighting + building technology companies
+- Headquartered in Dubai (P.O. Box 25490); part of the Al Gurg Group conglomerate
+- KNX-certified integrator and official distributor for key European brands
+- Major projects: Expo 2020 Dubai, Sheikh Zayed Grand Mosque (Abu Dhabi), Dubai Water Canal, Warner Bros. World, City Walk Dubai, Legoland Dubai, IMG Worlds of Adventure, Wahat Al Karama
+
+**Scientechnic Lighting Brands (official distributor/partner):**
+| Brand      | Origin  | Category                          | Notes                                      |
+|------------|---------|-----------------------------------|--------------------------------------------|
+| Siemens    | Germany | Building automation, KNX systems  | KNX bus devices, HVAC integration          |
+| OSRAM      | Germany | Professional LED fixtures         | Wide range: downlights, track, outdoor     |
+| LEDVANCE   | Germany | General LED lighting              | Spun off from OSRAM; residential + commercial|
+| ERCO       | Germany | Architectural / museum lighting   | High-end accent, facade, hospitality       |
+| Borri      | Italy   | UPS / power protection            | For data/AV rack power                     |
+| Nikkon     | —       | Electrical / lighting components  | Available through Scientechnic             |
+| Olympia Electronics | Greece | Fire & safety systems      | Detection, alarm panels                    |
+
+**Scientechnic Lighting Control Brands:**
+| Brand     | Protocol  | Tier     | Notes                                             |
+|-----------|-----------|----------|---------------------------------------------------|
+| Lutron    | Proprietary / DALI | Premium | RadioRA3, Homeworks — industry benchmark for dimming |
+| Dynalite  | DALI / Ethernet | Mid–Premium | Philips Dynalite; hotel/villa lighting scenes |
+| Control4  | IP / KNX  | Premium  | Full smart home platform; AV + lighting + HVAC   |
+| Vimar     | KNX / IoT | Mid      | Italian brand; switches, keypads, KNX modules    |
+| KNX       | KNX bus   | Premium  | Open standard; Scientechnic is KNX certified     |
+
+### Other Key UAE Lighting & Automation Distributors/Brands
+- **Philips Lighting (Signify)** — widely available across all retail + trade channels; Hue for residential smart lighting
+- **Havells** — budget–mid tier; widely stocked in UAE electrical wholesale
+- **Legrand** — wiring devices, KNX modules, data infrastructure; strong in UAE commercial
+- **Schneider Electric** — KNX, DALI control gear, electrical distribution panels
+- **ABB** — KNX certified; high-end switches (Busch-Jaeger, Busch-free@home) and automation
+- **Somfy** — motorised curtains/blinds; leading curtain motor brand in UAE
+- **Hikvision / Dahua** — dominant CCTV brands in UAE; widely available through security distributors
+- **Samsung (SmartThings)** — available through Samsung UAE; appliance + lighting automation hub
+- **Sonos** — distributed audio; available through AV retailers in UAE
+
+### Buying Channels in UAE
+- **Scientechnic** — B2B, project supply; OSRAM, LEDVANCE, ERCO, Lutron, Control4
+- **Tradeline (Dubai)** — lighting fixtures, trade channel
+- **ATCO Electrical** — wholesale electrical and lighting components
+- **ACE Hardware / Carrefour / Lulu** — consumer-grade smart home (Philips Hue, Samsung, basic Wi-Fi devices)
+- **Amazon UAE / Noon** — online; best for Tier 1 smart switches, cameras, wireless speakers
+- **Specialist AV dealers** — Crestron, Savant, Lutron Homeworks require certified dealer installation
 `;
+
 
 module.exports = { KNOWLEDGE_BASE };
