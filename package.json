@@ -1,0 +1,11 @@
+{
+  "name": "onepoint-smart-home",
+  "version": "1.0.0",
+  "description": "OnePoint Smart Home — UAE smart home advisory platform",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0"
+  }
+}

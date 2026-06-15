@@ -29,33 +29,44 @@
     display: flex; flex-direction: column; align-items: center;
     width: 100%;
   }
-  .mini-hero h1 { font-size: clamp(1.9rem, 4.5vw, 3rem); line-height: 1.18; max-width: 720px; color: var(--on-dark); }
-  .mini-hero h1 em { font-style: normal; color: var(--accent); }
-  .mini-hero p.tag { color: var(--on-dark-soft); margin: 16px 0 36px; font-size: 1.05rem; max-width: 540px; }
-  .searchbox {
-    width: 100%; max-width: 640px; display: flex; gap: 0;
-    border: 1.5px solid rgba(255,255,255,.1); border-radius: 999px; background: var(--cream);
-    box-shadow: 0 14px 40px rgba(0,0,0,.35); overflow: hidden;
-    transition: border-color .15s ease, box-shadow .15s ease;
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    border: 1px solid rgba(0,212,255,.28); border-radius: 999px;
+    padding: 6px 16px; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--accent); background: rgba(0,212,255,.07);
+    margin-bottom: 28px; font-weight: 600;
   }
-  .searchbox:focus-within { border-color: var(--accent); box-shadow: 0 14px 40px rgba(0,212,255,.18); }
+  .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; animation: pulse-dot 2s ease-in-out infinite; }
+  @keyframes pulse-dot { 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.4; transform:scale(.7); } }
+  .mini-hero h1 { font-size: clamp(2.6rem, 6.5vw, 4.2rem); line-height: 1.08; max-width: 700px; color: var(--on-dark); margin: 0 0 36px; font-family: var(--font-display); font-weight: 700; letter-spacing: -.01em; }
+  .mini-hero h1 em { font-style: normal; color: var(--accent); }
+  .searchbox {
+    width: 100%; max-width: 680px; display: flex; gap: 0;
+    border: 1.5px solid rgba(0,212,255,.28); border-radius: 999px;
+    background: rgba(224, 240, 255, 0.96);
+    box-shadow: 0 16px 56px rgba(0,0,0,.40), 0 0 0 5px rgba(0,212,255,.09); overflow: hidden;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .searchbox:focus-within { border-color: var(--accent); box-shadow: 0 16px 56px rgba(0,0,0,.40), 0 0 0 6px rgba(0,212,255,.18); }
   .searchbox input {
-    flex: 1; border: none; padding: 18px 26px; font-size: 1.05rem; color: var(--ink); background: transparent;
+    flex: 1; border: none; padding: 22px 30px; font-size: 1.1rem; color: #071428; background: transparent;
     font-family: var(--font-body);
   }
+  .searchbox input::placeholder { color: rgba(7, 20, 40, 0.38); }
   .searchbox input:focus { outline: none; }
   .searchbox button {
     border: none; background: var(--accent); color: var(--dark); font-weight: 700; font-size: 1rem;
-    padding: 0 30px; cursor: pointer; transition: background .15s ease;
+    padding: 0 34px; cursor: pointer; transition: background .15s ease; letter-spacing: .02em;
   }
   .searchbox button:hover { background: var(--accent-dark); }
-  .chips { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 22px; max-width: 640px; }
+  .chips { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 20px; max-width: 580px; }
   .chip {
-    border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 8px 16px; font-size: .87rem;
-    color: var(--on-dark-soft); background: rgba(255,255,255,.04); cursor: pointer; transition: all .12s ease;
+    border: 1px solid rgba(255,255,255,.10); border-radius: 999px; padding: 7px 15px; font-size: .82rem;
+    color: rgba(200,220,250,.50); background: rgba(255,255,255,.03); cursor: pointer; transition: all .15s ease;
+    letter-spacing: .01em;
   }
-  .chip:hover { border-color: var(--accent); color: var(--accent); }
-  .mini-links { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; margin-top: 56px; }
+  .chip:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,.05); }
+  .mini-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; margin-top: 44px; }
   .mini-links a { color: var(--on-dark-soft); text-decoration: none; font-size: .95rem; }
   .mini-links a b { color: var(--on-dark); display: block; font-size: 1rem; margin-bottom: 2px; font-family: var(--font-display); }
   .mini-links a:hover b { color: var(--accent); }
@@ -93,7 +104,7 @@
     <a class="logo" href="index.html">OnePoint <span>Smart Home</span></a>
     <nav class="nav-links">
       <a href="smart-home.html">Smart Home</a>
-      <a href="lighting-guide.html">Free lighting guide</a>
+      <a href="lighting-guide.html">Lighting guide</a>
       <a class="btn" href="services.html#contact">Start my project</a>
     </nav>
   </div>
@@ -102,28 +113,17 @@
 <div class="mini-hero">
   <canvas id="heroCanvas" class="hero-3d" aria-hidden="true"></canvas>
   <div class="hero-content">
-  <h1>Everything smart home. <em>One question away.</em></h1>
-  <p class="tag">Lighting, automation, brands, costs, installation — ask anything, or upload your floor plan and get a complete design.</p>
-
   <form class="searchbox" id="askForm">
-    <input type="text" id="askInput" placeholder="Ask anything… e.g. what does automation cost for a 3BHK?" autocomplete="off" />
+    <input type="text" id="askInput" placeholder="Ask anything about smart home — lighting, AV, cost, brands…" autocomplete="off" />
     <button type="submit">Ask</button>
   </form>
 
   <div class="answer-panel" id="answerPanel"></div>
 
   <div class="chips">
-    <span class="chip">How many lights does my living room need?</span>
-    <span class="chip">Warm white or cool white?</span>
+    <span class="chip">How many lights for my living room?</span>
     <span class="chip">What does a 3BHK smart home cost?</span>
-    <span class="chip">Which automation brand is best?</span>
     <span class="chip">I have a floor plan — design my home</span>
-  </div>
-
-  <div class="mini-links">
-    <a href="lighting-guide.html"><b>Free lighting guide</b>Instant lux, colour &amp; dimming advice</a>
-    <a href="services.html#service"><b>Design &amp; BOQ service</b>Full design pack in 7 days</a>
-    <a href="services.html#knowledge"><b>Knowledge hub</b>Honest, brand-neutral guides</a>
   </div>
   </div>
 </div>
@@ -286,7 +286,7 @@
         <h4>Platform</h4>
         <a href="lighting.html">Lighting comparison</a>
         <a href="smart-home.html">Smart Home</a>
-        <a href="lighting-guide.html">Free lighting guide</a>
+        <a href="lighting-guide.html">Lighting guide</a>
         <a href="projects.html">Projects</a>
         <a href="services.html#knowledge">Knowledge hub</a>
       </div>
@@ -349,7 +349,7 @@
       dest = 'smart-home.html'; destLabel = 'Smart Home systems';
       note = 'Start with the systems overview, then explore lighting.html for fixture-level detail.';
     } else {
-      dest = 'lighting-guide.html'; destLabel = 'Free lighting guide';
+      dest = 'lighting-guide.html'; destLabel = 'Lighting guide';
       note = 'A quick, no-signup guide to lux, colour temperature and dimming for your rooms.';
     }
 
@@ -520,12 +520,6 @@
     ctx.textAlign    = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(icon, x, y);
-    /* Label */
-    if (W >= 480){
-      ctx.font      = '9px -apple-system,Segoe UI,sans-serif';
-      ctx.fillStyle = 'rgba(180,208,245,0.62)';
-      ctx.fillText(label, x, y + r + 11);
-    }
     ctx.restore();
   }
 

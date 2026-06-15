@@ -206,4 +206,132 @@
     });
   }
 
+  /* ─────────────────────────────────────────────────────────
+     7. Electric cursor trail — glowing lightning tail that
+        follows the mouse and fades to nothing
+     ───────────────────────────────────────────────────────── */
+  if (!reduceMotion && !touchOnly) {
+
+    var eCanvas = document.createElement('canvas');
+    eCanvas.style.cssText = [
+      'position:fixed', 'inset:0', 'width:100%', 'height:100%',
+      'z-index:9997', 'pointer-events:none', 'will-change:transform'
+    ].join(';');
+    document.body.appendChild(eCanvas);
+    var eCtx = eCanvas.getContext('2d');
+
+    function resizeE() {
+      eCanvas.width  = window.innerWidth;
+      eCanvas.height = window.innerHeight;
+    }
+    resizeE();
+    window.addEventListener('resize', resizeE, { passive: true });
+
+    var ePts  = [];        /* { x, y, t, jx, jy } */
+    var LIFE  = 600;       /* ms until a point vanishes */
+    var MAX   = 48;        /* max stored points */
+    var eX = -1, eY = -1;
+
+    window.addEventListener('mousemove', function (e) {
+      var dx = e.clientX - eX, dy = e.clientY - eY;
+      if (dx * dx + dy * dy < 9) return;   /* ignore tiny movements */
+      eX = e.clientX; eY = e.clientY;
+      ePts.push({
+        x:  eX, y: eY,
+        t:  Date.now(),
+        jx: (Math.random() - 0.5) * 5,    /* frozen electric jitter */
+        jy: (Math.random() - 0.5) * 5
+      });
+      if (ePts.length > MAX) ePts.shift();
+    }, { passive: true });
+
+    function drawElectric() {
+      var now = Date.now();
+      eCtx.clearRect(0, 0, eCanvas.width, eCanvas.height);
+
+      /* drop dead points */
+      while (ePts.length && now - ePts[0].t > LIFE) ePts.shift();
+      if (ePts.length < 2) { requestAnimationFrame(drawElectric); return; }
+
+      /* ── draw each segment ── */
+      for (var i = 1; i < ePts.length; i++) {
+        var a = ePts[i - 1], b = ePts[i];
+        var ageA = 1 - (now - a.t) / LIFE;
+        var ageB = 1 - (now - b.t) / LIFE;
+        var alpha = (ageA + ageB) * 0.5;
+
+        /* jittered midpoint gives the lightning kink */
+        var mx = (a.x + b.x) * 0.5 + b.jx;
+        var my = (a.y + b.y) * 0.5 + b.jy;
+
+        /* --- outer glow (wide, soft) --- */
+        eCtx.beginPath();
+        eCtx.moveTo(a.x, a.y);
+        eCtx.quadraticCurveTo(mx, my, b.x, b.y);
+        eCtx.strokeStyle = 'rgba(0,212,255,' + (alpha * 0.18).toFixed(3) + ')';
+        eCtx.lineWidth   = 9;
+        eCtx.lineCap     = 'round';
+        eCtx.shadowBlur  = 18;
+        eCtx.shadowColor = '#00d4ff';
+        eCtx.stroke();
+
+        /* --- mid glow --- */
+        eCtx.beginPath();
+        eCtx.moveTo(a.x, a.y);
+        eCtx.quadraticCurveTo(mx, my, b.x, b.y);
+        eCtx.strokeStyle = 'rgba(0,212,255,' + (alpha * 0.45).toFixed(3) + ')';
+        eCtx.lineWidth   = 3;
+        eCtx.shadowBlur  = 8;
+        eCtx.stroke();
+
+        /* --- bright core --- */
+        eCtx.beginPath();
+        eCtx.moveTo(a.x, a.y);
+        eCtx.quadraticCurveTo(mx, my, b.x, b.y);
+        eCtx.strokeStyle = 'rgba(200,242,255,' + (alpha * 0.80).toFixed(3) + ')';
+        eCtx.lineWidth   = 1;
+        eCtx.shadowBlur  = 4;
+        eCtx.stroke();
+
+        /* --- random spark branches off midpoint --- */
+        if (ageB > 0.55 && Math.random() < 0.30) {
+          var segLen = Math.sqrt(
+            (b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y)
+          ) || 1;
+          /* perpendicular unit vector */
+          var nx = -(b.y - a.y) / segLen;
+          var ny =  (b.x - a.x) / segLen;
+          var side    = Math.random() > 0.5 ? 1 : -1;
+          var sLen    = segLen * (0.25 + Math.random() * 0.45);
+          var sparkX2 = mx + nx * side * sLen + (Math.random() - 0.5) * 4;
+          var sparkY2 = my + ny * side * sLen + (Math.random() - 0.5) * 4;
+
+          eCtx.beginPath();
+          eCtx.moveTo(mx, my);
+          eCtx.lineTo(sparkX2, sparkY2);
+          eCtx.strokeStyle = 'rgba(0,212,255,' + (ageB * 0.5).toFixed(3) + ')';
+          eCtx.lineWidth   = 0.9;
+          eCtx.shadowBlur  = 6;
+          eCtx.stroke();
+        }
+      }
+
+      /* --- bright dot at the live cursor tip --- */
+      var tip = ePts[ePts.length - 1];
+      if (tip && now - tip.t < 120) {
+        eCtx.beginPath();
+        eCtx.arc(tip.x, tip.y, 2.5, 0, Math.PI * 2);
+        eCtx.fillStyle   = 'rgba(220,248,255,0.95)';
+        eCtx.shadowBlur  = 20;
+        eCtx.shadowColor = '#00d4ff';
+        eCtx.fill();
+      }
+
+      eCtx.shadowBlur = 0;
+      requestAnimationFrame(drawElectric);
+    }
+
+    requestAnimationFrame(drawElectric);
+  }
+
 }());
