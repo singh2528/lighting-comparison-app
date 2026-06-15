@@ -8,9 +8,8 @@
 <link rel="stylesheet" href="assets/style.css" />
 
 <style>
-/* Integration Advisor page styles */
+/* ── Integration Advisor page styles ── */
 
-/* ── Hero ── */
 .int-hero {
   background:
     radial-gradient(ellipse at 15% 0%,  rgba(0,212,255,.11), transparent 50%),
@@ -23,287 +22,121 @@
 }
 .int-hero::before {
   content: '';
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(0,212,255,0.06)'/%3E%3C/g%3E%3C/svg%3E") repeat;
   pointer-events: none;
 }
 .int-kicker {
   display: inline-flex; align-items: center; gap: 8px;
   border: 1px solid rgba(0,212,255,.3); border-radius: 999px;
-  padding: 5px 16px; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
-  color: var(--accent); background: rgba(0,212,255,.07); font-weight: 600;
-  margin-bottom: 14px;
+  padding: 5px 16px; font-size: .75rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--accent);
+  background: rgba(0,212,255,.07); font-weight: 600; margin-bottom: 14px;
 }
 .int-kicker-dot {
-  width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
   animation: pulse-dot 2s ease-in-out infinite;
 }
-@keyframes pulse-dot { 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.4; transform:scale(.7); } }
+@keyframes pulse-dot {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:.4; transform:scale(.7); }
+}
+.int-hero h1 { font-size: clamp(1.7rem,4.5vw,2.6rem); max-width:560px; margin:0 auto 12px; color:var(--on-dark); }
+.int-hero h1 em { font-style:normal; color:var(--accent); }
+.int-hero p { max-width:460px; margin:0 auto 24px; color:var(--ink-soft); font-size:.97rem; line-height:1.55; }
 
-.int-hero h1 {
-  font-size: clamp(1.7rem, 4.5vw, 2.6rem);
-  max-width: 560px; margin: 0 auto 12px;
-  color: var(--on-dark);
-}
-.int-hero h1 em { font-style:normal; color: var(--accent); }
-.int-hero p {
-  max-width: 460px; margin: 0 auto 24px;
-  color: var(--ink-soft); font-size: .97rem; line-height: 1.55;
-}
-
-/* system badges */
-.sys-badges {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
-  position: relative; z-index: 1;
-}
+.sys-badges { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; position:relative; z-index:1; }
 .sys-badge {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--card-bg); border: 1px solid var(--line);
-  border-radius: 10px; padding: 8px 16px;
-  font-size: .82rem; font-weight: 500; color: var(--ink);
-  transition: border-color .2s, transform .2s;
+  display:flex; align-items:center; gap:8px;
+  background:var(--card-bg); border:1px solid var(--line); border-radius:10px;
+  padding:8px 16px; font-size:.82rem; font-weight:500; color:var(--ink);
+  transition:border-color .2s, transform .2s;
 }
-.sys-badge:hover { border-color: rgba(0,212,255,.45); transform: translateY(-2px); }
-.sys-badge svg { width: 16px; height: 16px; stroke: var(--accent); }
+.sys-badge:hover { border-color:rgba(0,212,255,.45); transform:translateY(-2px); }
+.sys-badge svg { width:16px; height:16px; stroke:var(--accent); }
 
 /* ── How it works ── */
-.how-works {
-  background: var(--bg-alt);
-  padding: 28px 0 24px;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-.how-works h2 {
-  text-align: center; font-size: 1.15rem; margin-bottom: 20px;
-  color: var(--on-dark);
-}
-.steps-row {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
-  gap: 14px; max-width: 820px; margin: 0 auto;
-}
-.step {
-  background: var(--card-bg);
-  border: 1px solid var(--line);
-  border-radius: var(--radius); padding: 18px 18px;
-  position: relative; text-align: center;
-}
-.step-num {
-  width: 30px; height: 30px; border-radius: 50%;
-  background: rgba(0,212,255,.12); border: 1.5px solid rgba(0,212,255,.3);
-  display: flex; align-items: center; justify-content: center;
-  font-size: .82rem; font-weight: 700; color: var(--accent);
-  margin: 0 auto 10px;
-}
-.step h4 { font-size: .88rem; margin-bottom: 5px; }
-.step p  { font-size: .79rem; margin: 0; line-height: 1.45; }
-.step-arrow {
-  position: absolute; right: -12px; top: 50%;
-  transform: translateY(-50%);
-  color: rgba(0,212,255,.3); font-size: 1.2rem;
-  display: none;
-}
+.how-works { background:var(--bg-alt); padding:28px 0 24px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.how-works h2 { text-align:center; font-size:1.15rem; margin-bottom:20px; color:var(--on-dark); }
+.steps-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; max-width:820px; margin:0 auto; }
+.step { background:var(--card-bg); border:1px solid var(--line); border-radius:var(--radius); padding:18px; position:relative; text-align:center; }
+.step-num { width:30px; height:30px; border-radius:50%; background:rgba(0,212,255,.12); border:1.5px solid rgba(0,212,255,.3); display:flex; align-items:center; justify-content:center; font-size:.82rem; font-weight:700; color:var(--accent); margin:0 auto 10px; }
+.step h4 { font-size:.88rem; margin-bottom:5px; }
+.step p { font-size:.79rem; margin:0; line-height:1.45; }
+.step-arrow { position:absolute; right:-12px; top:50%; transform:translateY(-50%); color:rgba(0,212,255,.3); font-size:1.2rem; display:none; }
 @media(min-width:640px){ .step-arrow { display:block; } }
 
-/* ── Chat section ── */
-.chat-section { padding: 28px 0 36px; }
-.chat-section .wrap { max-width: 820px; }
+/* ── Chat ── */
+.chat-section { padding:28px 0 36px; }
+.chat-section .wrap { max-width:820px; }
+.chat-shell { background:var(--card-bg); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:0 16px 60px rgba(0,0,0,.45); }
+.chat-topbar { display:flex; align-items:center; gap:10px; padding:12px 20px; background:rgba(0,212,255,.06); border-bottom:1px solid var(--line); }
+.chat-topbar-dot { width:8px; height:8px; border-radius:50%; background:var(--accent); animation:pulse-dot 2s ease-in-out infinite; }
+.chat-topbar-name { font-size:.82rem; font-weight:600; color:var(--accent); }
+.chat-topbar-status { font-size:.72rem; color:var(--ink-soft); margin-left:auto; }
+.chat-messages { height:380px; overflow-y:auto; padding:20px 18px; display:flex; flex-direction:column; gap:14px; scroll-behavior:smooth; }
+.chat-messages::-webkit-scrollbar { width:4px; }
+.chat-messages::-webkit-scrollbar-track { background:transparent; }
+.chat-messages::-webkit-scrollbar-thumb { background:rgba(0,212,255,.2); border-radius:2px; }
+.msg { display:flex; gap:10px; max-width:88%; animation:msg-in .25s ease; }
+@keyframes msg-in { 0%{opacity:0;transform:translateY(6px)} 100%{opacity:1;transform:none} }
+.msg--ai  { align-self:flex-start; }
+.msg--user { align-self:flex-end; flex-direction:row-reverse; }
+.msg-avatar { width:30px; height:30px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:.65rem; font-weight:700; letter-spacing:.04em; }
+.msg--ai  .msg-avatar { background:rgba(0,212,255,.15); border:1px solid rgba(0,212,255,.3); color:var(--accent); }
+.msg--user .msg-avatar { background:rgba(201,162,90,.15); border:1px solid rgba(201,162,90,.3); color:var(--gold); }
+.msg-bubble { border-radius:14px; padding:10px 14px; font-size:.85rem; line-height:1.55; }
+.msg--ai  .msg-bubble { background:rgba(255,255,255,.04); border:1px solid var(--line); color:var(--ink); border-top-left-radius:4px; }
+.msg--user .msg-bubble { background:rgba(0,212,255,.1); border:1px solid rgba(0,212,255,.2); color:var(--on-dark); border-top-right-radius:4px; }
+.msg-bubble p  { margin:0 0 .6em; font-size:.85rem; }
+.msg-bubble p:last-child { margin-bottom:0; }
+.msg-bubble ul { padding-left:1.2em; margin:.4em 0; }
+.msg-bubble li { font-size:.84rem; margin-bottom:.2em; }
+.msg-bubble strong { color:var(--on-dark); }
+.msg-bubble code  { background:rgba(0,212,255,.1); padding:1px 5px; border-radius:4px; font-size:.8rem; }
+.msg-bubble a { color:var(--accent); }
+.typing-dots { display:flex; gap:4px; align-items:center; padding:4px 0; }
+.typing-dots span { width:6px; height:6px; border-radius:50%; background:rgba(0,212,255,.5); animation:dot-bounce .8s ease-in-out infinite; }
+.typing-dots span:nth-child(2){ animation-delay:.15s; }
+.typing-dots span:nth-child(3){ animation-delay:.3s; }
+@keyframes dot-bounce { 0%,80%,100%{transform:scale(.8);opacity:.5} 40%{transform:scale(1.1);opacity:1} }
+.chat-chips { display:flex; flex-wrap:wrap; gap:8px; padding:0 18px 12px; }
+.chat-chip { background:transparent; border:1px solid rgba(0,212,255,.22); border-radius:999px; padding:5px 13px; font-size:.76rem; color:var(--ink-soft); cursor:pointer; transition:border-color .15s, color .15s, background .15s; }
+.chat-chip:hover { border-color:var(--accent); color:var(--accent); background:rgba(0,212,255,.06); }
+.chat-chip.hidden { display:none; }
+.chat-input-row { display:flex; gap:0; padding:10px 14px; border-top:1px solid var(--line); background:rgba(0,0,0,.15); }
+#intInput { flex:1; outline:none; background:rgba(255,255,255,.05); border:1px solid rgba(0,212,255,.18); border-radius:10px 0 0 10px; padding:10px 14px; font-size:.88rem; color:var(--on-dark); font-family:var(--font-body); resize:none; }
+#intInput::placeholder { color:rgba(180,208,245,.35); }
+#intInput:focus { border-color:rgba(0,212,255,.45); background:rgba(0,212,255,.04); }
+.chat-send-btn { border:1px solid rgba(0,212,255,.3); border-left:none; border-radius:0 10px 10px 0; background:rgba(0,212,255,.12); color:var(--accent); padding:0 16px; cursor:pointer; font-size:.88rem; font-weight:600; transition:background .15s, border-color .15s; display:flex; align-items:center; gap:6px; }
+.chat-send-btn:hover { background:rgba(0,212,255,.22); border-color:rgba(0,212,255,.5); }
+.chat-send-btn:disabled { opacity:.45; cursor:not-allowed; }
 
-.chat-shell {
-  background: var(--card-bg);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: 0 16px 60px rgba(0,0,0,.45);
-}
-.chat-topbar {
-  display: flex; align-items: center; gap: 10px;
-  padding: 12px 20px;
-  background: rgba(0,212,255,.06);
-  border-bottom: 1px solid var(--line);
-}
-.chat-topbar-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse-dot 2s ease-in-out infinite; }
-.chat-topbar-name { font-size: .82rem; font-weight: 600; color: var(--accent); }
-.chat-topbar-status { font-size: .72rem; color: var(--ink-soft); margin-left: auto; }
-
-/* messages area */
-.chat-messages {
-  height: 380px;
-  overflow-y: auto;
-  padding: 20px 18px;
-  display: flex; flex-direction: column; gap: 14px;
-  scroll-behavior: smooth;
-}
-.chat-messages::-webkit-scrollbar { width: 4px; }
-.chat-messages::-webkit-scrollbar-track { background: transparent; }
-.chat-messages::-webkit-scrollbar-thumb { background: rgba(0,212,255,.2); border-radius: 2px; }
-
-/* message bubbles */
-.msg {
-  display: flex; gap: 10px; max-width: 88%;
-  animation: msg-in .25s ease;
-}
-@keyframes msg-in { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
-.msg--ai  { align-self: flex-start; }
-.msg--user{ align-self: flex-end; flex-direction: row-reverse; }
-
-.msg-avatar {
-  width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: .65rem; font-weight: 700; letter-spacing: .04em;
-}
-.msg--ai   .msg-avatar { background: rgba(0,212,255,.15); border: 1px solid rgba(0,212,255,.3); color: var(--accent); }
-.msg--user .msg-avatar { background: rgba(201,162,90,.15); border: 1px solid rgba(201,162,90,.3); color: var(--gold); }
-
-.msg-bubble {
-  border-radius: 14px; padding: 10px 14px;
-  font-size: .85rem; line-height: 1.55;
-}
-.msg--ai  .msg-bubble {
-  background: rgba(255,255,255,.04);
-  border: 1px solid var(--line);
-  color: var(--ink); border-top-left-radius: 4px;
-}
-.msg--user .msg-bubble {
-  background: rgba(0,212,255,.10);
-  border: 1px solid rgba(0,212,255,.2);
-  color: var(--on-dark); border-top-right-radius: 4px;
-}
-.msg-bubble p { margin: 0 0 .6em; font-size: .85rem; }
-.msg-bubble p:last-child { margin-bottom: 0; }
-.msg-bubble ul { padding-left: 1.2em; margin: .4em 0; }
-.msg-bubble li { font-size: .84rem; margin-bottom: .2em; }
-.msg-bubble strong { color: var(--on-dark); }
-.msg-bubble code { background: rgba(0,212,255,.1); padding: 1px 5px; border-radius: 4px; font-size: .8rem; }
-.msg-bubble a { color: var(--accent); }
-
-/* typing indicator */
-.typing-dots { display: flex; gap: 4px; align-items: center; padding: 4px 0; }
-.typing-dots span {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: rgba(0,212,255,.5); animation: dot-bounce .8s ease-in-out infinite;
-}
-.typing-dots span:nth-child(2) { animation-delay: .15s; }
-.typing-dots span:nth-child(3) { animation-delay: .3s; }
-@keyframes dot-bounce { 0%,80%,100%{ transform:scale(.8); opacity:.5; } 40%{ transform:scale(1.1); opacity:1; } }
-
-/* starter chips */
-.chat-chips {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  padding: 0 18px 12px;
-}
-.chat-chip {
-  background: transparent;
-  border: 1px solid rgba(0,212,255,.22);
-  border-radius: 999px; padding: 5px 13px;
-  font-size: .76rem; color: var(--ink-soft);
-  cursor: pointer; transition: border-color .15s, color .15s, background .15s;
-}
-.chat-chip:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,.06); }
-.chat-chip.hidden { display: none; }
-
-/* input row */
-.chat-input-row {
-  display: flex; gap: 0;
-  padding: 10px 14px;
-  border-top: 1px solid var(--line);
-  background: rgba(0,0,0,.15);
-}
-#intInput {
-  flex: 1; border: none; outline: none;
-  background: rgba(255,255,255,.05);
-  border: 1px solid rgba(0,212,255,.18);
-  border-radius: 10px 0 0 10px;
-  padding: 10px 14px; font-size: .88rem;
-  color: var(--on-dark); font-family: var(--font-body);
-  resize: none;
-}
-#intInput::placeholder { color: rgba(180,208,245,.35); }
-#intInput:focus { border-color: rgba(0,212,255,.45); background: rgba(0,212,255,.04); }
-.chat-send-btn {
-  border: 1px solid rgba(0,212,255,.3); border-left: none;
-  border-radius: 0 10px 10px 0;
-  background: rgba(0,212,255,.12);
-  color: var(--accent); padding: 0 16px;
-  cursor: pointer; font-size: .88rem; font-weight: 600;
-  transition: background .15s, border-color .15s;
-  display: flex; align-items: center; gap: 6px;
-}
-.chat-send-btn:hover { background: rgba(0,212,255,.22); border-color: rgba(0,212,255,.5); }
-.chat-send-btn:disabled { opacity: .45; cursor: not-allowed; }
-
-/* ── Spec Card ── */
-.spec-card-wrap {
-  margin-top: 24px;
-  animation: msg-in .35s ease;
-}
-.spec-card {
-  background: var(--card-bg);
-  border: 1.5px solid rgba(0,212,255,.25);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: 0 12px 48px rgba(0,0,0,.4), 0 0 0 1px rgba(0,212,255,.05);
-}
-.spec-card-header {
-  background: rgba(0,212,255,.07);
-  border-bottom: 1px solid rgba(0,212,255,.18);
-  padding: 16px 20px;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-}
-.spec-card-title { font-size: 1rem; font-weight: 600; color: var(--on-dark); font-family: var(--font-display); }
-.spec-sys-badge {
-  font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-  padding: 3px 10px; border-radius: 999px;
-  border: 1px solid rgba(0,212,255,.35); color: var(--accent); background: rgba(0,212,255,.08);
-}
-.spec-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1px; background: var(--line);
-  border-bottom: 1px solid var(--line);
-}
-.spec-item {
-  background: var(--card-bg); padding: 14px 18px;
-}
-.spec-item-label { font-size: .7rem; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px; font-weight: 600; }
-.spec-item-value { font-size: .9rem; font-weight: 500; color: var(--on-dark); }
-.spec-note {
-  padding: 12px 20px;
-  font-size: .8rem; color: var(--ink-soft); line-height: 1.5;
-  border-bottom: 1px solid var(--line);
-}
-.spec-note strong { color: var(--gold); }
-.spec-card-footer {
-  padding: 14px 20px;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-}
-.spec-powered { font-size: .72rem; color: rgba(180,208,245,.35); }
-.spec-cta {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--accent); color: #04070f;
-  border-radius: 999px; padding: 8px 20px;
-  font-size: .8rem; font-weight: 700;
-  transition: background .15s, transform .15s;
-}
-.spec-cta:hover { background: var(--accent-dark); color: #04070f; transform: translateY(-1px); }
-.spec-cta svg { width: 13px; height: 13px; }
-
-/* ── new chat btn ── */
-.new-chat-btn {
-  display: none; align-items: center; gap: 7px;
-  background: transparent; border: 1px solid var(--line);
-  color: var(--ink-soft); border-radius: 999px;
-  padding: 6px 14px; font-size: .76rem; cursor: pointer;
-  transition: border-color .15s, color .15s;
-  margin-left: auto;
-}
-.new-chat-btn:hover { border-color: rgba(0,212,255,.4); color: var(--accent); }
-.new-chat-btn.show { display: flex; }
-
-/* responsive */
+/* ── Spec card ── */
+.spec-card-wrap { margin-top:24px; animation:msg-in .35s ease; }
+.spec-card { background:var(--card-bg); border:1.5px solid rgba(0,212,255,.25); border-radius:var(--radius); overflow:hidden; box-shadow:0 12px 48px rgba(0,0,0,.4), 0 0 0 1px rgba(0,212,255,.05); }
+.spec-card-header { background:rgba(0,212,255,.07); border-bottom:1px solid rgba(0,212,255,.18); padding:16px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.spec-card-title { font-size:1rem; font-weight:600; color:var(--on-dark); font-family:var(--font-display); }
+.spec-sys-badge { font-size:.7rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:3px 10px; border-radius:999px; border:1px solid rgba(0,212,255,.35); color:var(--accent); background:rgba(0,212,255,.08); }
+.spec-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1px; background:var(--line); border-bottom:1px solid var(--line); }
+.spec-item { background:var(--card-bg); padding:14px 18px; }
+.spec-item-label { font-size:.7rem; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:4px; font-weight:600; }
+.spec-item-value { font-size:.9rem; font-weight:500; color:var(--on-dark); }
+.spec-note { padding:12px 20px; font-size:.8rem; color:var(--ink-soft); line-height:1.5; border-bottom:1px solid var(--line); }
+.spec-note strong { color:var(--gold); }
+.spec-card-footer { padding:14px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.spec-powered { font-size:.72rem; color:rgba(180,208,245,.35); }
+.spec-cta { display:inline-flex; align-items:center; gap:6px; background:var(--accent); color:rgb(4,7,15); border-radius:999px; padding:8px 20px; font-size:.8rem; font-weight:700; transition:background .15s, transform .15s; }
+.spec-cta:hover { background:var(--accent-dark); color:rgb(4,7,15); transform:translateY(-1px); }
+.spec-cta svg { width:13px; height:13px; }
+.new-chat-btn { display:none; align-items:center; gap:7px; background:transparent; border:1px solid var(--line); color:var(--ink-soft); border-radius:999px; padding:6px 14px; font-size:.76rem; cursor:pointer; transition:border-color .15s, color .15s; margin-left:auto; }
+.new-chat-btn:hover { border-color:rgba(0,212,255,.4); color:var(--accent); }
+.new-chat-btn.show { display:flex; }
 @media(max-width:600px){
-  .chat-messages { height: 300px; }
-  .chat-chips    { padding: 0 12px 10px; }
-  .spec-grid     { grid-template-columns: 1fr 1fr; }
+  .chat-messages { height:300px; }
+  .chat-chips { padding:0 12px 10px; }
+  .spec-grid { grid-template-columns:1fr 1fr; }
 }
 </style>
 </head>
@@ -334,23 +167,19 @@
     <p>Tell the advisor your brand &amp; model. Get back: exact protocol, hardware, and AED cost to connect it.</p>
     <div class="sys-badges">
       <div class="sys-badge">
-        <!-- AC icon -->
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M6 17v2M10 17v2M14 17v2M18 17v2M6 7V5M10 7V5M14 7V5M18 7V5"/><path d="M2 12h20" stroke-dasharray="2 2"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M6 17v2M10 17v2M14 17v2M18 17v2M6 7V5M10 7V5M14 7V5M18 7V5"/><path d="M2 12h20" stroke-dasharray="2 2"/></svg>
         HVAC / AC
       </div>
       <div class="sys-badge">
-        <!-- Light icon -->
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg"><path d="M9 18h6M10 22h4M12 2v2M4.22 4.22l1.42 1.42M1 12h2M21 12h2M17.36 5.64l1.42-1.42"/><path d="M12 6a6 6 0 0 1 0 12"/><path d="M12 6a6 6 0 0 0 0 12"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M9 18h6M10 22h4M12 2v2M4.22 4.22l1.42 1.42M1 12h2M21 12h2M17.36 5.64l1.42-1.42"/><path d="M12 6a6 6 0 0 1 0 12"/><path d="M12 6a6 6 0 0 0 0 12"/></svg>
         Lighting
       </div>
       <div class="sys-badge">
-        <!-- TV icon -->
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         AV / Home Theatre
       </div>
       <div class="sys-badge">
-        <!-- Camera icon -->
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
         CCTV / Security
       </div>
     </div>
@@ -387,7 +216,6 @@
 <section class="chat-section">
   <div class="wrap">
 
-    <!-- top control row -->
     <div style="display:flex; align-items:center; margin-bottom:14px; gap:12px;">
       <h2 style="font-size:1.05rem; margin:0; color:var(--on-dark);">Integration Advisor</h2>
       <button class="new-chat-btn" id="newChatBtn" aria-label="Start new conversation">
@@ -397,20 +225,14 @@
     </div>
 
     <div class="chat-shell">
-
-      <!-- topbar -->
       <div class="chat-topbar">
         <span class="chat-topbar-dot"></span>
         <span class="chat-topbar-name">OnePoint Integration Advisor</span>
         <span class="chat-topbar-status" id="chatStatus">Ready</span>
       </div>
 
-      <!-- messages -->
-      <div class="chat-messages" id="chatMessages" role="log" aria-live="polite">
-        <!-- Initial AI greeting injected by JS -->
-      </div>
+      <div class="chat-messages" id="chatMessages" role="log" aria-live="polite"></div>
 
-      <!-- starter chips -->
       <div class="chat-chips" id="chipRow">
         <button class="chat-chip" data-msg="I want to control my AC from my phone">Control my AC from my phone</button>
         <button class="chat-chip" data-msg="How do I connect my existing Daikin VRF to a smart home?">Connect Daikin VRF to smart home</button>
@@ -420,7 +242,6 @@
         <button class="chat-chip" data-msg="What protocol does Mitsubishi Electric use for building automation?">Mitsubishi Electric protocol</button>
       </div>
 
-      <!-- input -->
       <div class="chat-input-row">
         <textarea id="intInput" rows="1" placeholder="Describe what you want to integrate…" maxlength="800" autocomplete="off"></textarea>
         <button class="chat-send-btn" id="sendBtn" type="button">
@@ -428,10 +249,8 @@
           Send
         </button>
       </div>
+    </div>
 
-    </div><!-- /chat-shell -->
-
-    <!-- Spec card renders here -->
     <div id="specCardContainer"></div>
 
   </div>
@@ -448,14 +267,14 @@
 </footer>
 
 <!-- ═══════════════════════════════════════════════════════════════════════
-     Integration Advisor JS
+     Integration Advisor — rebuilt with direct HTML responses (no markdown parser)
      ═══════════════════════════════════════════════════════════════════════ -->
 <script>
 (function () {
   'use strict';
 
   /* ═══════════════════════════════════════════════════════════════
-     LOCAL INTEGRATION KNOWLEDGE BASE — no server required
+     KNOWLEDGE BASE — no server required
      ═══════════════════════════════════════════════════════════════ */
   var KB = {
     sysLabel: {
@@ -484,52 +303,52 @@
     },
     specs: {
       hvac: {
-        'daikin':     { protocol:'BACnet/IP · DIII-NET', hardware:'DMS504B07 BACnet Gateway', cost:'AED 1,800 – 2,800', integrator:'Yes — Daikin-certified', note:'For VRF/DX systems. Residential splits use an IR blaster (AED 150–350) — but no status feedback.' },
-        'mitsubishi': { protocol:'BACnet / Modbus RTU', hardware:'PAC-IF013B-E Gateway or CN-CNT571', cost:'AED 2,000 – 3,500', integrator:'Yes — City Multi certified', note:'For Mitsubishi City Multi VRF. Splits: MAC-333IF Wi-Fi adaptor for basic app control.' },
-        'lg':         { protocol:'LG ThinQ Wi-Fi / BACnet', hardware:'AC Smart 6 or ThinQ dongle', cost:'AED 900 – 2,000', integrator:'Optional for Wi-Fi tier', note:'ThinQ dongle enables app/voice without integrator. AC Smart 6 needed for KNX or Crestron integration.' },
-        'samsung':    { protocol:'RS-485 · Modbus · SmartThings', hardware:'MIM-B19N or MIM-D30EN Gateway', cost:'AED 800 – 2,200', integrator:'Optional for SmartThings', note:'SmartThings for app/voice. D30EN gateway for KNX, Crestron, or AMX integration.' },
-        'hitachi':    { protocol:'Modbus RTU / BACnet', hardware:'UTC-1 or HVIU-10K Gateway', cost:'AED 2,000 – 3,500', integrator:'Yes', note:'Hitachi VRF systems. Residential units: IR blaster for basic control.' },
-        'panasonic':  { protocol:'Modbus RTU', hardware:'CZ-CFUNC1U + Modbus Module', cost:'AED 1,500 – 2,800', integrator:'Yes', note:'Panasonic VRF. CZ-TAW1 Wi-Fi adaptor for split unit app control.' },
-        'gree':       { protocol:'IR / Wi-Fi (proprietary)', hardware:'Gree Wi-Fi module or IR blaster', cost:'AED 150 – 500', integrator:'No', note:'No direct bus gateway. IR blaster is the practical option — but gives no status feedback.' },
-        'carrier':    { protocol:'BACnet / Modbus', hardware:'CCN Gateway or i-Vu Touch', cost:'AED 2,500 – 4,500', integrator:'Yes — Carrier certified', note:'Commercial-grade integration. Residential Carrier splits: IR blaster.' },
-        'toshiba':    { protocol:'Modbus RTU / BACnet', hardware:'TCB-PCNT30TLE2 BACnet Adaptor', cost:'AED 1,800 – 3,200', integrator:'Yes', note:'Toshiba VRF. Basic Wi-Fi control via dedicated adaptor.' },
-        'default':    { protocol:'IR / Wi-Fi (generic)', hardware:'Broadlink RM4 Pro or Tuya IR Blaster', cost:'AED 150 – 350', integrator:'No', note:'For brands without a direct gateway. IR blasters control the AC but cannot confirm the AC changed state — no feedback loop.' }
+        'daikin':     { protocol:'BACnet/IP · DIII-NET',           hardware:'DMS504B07 BACnet Gateway',             cost:'AED 1,800 – 2,800', integrator:'Yes — Daikin-certified',     note:'For VRF/DX systems. Residential splits use an IR blaster (AED 150–350) — but no status feedback.' },
+        'mitsubishi': { protocol:'BACnet / Modbus RTU',            hardware:'PAC-IF013B-E Gateway or CN-CNT571',    cost:'AED 2,000 – 3,500', integrator:'Yes — City Multi certified', note:'For Mitsubishi City Multi VRF. Splits: MAC-333IF Wi-Fi adaptor for basic app control.' },
+        'lg':         { protocol:'LG ThinQ Wi-Fi / BACnet',        hardware:'AC Smart 6 or ThinQ dongle',          cost:'AED 900 – 2,000',   integrator:'Optional for Wi-Fi tier',   note:'ThinQ dongle enables app/voice without integrator. AC Smart 6 needed for KNX or Crestron integration.' },
+        'samsung':    { protocol:'RS-485 · Modbus · SmartThings',  hardware:'MIM-B19N or MIM-D30EN Gateway',       cost:'AED 800 – 2,200',   integrator:'Optional for SmartThings', note:'SmartThings for app/voice. D30EN gateway for KNX, Crestron, or AMX integration.' },
+        'hitachi':    { protocol:'Modbus RTU / BACnet',            hardware:'UTC-1 or HVIU-10K Gateway',           cost:'AED 2,000 – 3,500', integrator:'Yes',                       note:'Hitachi VRF systems. Residential units: IR blaster for basic control.' },
+        'panasonic':  { protocol:'Modbus RTU',                     hardware:'CZ-CFUNC1U + Modbus Module',          cost:'AED 1,500 – 2,800', integrator:'Yes',                       note:'Panasonic VRF. CZ-TAW1 Wi-Fi adaptor for split unit app control.' },
+        'gree':       { protocol:'IR / Wi-Fi (proprietary)',        hardware:'Gree Wi-Fi module or IR blaster',     cost:'AED 150 – 500',     integrator:'No',                        note:'No direct bus gateway. IR blaster is the practical option — but gives no status feedback.' },
+        'carrier':    { protocol:'BACnet / Modbus',                hardware:'CCN Gateway or i-Vu Touch',           cost:'AED 2,500 – 4,500', integrator:'Yes — Carrier certified',   note:'Commercial-grade integration. Residential Carrier splits: IR blaster.' },
+        'toshiba':    { protocol:'Modbus RTU / BACnet',            hardware:'TCB-PCNT30TLE2 BACnet Adaptor',       cost:'AED 1,800 – 3,200', integrator:'Yes',                       note:'Toshiba VRF. Basic Wi-Fi control via dedicated adaptor.' },
+        'default':    { protocol:'IR / Wi-Fi (generic)',            hardware:'Broadlink RM4 Pro or Tuya IR Blaster',cost:'AED 150 – 350',     integrator:'No',                        note:'For brands without a direct gateway. IR blasters control the AC but cannot confirm the AC changed state — no feedback loop.' }
       },
       lighting: {
-        'hue':      { protocol:'Zigbee / Matter / IP', hardware:'Philips Hue Bridge v2', cost:'AED 550 – 750 (bridge) + AED 150–500/bulb', integrator:'No', note:'Self-installed. Bridge supports up to 50 lights. Matter links natively to Apple Home, Google, and Alexa.' },
-        'dali':     { protocol:'DALI-2 (addressable wired bus)', hardware:'DALI-2 Controller + DALI PSU', cost:'AED 3,000 – 9,000 (system cost)', integrator:'Yes — DALI-certified', note:'Industry standard for addressable architectural lighting. Requires DALI wiring during construction.' },
-        'lutron':   { protocol:'Clear Connect RF / Caséta / RA3', hardware:'Smart Bridge Pro (Caséta) or RA3 Processor', cost:'AED 2,800 – 10,000+', integrator:'No for Caséta · Yes for RA3', note:'Caséta is retrofit-friendly wireless. RadioRA 3 is the premium tier with keypads and full scene control.' },
-        'knx':      { protocol:'KNX/EIB (twisted pair bus)', hardware:'KNX IP Gateway + certified devices', cost:'AED 6,000 – 30,000+ (system)', integrator:'Yes — ETS-certified KNX integrator', note:'Most scalable bus standard. Must be wired during construction. Devices programmed via ETS software.' },
-        'casambi':  { protocol:'Bluetooth Mesh (BLE)', hardware:'Casambi-enabled LED drivers (no hub)', cost:'AED 400 – 1,200/driver', integrator:'Optional', note:'Retrofit-friendly wireless. No gateway required. Commissioning via Casambi app. Also integrates with Crestron and AMX.' },
-        'default':  { protocol:'Wi-Fi / Zigbee (Tuya)', hardware:'Tuya Smart Switch or Zigbee Hub', cost:'AED 80 – 300/switch', integrator:'No', note:'Widely available smart switches compatible with Alexa, Google Home, and Apple Home.' }
+        'hue':      { protocol:'Zigbee / Matter / IP',              hardware:'Philips Hue Bridge v2',               cost:'AED 550 – 750 (bridge) + AED 150–500/bulb', integrator:'No',                      note:'Self-installed. Bridge supports up to 50 lights. Matter links natively to Apple Home, Google, and Alexa.' },
+        'dali':     { protocol:'DALI-2 (addressable wired bus)',     hardware:'DALI-2 Controller + DALI PSU',        cost:'AED 3,000 – 9,000 (system cost)',           integrator:'Yes — DALI-certified',    note:'Industry standard for addressable architectural lighting. Requires DALI wiring during construction.' },
+        'lutron':   { protocol:'Clear Connect RF / Caséta / RA3',   hardware:'Smart Bridge Pro (Caséta) or RA3 Processor', cost:'AED 2,800 – 10,000+',              integrator:'No for Caséta · Yes for RA3', note:'Caséta is retrofit-friendly wireless. RadioRA 3 is the premium tier with keypads and full scene control.' },
+        'knx':      { protocol:'KNX/EIB (twisted pair bus)',         hardware:'KNX IP Gateway + certified devices',  cost:'AED 6,000 – 30,000+ (system)',              integrator:'Yes — ETS-certified KNX integrator', note:'Most scalable bus standard. Must be wired during construction. Devices programmed via ETS software.' },
+        'casambi':  { protocol:'Bluetooth Mesh (BLE)',               hardware:'Casambi-enabled LED drivers (no hub)',cost:'AED 400 – 1,200/driver',                   integrator:'Optional',                note:'Retrofit-friendly wireless. No gateway required. Commissioning via Casambi app. Also integrates with Crestron and AMX.' },
+        'default':  { protocol:'Wi-Fi / Zigbee (Tuya)',              hardware:'Tuya Smart Switch or Zigbee Hub',     cost:'AED 80 – 300/switch',                       integrator:'No',                      note:'Widely available smart switches compatible with Alexa, Google Home, and Apple Home.' }
       },
       av: {
-        'sonos':   { protocol:'REST API / AirPlay 2 / Ethernet', hardware:'No additional hardware', cost:'AED 0 (integration built-in)', integrator:'No', note:'Integrates natively with Crestron, Control4, and Savant. Wired Ethernet recommended over Wi-Fi.' },
-        'samsung': { protocol:'SmartThings API / Tizen IP Control', hardware:'No additional hardware', cost:'AED 0 for app control', integrator:'Optional', note:'Samsung TVs support IP commands on local network. SmartThings enables voice and scene integration.' },
-        'lg':      { protocol:'WebOS REST API / IP', hardware:'No additional hardware', cost:'AED 0', integrator:'No', note:'LG Smart TVs have built-in WebOS IP control. Compatible with Control4 and Crestron drivers.' },
-        'sony':    { protocol:'Bravia IP Control / REST API', hardware:'No additional hardware', cost:'AED 0', integrator:'No', note:'Enable "Remote start" in Sony Bravia network settings. Full IP control, no gateway needed.' },
-        'denon':   { protocol:'IP Telnet / HEOS API', hardware:'No additional hardware', cost:'AED 0', integrator:'No', note:'Denon AVRs are IP-native. HEOS enables multi-room audio grouping.' },
-        'bose':    { protocol:'SoundTouch API / AirPlay 2', hardware:'No additional hardware', cost:'AED 0', integrator:'No', note:'Bose Smart speakers support AirPlay 2 for Apple Home. SoundTouch API for legacy products.' },
-        'default': { protocol:'HDMI-CEC / IP / IR', hardware:'Broadlink RM4 Pro or Global Caché iTach IP2IR', cost:'AED 200 – 700', integrator:'No', note:'For AV devices without IP control, an IR blaster handles commands from the automation system. Global Caché is the professional standard.' }
+        'sonos':   { protocol:'REST API / AirPlay 2 / Ethernet',    hardware:'No additional hardware',              cost:'AED 0 (integration built-in)',  integrator:'No',       note:'Integrates natively with Crestron, Control4, and Savant. Wired Ethernet recommended over Wi-Fi.' },
+        'samsung': { protocol:'SmartThings API / Tizen IP Control', hardware:'No additional hardware',              cost:'AED 0 for app control',         integrator:'Optional', note:'Samsung TVs support IP commands on local network. SmartThings enables voice and scene integration.' },
+        'lg':      { protocol:'WebOS REST API / IP',                hardware:'No additional hardware',              cost:'AED 0',                         integrator:'No',       note:'LG Smart TVs have built-in WebOS IP control. Compatible with Control4 and Crestron drivers.' },
+        'sony':    { protocol:'Bravia IP Control / REST API',       hardware:'No additional hardware',              cost:'AED 0',                         integrator:'No',       note:'Enable "Remote start" in Sony Bravia network settings. Full IP control, no gateway needed.' },
+        'denon':   { protocol:'IP Telnet / HEOS API',               hardware:'No additional hardware',              cost:'AED 0',                         integrator:'No',       note:'Denon AVRs are IP-native. HEOS enables multi-room audio grouping.' },
+        'bose':    { protocol:'SoundTouch API / AirPlay 2',         hardware:'No additional hardware',              cost:'AED 0',                         integrator:'No',       note:'Bose Smart speakers support AirPlay 2 for Apple Home. SoundTouch API for legacy products.' },
+        'default': { protocol:'HDMI-CEC / IP / IR',                 hardware:'Broadlink RM4 Pro or Global Caché iTach IP2IR', cost:'AED 200 – 700',    integrator:'No',       note:'For AV devices without IP control, an IR blaster handles commands from the automation system. Global Caché is the professional standard.' }
       },
       cctv: {
-        'hikvision': { protocol:'ONVIF / RTSP / Hik-Connect API', hardware:'Hikvision PoE NVR (optional)', cost:'AED 400–1,400/camera · NVR AED 1,000–4,000', integrator:'Optional', note:'Hik-Connect for remote access. ONVIF makes cameras compatible with third-party NVRs and VMS platforms.' },
-        'dahua':     { protocol:'ONVIF / RTSP / DMSS API', hardware:'Dahua PoE NVR (optional)', cost:'AED 350–1,100/camera · NVR AED 900–3,200', integrator:'Optional', note:'DMSS app for remote access. ONVIF for third-party NVR compatibility.' },
-        'axis':      { protocol:'VAPIX / ONVIF / RTSP', hardware:'AXIS Camera Station NVR (optional)', cost:'AED 1,200–4,000/camera', integrator:'Recommended for enterprise', note:'Premium IP cameras. VAPIX API enables deep integration with access control and alarm systems.' },
-        'reolink':   { protocol:'RTSP / ONVIF', hardware:'Reolink PoE NVR (optional)', cost:'AED 200–700/camera', integrator:'No', note:'Budget-friendly with RTSP support. Compatible with most NVR software. App-based setup.' },
-        'default':   { protocol:'ONVIF / RTSP', hardware:'PoE switch + IP NVR', cost:'AED 300–1,500/camera (brand-dependent)', integrator:'Optional', note:'Most IP cameras support ONVIF for interoperability. PoE switch powers wired cameras. NVR handles recording and remote access.' }
+        'hikvision': { protocol:'ONVIF / RTSP / Hik-Connect API',   hardware:'Hikvision PoE NVR (optional)',        cost:'AED 400–1,400/camera · NVR AED 1,000–4,000', integrator:'Optional',                    note:'Hik-Connect for remote access. ONVIF makes cameras compatible with third-party NVRs and VMS platforms.' },
+        'dahua':     { protocol:'ONVIF / RTSP / DMSS API',          hardware:'Dahua PoE NVR (optional)',            cost:'AED 350–1,100/camera · NVR AED 900–3,200',   integrator:'Optional',                    note:'DMSS app for remote access. ONVIF for third-party NVR compatibility.' },
+        'axis':      { protocol:'VAPIX / ONVIF / RTSP',             hardware:'AXIS Camera Station NVR (optional)', cost:'AED 1,200–4,000/camera',                     integrator:'Recommended for enterprise',  note:'Premium IP cameras. VAPIX API enables deep integration with access control and alarm systems.' },
+        'reolink':   { protocol:'RTSP / ONVIF',                     hardware:'Reolink PoE NVR (optional)',          cost:'AED 200–700/camera',                         integrator:'No',                          note:'Budget-friendly with RTSP support. Compatible with most NVR software. App-based setup.' },
+        'default':   { protocol:'ONVIF / RTSP',                     hardware:'PoE switch + IP NVR',                 cost:'AED 300–1,500/camera (brand-dependent)',      integrator:'Optional',                    note:'Most IP cameras support ONVIF for interoperability. PoE switch powers wired cameras. NVR handles recording and remote access.' }
       },
       curtains: {
-        'somfy':     { protocol:'RTS (RF) / io-homecontrol / RS-485', hardware:'TaHoma Switch Hub', cost:'AED 500–1,200 (hub) · AED 400–900/motor', integrator:'No for app · Yes for RS-485 bus', note:'TaHoma enables app, Alexa, Google, and Apple Home. Use SDN (RS-485) motors for KNX or Crestron integration.' },
-        'dooya':     { protocol:'RF 433MHz / RS-485 / DC-Bus', hardware:'Dooya hub or RS-485 converter', cost:'AED 300–700/motor · hub AED 200–500', integrator:'Optional', note:'Widely used in UAE. RF remotes work standalone. RS-485 bus version for scene/whole-home integration.' },
-        'am blinds': { protocol:'Tuya Wi-Fi / RF 433MHz', hardware:'Tuya hub (optional) or direct Wi-Fi', cost:'AED 250–550/motor', integrator:'No', note:'Works with SmartLife, Alexa, and Google Home. Battery-powered options available for retrofit.' },
-        'rollease':  { protocol:'Automate RF / RS-485', hardware:'Automate Pulse 2 Hub', cost:'AED 400–800/motor · hub AED 600', integrator:'No for basic setup', note:'Pulse 2 Hub enables Alexa, Google, and app control. RS-485 version available for KNX integration.' },
-        'default':   { protocol:'RF 433MHz / Wi-Fi (Tuya)', hardware:'RF controller or Tuya gateway hub', cost:'AED 200–600/motor', integrator:'No', note:'Most motorised curtain motors use RF 433 or Wi-Fi (Tuya). Tuya motors integrate with SmartLife, Alexa, and Google Home.' }
+        'somfy':     { protocol:'RTS (RF) / io-homecontrol / RS-485',hardware:'TaHoma Switch Hub',                  cost:'AED 500–1,200 (hub) · AED 400–900/motor',   integrator:'No for app · Yes for RS-485 bus', note:'TaHoma enables app, Alexa, Google, and Apple Home. Use SDN (RS-485) motors for KNX or Crestron integration.' },
+        'dooya':     { protocol:'RF 433MHz / RS-485 / DC-Bus',       hardware:'Dooya hub or RS-485 converter',       cost:'AED 300–700/motor · hub AED 200–500',        integrator:'Optional',                    note:'Widely used in UAE. RF remotes work standalone. RS-485 bus version for scene/whole-home integration.' },
+        'am blinds': { protocol:'Tuya Wi-Fi / RF 433MHz',            hardware:'Tuya hub (optional) or direct Wi-Fi', cost:'AED 250–550/motor',                          integrator:'No',                          note:'Works with SmartLife, Alexa, and Google Home. Battery-powered options available for retrofit.' },
+        'rollease':  { protocol:'Automate RF / RS-485',              hardware:'Automate Pulse 2 Hub',                cost:'AED 400–800/motor · hub AED 600',            integrator:'No for basic setup',           note:'Pulse 2 Hub enables Alexa, Google, and app control. RS-485 version available for KNX integration.' },
+        'default':   { protocol:'RF 433MHz / Wi-Fi (Tuya)',           hardware:'RF controller or Tuya gateway hub',   cost:'AED 200–600/motor',                          integrator:'No',                          note:'Most motorised curtain motors use RF 433 or Wi-Fi (Tuya). Tuya motors integrate with SmartLife, Alexa, and Google Home.' }
       }
     }
   };
 
-  /* ── Conversation state ── */
+  /* ── State ── */
   var STATE = { system: null, brand: null, step: 'init' };
   var isLoading = false;
 
@@ -542,7 +361,7 @@
   var specContainer = document.getElementById('specCardContainer');
   var newChatBtn    = document.getElementById('newChatBtn');
 
-  /* ── Detect system from text ── */
+  /* ── Detect system ── */
   function detectSystem(text) {
     var t = text.toLowerCase();
     var brands = Object.keys(KB.brandMap);
@@ -556,7 +375,13 @@
         if (t.indexOf(kws[k]) !== -1) return systems[s];
       }
     }
-    var gen = { hvac:['ac','air con','aircon','cool','heat','temperature'], av:['tv','television','speaker','audio','music','screen','cinema'], cctv:['camera','cctv','security','alarm','lock'], curtains:['curtain','blind','shade','motor'], lighting:['light','lamp','dim','switch','scene'] };
+    var gen = {
+      hvac:     ['ac','air con','aircon','cool','heat','temperature'],
+      av:       ['tv','television','speaker','audio','music','screen','cinema'],
+      cctv:     ['camera','cctv','security','alarm','lock'],
+      curtains: ['curtain','blind','shade','motor'],
+      lighting: ['light','lamp','dim','switch','scene']
+    };
     var gkeys = Object.keys(gen);
     for (var g = 0; g < gkeys.length; g++) {
       var gws = gen[gkeys[g]];
@@ -567,7 +392,7 @@
     return null;
   }
 
-  /* ── Detect brand from text ── */
+  /* ── Detect brand ── */
   function detectBrand(text, system) {
     if (!system) return null;
     var t = text.toLowerCase();
@@ -577,149 +402,148 @@
       if (brand !== 'default' && t.indexOf(brand) !== -1) found = brand;
     });
     if (!found) {
-      if (/mitsu(bishi)?/i.test(t) && system === 'hvac')  found = 'mitsubishi';
-      if (/dakin|daikn|daikins/i.test(t))                  found = 'daikin';
-      if (/hik\b|hik-/i.test(t) || /hikvision/i.test(t))  found = 'hikvision';
-      if (/philips?\s*hue|hue\s+light/i.test(t))           found = 'hue';
-      if (/am\s*blind/i.test(t))                           found = 'am blinds';
-      if (/rollease|acmeda/i.test(t))                      found = 'rollease';
+      if (/mitsu(bishi)?/i.test(t) && system === 'hvac') found = 'mitsubishi';
+      if (/dakin|daikn|daikins/i.test(t))                found = 'daikin';
+      if (/hik\b|hik-/i.test(t) || /hikvision/i.test(t)) found = 'hikvision';
+      if (/philips?\s*hue|hue\s+light/i.test(t))         found = 'hue';
+      if (/am\s*blind/i.test(t))                         found = 'am blinds';
+      if (/rollease|acmeda/i.test(t))                    found = 'rollease';
     }
     return found;
   }
 
-  /* ── Local AI — no server call needed ── */
+  /* ── Escape HTML ── */
+  function esc(str) {
+    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  /* ── Build AI response HTML directly (no markdown parser) ── */
+  function buildSpecHtml(brandCap, sysLabel, spec) {
+    return '<p><strong>' + esc(brandCap) + ' — ' + esc(sysLabel) + '</strong></p>' +
+      '<ul>' +
+        '<li><strong>Protocol:</strong> ' + esc(spec.protocol) + '</li>' +
+        '<li><strong>Hardware:</strong> ' + esc(spec.hardware) + '</li>' +
+        '<li><strong>Indicative cost:</strong> ' + esc(spec.cost) + '</li>' +
+        '<li><strong>Integrator needed:</strong> ' + esc(spec.integrator) + '</li>' +
+      '</ul>' +
+      (spec.note ? '<p><strong>Note:</strong> ' + esc(spec.note) + '</p>' : '') +
+      '<p>Want to connect something else, or shall we put together a full integration plan?</p>';
+  }
+
+  /* ── Core AI logic ── */
   function localAI(userText) {
     var sys   = detectSystem(userText) || STATE.system;
     var brand = detectBrand(userText, sys) || STATE.brand;
     if (sys)   STATE.system = sys;
     if (brand) STATE.brand  = brand;
 
+    /* Both known → return spec */
     if (sys && brand) {
       var spec     = KB.specs[sys][brand] || KB.specs[sys]['default'];
       var sysLabel = KB.sysLabel[sys];
-      var brandCap = brand.split(' ').map(function(w){ return w.charAt(0).toUpperCase()+w.slice(1); }).join(' ');
+      var brandCap = brand.split(' ').map(function(w){ return w.charAt(0).toUpperCase() + w.slice(1); }).join(' ');
       var sysShort = { hvac:'HVAC', lighting:'Lighting', av:'AV', cctv:'CCTV', curtains:'Curtains' }[sys] || sys;
-      STATE.step   = 'spec_shown';
+      STATE.step = 'spec_shown';
       return {
-        answer:
-          '**' + brandCap + ' → ' + sysLabel + '**\n\n' +
-          '- **Protocol:** ' + spec.protocol + '\n' +
-          '- **Hardware:** ' + spec.hardware + '\n' +
-          '- **Indicative cost:** ' + spec.cost + '\n' +
-          '- **Integrator needed:** ' + spec.integrator + '\n\n' +
-          (spec.note ? '**Note:** ' + spec.note + '\n\n' : '') +
-          'Want to connect something else, or shall we put together a full integration plan?',
+        html: buildSpecHtml(brandCap, sysLabel, spec),
         specCard: {
           title:  brandCap + ' ' + sysLabel + ' Integration',
           system: sysShort,
           items: [
-            { label:'Protocol',   value:spec.protocol   },
-            { label:'Hardware',   value:spec.hardware   },
-            { label:'Cost (AED)', value:spec.cost       },
-            { label:'Integrator', value:spec.integrator }
+            { label:'Protocol',   value: spec.protocol   },
+            { label:'Hardware',   value: spec.hardware   },
+            { label:'Cost (AED)', value: spec.cost       },
+            { label:'Integrator', value: spec.integrator }
           ],
           note: spec.note
         }
       };
     }
 
+    /* System known, brand unknown → ask for brand */
     if (sys && !brand) {
-      var ex = {
-        hvac:     'Daikin, Mitsubishi, LG, Samsung, Hitachi, Panasonic, Gree, or another brand',
-        lighting: 'Philips Hue, DALI, Lutron, KNX, Casambi, or another system',
-        av:       'Sonos, Samsung, LG, Sony, Denon, Bose, or another brand',
-        cctv:     'Hikvision, Dahua, Axis, Reolink, or another brand',
-        curtains: 'Somfy, Dooya, AM Blinds, Rollease, or another brand'
+      var examples = {
+        hvac:     'Daikin, Mitsubishi, LG, Samsung, Hitachi, Panasonic, Gree',
+        lighting: 'Philips Hue, DALI, Lutron, KNX, Casambi',
+        av:       'Sonos, Samsung, LG, Sony, Denon, Bose',
+        cctv:     'Hikvision, Dahua, Axis, Reolink',
+        curtains: 'Somfy, Dooya, AM Blinds, Rollease'
       };
       STATE.step = 'waiting_brand';
       return {
-        answer: 'Got it — **' + KB.sysLabel[sys] + '**. What **brand and model** are you working with?\n\nFor example: ' + ex[sys] + '.',
+        html: '<p>Got it — <strong>' + esc(KB.sysLabel[sys]) + '</strong>. What brand are you working with?</p>' +
+              '<p>For example: ' + esc(examples[sys]) + '.</p>',
         specCard: null
       };
     }
 
+    /* Waiting for brand but still unclear → give default spec */
     if (STATE.step === 'waiting_brand' && STATE.system) {
       var ds = KB.specs[STATE.system]['default'];
       STATE.step = 'spec_shown';
       return {
-        answer: 'Here\'s the general approach for **' + KB.sysLabel[STATE.system] + '** — give me the exact brand for a brand-specific spec.\n\n- **Protocol:** ' + ds.protocol + '\n- **Hardware:** ' + ds.hardware + '\n- **Indicative cost:** ' + ds.cost + '\n\n' + ds.note,
+        html: '<p>Here\'s the general approach for <strong>' + esc(KB.sysLabel[STATE.system]) + '</strong> — give me the exact brand for a brand-specific spec.</p>' +
+              '<ul>' +
+                '<li><strong>Protocol:</strong> ' + esc(ds.protocol) + '</li>' +
+                '<li><strong>Hardware:</strong> ' + esc(ds.hardware) + '</li>' +
+                '<li><strong>Cost:</strong> ' + esc(ds.cost) + '</li>' +
+              '</ul>' +
+              '<p>' + esc(ds.note) + '</p>',
         specCard: null
       };
     }
 
+    /* Short / greeting */
     var t = userText.toLowerCase().trim();
-    var short = ['hi','hello','hey','help','ok','yes','sure','thanks','thank you','start','begin','test'];
-    if (short.indexOf(t) !== -1 || t.length < 5) {
+    var greetings = ['hi','hello','hey','help','ok','yes','sure','thanks','thank you','start','begin','test'];
+    if (greetings.indexOf(t) !== -1 || t.length < 5) {
       return {
-        answer: "Hi! Tell me what you want to connect — for example:\n\n- *\"Control my Daikin AC from my phone\"*\n- *\"Connect my Hikvision cameras to one app\"*\n- *\"How do I add Sonos to my smart home?\"*\n\nI'll give you the exact protocol, hardware, and AED cost.",
+        html: '<p>Hi! Tell me what you want to connect — for example:</p>' +
+              '<ul>' +
+                '<li>"Control my Daikin AC from my phone"</li>' +
+                '<li>"Connect my Hikvision cameras to one app"</li>' +
+                '<li>"How do I add Sonos to my smart home?"</li>' +
+              '</ul>' +
+              '<p>I\'ll give you the exact protocol, hardware, and AED cost.</p>',
         specCard: null
       };
     }
 
+    /* Fallback */
     return {
-      answer: "I need a bit more detail. Can you tell me:\n\n1. **Which system?** — AC/HVAC, lighting, AV/speakers, cameras, or curtains\n2. **Which brand?** — e.g. *Daikin*, *Hikvision*, *Sonos*\n\nThe more specific, the better the spec.",
+      html: '<p>I need a bit more detail. Can you tell me:</p>' +
+            '<ol>' +
+              '<li><strong>Which system?</strong> — AC/HVAC, lighting, AV/speakers, cameras, or curtains</li>' +
+              '<li><strong>Which brand?</strong> — e.g. Daikin, Hikvision, Sonos</li>' +
+            '</ol>' +
+            '<p>The more specific, the better the spec.</p>',
       specCard: null
     };
   }
 
-  /* ── Minimal markdown → HTML ── */
-  function inlineFormat(t) {
-    return t
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.*?)\*/g,     '<em>$1</em>')
-      .replace(/`([^`]+)`/g,     '<code>$1</code>')
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
-  }
-
-  function mdToHtml(raw) {
-    var lines = raw.split('\n');
-    var out = [], i = 0;
-    while (i < lines.length) {
-      var line = lines[i];
-      if (/^#{1,3}\s+/.test(line)) {
-        out.push('<strong>' + inlineFormat(line.replace(/^#{1,3}\s+/, '')) + '</strong>');
-        i++; continue;
-      }
-      if (/^[-*]\s+/.test(line)) {
-        var items = [];
-        while (i < lines.length && /^[-*]\s+/.test(lines[i])) {
-          items.push('<li>' + inlineFormat(lines[i].replace(/^[-*]\s+/, '')) + '</li>');
-          i++;
-        }
-        out.push('<ul>' + items.join('') + '</ul>');
-        continue;
-      }
-      if (!line.trim()) { i++; continue; }
-      var para = [];
-      while (i < lines.length && lines[i].trim() && !/^[#\-*]/.test(lines[i])) {
-        para.push(inlineFormat(lines[i]));
-        i++;
-      }
-      if (para.length) out.push('<p>' + para.join(' ') + '</p>');
-    }
-    return out.join('');
-  }
-
-  /* ── Append message bubble ── */
-  function appendMessage(role, html, isHtml) {
-    var div = document.createElement('div');
+  /* ── Append message bubble (HTML direct, no parser) ── */
+  function appendMessage(role, html) {
+    var div    = document.createElement('div');
     div.className = 'msg msg--' + (role === 'user' ? 'user' : 'ai');
     var avatar = document.createElement('div');
     avatar.className = 'msg-avatar';
     avatar.textContent = role === 'user' ? 'You' : 'AI';
     var bubble = document.createElement('div');
     bubble.className = 'msg-bubble';
-    bubble.innerHTML = isHtml ? html : mdToHtml(html);
+    if (role === 'user') {
+      bubble.textContent = html; /* user text is plain, never rendered as HTML */
+    } else {
+      bubble.innerHTML = html;   /* AI html is already sanitised via esc() */
+    }
     div.appendChild(avatar);
     div.appendChild(bubble);
     messagesEl.appendChild(div);
     messagesEl.scrollTop = messagesEl.scrollHeight;
-    return div;
   }
 
   /* ── Typing indicator ── */
   function showTyping() {
-    var div = document.createElement('div');
+    var div    = document.createElement('div');
     div.className = 'msg msg--ai';
     div.id = 'typingIndicator';
     var avatar = document.createElement('div');
@@ -739,11 +563,13 @@
   }
 
   /* ── Spec card colours ── */
-  var SYS_COLOR = { HVAC:'rgba(0,212,255,.35)', Lighting:'rgba(201,162,90,.4)', AV:'rgba(140,100,255,.4)', CCTV:'rgba(80,200,120,.35)', Curtains:'rgba(0,212,255,.25)' };
-
-  function escHtml(str) {
-    return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
+  var SYS_COLOR = {
+    HVAC:     'rgba(0,212,255,.35)',
+    Lighting: 'rgba(201,162,90,.4)',
+    AV:       'rgba(140,100,255,.4)',
+    CCTV:     'rgba(80,200,120,.35)',
+    Curtains: 'rgba(0,212,255,.25)'
+  };
 
   /* ── Render spec card ── */
   function renderSpecCard(card) {
@@ -751,34 +577,49 @@
     specContainer.innerHTML = '';
     var sys = card.system || 'Integration';
     var bc  = SYS_COLOR[sys] || 'rgba(0,212,255,.25)';
-    var itemsHtml = (card.items||[]).map(function(item){
-      return '<div class="spec-item"><div class="spec-item-label">'+escHtml(item.label)+'</div><div class="spec-item-value">'+escHtml(item.value)+'</div></div>';
+    var itemsHtml = (card.items || []).map(function(item) {
+      return '<div class="spec-item">' +
+               '<div class="spec-item-label">' + esc(item.label) + '</div>' +
+               '<div class="spec-item-value">' + esc(item.value) + '</div>' +
+             '</div>';
     }).join('');
-    var noteHtml = card.note ? '<div class="spec-note"><strong>Note:</strong> '+escHtml(card.note)+'</div>' : '';
+    var noteHtml = card.note
+      ? '<div class="spec-note"><strong>Note:</strong> ' + esc(card.note) + '</div>'
+      : '';
     specContainer.innerHTML =
-      '<div class="spec-card-wrap"><div class="spec-card" style="border-color:'+bc+'">' +
-        '<div class="spec-card-header"><span class="spec-card-title">'+escHtml(card.title)+'</span>' +
-        '<span class="spec-sys-badge" style="border-color:'+bc+'">'+escHtml(sys)+'</span></div>' +
-        '<div class="spec-grid">'+itemsHtml+'</div>'+noteHtml+
-        '<div class="spec-card-footer"><span class="spec-powered">OnePoint Integration Advisor · Prices are indicative</span>' +
-          '<a class="spec-cta" href="services.html#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Get a full integration plan</a>' +
-        '</div></div></div>';
-    specContainer.scrollIntoView({ behavior:'smooth', block:'start' });
+      '<div class="spec-card-wrap">' +
+        '<div class="spec-card" style="border-color:' + bc + '">' +
+          '<div class="spec-card-header">' +
+            '<span class="spec-card-title">' + esc(card.title) + '</span>' +
+            '<span class="spec-sys-badge" style="border-color:' + bc + '">' + esc(sys) + '</span>' +
+          '</div>' +
+          '<div class="spec-grid">' + itemsHtml + '</div>' +
+          noteHtml +
+          '<div class="spec-card-footer">' +
+            '<span class="spec-powered">OnePoint Integration Advisor · Prices are indicative</span>' +
+            '<a class="spec-cta" href="services.html#contact">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
+              'Get a full integration plan' +
+            '</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    specContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  /* ── Send — pure local, no fetch ── */
+  /* ── Send ── */
   function sendMessage(userText) {
     if (!userText.trim() || isLoading) return;
     isLoading = true;
     sendBtn.disabled = true;
     statusEl.textContent = 'Thinking…';
-    chipRow.querySelectorAll('.chat-chip').forEach(function(c){ c.classList.add('hidden'); });
+    chipRow.querySelectorAll('.chat-chip').forEach(function(c) { c.classList.add('hidden'); });
     appendMessage('user', userText);
     showTyping();
-    setTimeout(function () {
+    setTimeout(function() {
       removeTyping();
       var result = localAI(userText);
-      if (result.answer) appendMessage('ai', result.answer);
+      if (result.html) appendMessage('ai', result.html);
       if (result.specCard) {
         renderSpecCard(result.specCard);
         newChatBtn.classList.add('show');
@@ -797,7 +638,7 @@
     STATE = { system: null, brand: null, step: 'init' };
     specContainer.innerHTML = '';
     messagesEl.innerHTML = '';
-    chipRow.querySelectorAll('.chat-chip').forEach(function(c){ c.classList.remove('hidden'); });
+    chipRow.querySelectorAll('.chat-chip').forEach(function(c) { c.classList.remove('hidden'); });
     newChatBtn.classList.remove('show');
     statusEl.textContent = 'Ready';
     showGreeting();
@@ -808,32 +649,34 @@
   /* ── Greeting ── */
   function showGreeting() {
     appendMessage('ai',
-      "Hi! Tell me what you want to connect — for example:\n\n" +
-      "- *\"I want to control my Daikin AC from my phone\"*\n" +
-      "- *\"Connect my existing CCTV cameras to one app\"*\n" +
-      "- *\"How do I integrate lighting control with my smart home?\"*\n\n" +
-      "I'll give you the exact protocol, hardware, and indicative AED cost."
+      '<p>Hi! Tell me what you want to connect — for example:</p>' +
+      '<ul>' +
+        '<li>"I want to control my Daikin AC from my phone"</li>' +
+        '<li>"Connect my existing CCTV cameras to one app"</li>' +
+        '<li>"How do I integrate lighting control with my smart home?"</li>' +
+      '</ul>' +
+      '<p>I\'ll give you the exact protocol, hardware, and indicative AED cost.</p>'
     );
   }
 
   /* ── Events ── */
-  sendBtn.addEventListener('click', function () {
+  sendBtn.addEventListener('click', function() {
     var txt = inputEl.value.trim();
     if (txt) { inputEl.value = ''; sendMessage(txt); }
   });
-  inputEl.addEventListener('keydown', function (e) {
+  inputEl.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       var txt = inputEl.value.trim();
       if (txt) { inputEl.value = ''; sendMessage(txt); }
     }
   });
-  inputEl.addEventListener('input', function () {
+  inputEl.addEventListener('input', function() {
     this.style.height = 'auto';
     this.style.height = Math.min(this.scrollHeight, 120) + 'px';
   });
-  chipRow.querySelectorAll('.chat-chip').forEach(function (chip) {
-    chip.addEventListener('click', function () {
+  chipRow.querySelectorAll('.chat-chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
       var msg = this.getAttribute('data-msg');
       if (msg) sendMessage(msg);
     });
