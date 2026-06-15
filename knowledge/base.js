@@ -325,6 +325,180 @@ BOQ philosophy:
 - **Consumer retail** — ACE Hardware / Carrefour / Lulu for Philips Hue, Samsung, basic Wi-Fi devices
 - **Online (Amazon UAE / Noon)** — Tier 1 smart switches, cameras, wireless speakers, budget fixtures
 - **Specialist AV/automation dealers** — Crestron, Savant, Lutron Homeworks, Control4 require a certified dealer for supply and programming
+
+---
+
+## 13. SMART HOME & LIGHTING CONTROL BRAND INTELLIGENCE
+
+This section contains verified intelligence on the leading smart home and lighting control platforms. Data sourced from official brand websites (June 2026). Brand-neutral — no commercial relationship with any brand listed.
+
+---
+
+### LUTRON (Lighting Control — Premium to Ultra-Premium)
+**Origin:** Founded 1961, Coopersburg PA, USA. Industry benchmark for dimming quality.
+
+**Product tiers:**
+| Product Line     | Tier           | Wiring       | Best For                                   |
+|------------------|----------------|--------------|--------------------------------------------|
+| Homeworks QSX    | Ultra-premium  | Wired + RF   | Luxury estates, villas, custom programming |
+| RadioRA3         | Premium        | RF wireless  | Whole-home mid-large residential           |
+| Caseta Wireless  | Standard       | RF wireless  | Single-room or DIY smart lighting          |
+| Serena Shades    | Premium        | Motorized    | Integrated smart shading                   |
+
+**Protocols:** DALI, 0-10V, Clear Connect (proprietary RF — engineered interference-free on 434 MHz).
+**Dimming quality:** 0.1% smooth dimming, flicker-free, silent — the industry reference standard.
+**Voice integration:** Amazon Alexa, Google Assistant, Apple HomeKit, Siri.
+**3rd-party integration:** Crestron, Control4, Savant, Siemens, Apple HomeKit, Google Home.
+**Dealer model:** Homeworks QSX and RadioRA3 require a certified Lutron dealer for design, supply, and programming. Caseta is DIY/retail.
+**UAE:** Available through authorized Lutron dealers. Widely specified in UAE luxury villas and hospitality.
+
+---
+
+### SIGNIFY / PHILIPS LIGHTING (Full-Spectrum Lighting — Economy to Premium)
+**Origin:** Eindhoven, Netherlands. World's largest lighting company. Philips lighting brand licenses held by Signify.
+
+**Brands under Signify umbrella:**
+| Brand              | Segment                  | Notes                                                                   |
+|--------------------|--------------------------|-------------------------------------------------------------------------|
+| Philips (Professional) | B2B fixtures & drivers | Full range — indoor, outdoor, LED lamps, tubes; strong in UAE trade channel |
+| Philips Hue        | Residential IoT          | Color + White Ambiance; Zigbee/Wi-Fi; UAE retail widely available       |
+| Dynalite           | Commercial/Hospitality control | Scene-based DALI/DMX lighting control; widely specified in UAE hotels |
+| Interact           | Commercial IoT           | Cloud-based connected lighting: occupancy sensors, energy management    |
+| Colour Kinetics    | Architectural/entertainment | Dynamic RGB architectural lighting for facades, hospitality, stadia   |
+
+**Dynalite detail:** Philips Dynalite is a scene-based lighting control system used in UAE hotels and commercial buildings. Supports DALI, DMX, dry-contact. Programs preset scenes (Welcome, Meeting, Presentation, Evening). Integrates with BMS and HVAC. Commonly specified by M&E consultants for 4–5 star hotels.
+
+**UAE availability:** Trade distributor (professional range), ACE Hardware / Amazon UAE / Noon (Hue consumer range).
+
+---
+
+### CONTROL4 (Smart Home Automation — Mid to Premium)
+**Origin:** Salt Lake City, USA. Parent: ADI Global (formerly Snap One).
+**Current platform:** Control4 X4 OS (2025/2026) + Control4 OS3 legacy app.
+
+**What it does:** Whole-home automation OS — unified control of lighting, AV, HVAC, security, shades, locks, intercom, and pools from one interface.
+
+**Key features:**
+- **25,000+ third-party device integrations** — broadest compatibility ecosystem of any residential platform
+- **Scenes:** Good Morning, Away, Welcome, Cooking, Entertain, Goodnight — multi-device orchestration with one tap
+- **Voice:** Amazon Alexa, Google Assistant, Apple HomeKit (with CarPlay, Apple Widgets, Siri)
+- **Interfaces:** T5 touchscreen (wall-mount or portable), keypads, switches/dimmers, Control4 app (iOS + Android)
+- **Subscriptions:** Control4 Connect (remote access + voice), Assist/Assist Premium (remote dealer support), Luma Insights (AI security alerts for human/vehicle/package detection)
+
+**Lighting integrations Control4 supports:** Lutron, Dynalite, KNX, Deako, Leviton, iLight, Colorbeam, Rako, Fibaro, Philips.
+**Other integrations:** Hikvision, Axis cameras; Honeywell, Ecobee, Nest HVAC; Somfy, Hunter Douglas shades; Yale, Schlage, August locks; Sonos audio.
+**Tier:** Premium residential and small-to-mid commercial.
+**Dealer model:** Professional certified integrator required for installation and programming.
+**UAE:** Sold through certified Control4 integrators. Well established in UAE residential and hospitality.
+
+---
+
+### SAVANT (Smart Home Automation — Ultra-Premium)
+**Origin:** Founded 2005, Massachusetts, USA. Parent company of GE Lighting (since 2020).
+
+**Platform highlights:**
+- Single app (iOS/Android) controls lighting, climate, entertainment, security, and energy
+- **Savant Power System:** smart panel modules, battery backup, whole-home energy management — notable differentiator vs. Crestron/Control4
+- **GE Proseo:** professional-grade smart lighting and shading line (2025) — designed for Savant integration
+
+**Interfaces:**
+| Interface           | Description                                            |
+|---------------------|--------------------------------------------------------|
+| Savant App          | iOS/Android — primary control interface                |
+| Pro Remote X2       | 3.1" aluminum-chassis touchscreen remote               |
+| Touch Panels        | 5" and 8" wall-mount touch panels                      |
+| Metropolitan keypad | Architectural engraved keypad                          |
+| Echo keypad         | Minimalist flush-mount keypad                          |
+| Ascend keypad       | Mid-tier scene keypad                                  |
+
+**Voice:** Amazon Alexa, Google Assistant, Apple Siri — first whole-home automation brand with native Siri integration.
+**Audio:** Savant Music — whole-house audio distribution, lossless audio, Spotify/Deezer/streaming services.
+**Scenes:** "Movie Night", "Good Morning", "Dinner Party" — cross-system scenes across all subsystems.
+**Tier:** Ultra-premium residential. Positioned above Control4 and Crestron on price.
+**Dealer model:** Requires authorized Savant dealer for supply, design, and commissioning.
+**UAE relevance:** Specified in ultra-luxury villas and penthouses; priced for high-net-worth residential only.
+
+---
+
+### CRESTRON (Smart Home + Commercial Automation — Premium to Enterprise)
+**Origin:** Rockleigh, NJ, USA. Established 1969. Dual focus: residential (Crestron Home OS) and commercial/enterprise.
+**Current residential platform:** Crestron Home OS 4.10 (March 2026).
+
+**Residential products:**
+| Product                  | Description                                                          |
+|--------------------------|----------------------------------------------------------------------|
+| Horizon Keypads          | New (2026) — brushed metal finishes (brass, black), tactile response |
+| Cameo Keypads            | Flush-mount, custom engraving, multiple colors/textures              |
+| Cevo Mini Remote         | Ergonomic handheld, voice control, guided-touch for low-light        |
+| Crestron Home OS 4.10    | Latest firmware — expanded system size, new keypad partner support   |
+| DIN-DLI module (OS 4.9)  | DALI DT8 tunable white support (Jan 2026)                            |
+| SolarSync photosensor    | Circadian lighting — replicates natural daylight cycle indoors       |
+| Zūm Lighting             | Flexible commercial lighting control (separate from Home OS)         |
+
+**DMF PhaseX integration (2025):** Crestron partnered with DMF to integrate PhaseX — transmits DMX control signals over existing AC power cables. Benefits: 0.1% dimming, tunable white, no rewiring needed for retrofit, soft zone programming without opening ceilings. Artafex 2 and Artafex 4 fixture lines supported.
+
+**3rd-party integrations confirmed:** Lutron (shades), Philips Hue, Sony/Samsung/LG TVs, Sonos, BACnet HVAC, Yale locks, Hikvision/Dahua cameras, Ecobee, Origin Acoustics speakers, Somfy shades.
+
+**Commercial/enterprise:** Crestron DM (Digital Media) AV matrix switching, 80 Series touch screens, Microsoft Teams certified rooms, enterprise-scale AV-over-IP. Used in corporate offices, universities, government.
+
+**Tier:** Premium residential + enterprise commercial. Wider commercial portfolio than Control4 or Savant.
+**Dealer model:** Certified Crestron dealer required for residential. Certified programmer for commercial.
+**UAE relevance:** Strong commercial/enterprise presence in UAE (government, corporate). Residential specified in high-end villas and hospitality.
+
+---
+
+### EELECTRON (KNX Building Automation — Premium)
+**Origin:** Italian manufacturer, 30+ years in KNX. ISO 9001 + ISO 14001 certified. Made in Italy.
+**Scale:** 36,000+ hotel room installations globally; active in 90+ countries.
+
+**Product ranges:**
+| Range          | Key Products                                               | Primary Sector        |
+|----------------|------------------------------------------------------------|-----------------------|
+| OL-U           | Mechanical KNX switches, capacitive RGB bar                | Residential, Hospitality |
+| 9025           | KNX transponder/card reader, BLE beacon, KNX Secure        | Hospitality (hotel rooms) |
+| 3025           | Room control interface                                      | Hospitality, Commercial |
+| EELECTA        | Premium capacitive touch switches                          | Residential, High-end |
+| SINCHRONICITY  | Synchronized multi-channel lighting                        | Residential, Hospitality |
+| Multi.sensor   | Presence + environment sensing                             | Commercial, Healthcare |
+| XXTER          | KNX controller/gateway                                     | All sectors           |
+| PAIROT         | KNX voice assistant                                        | Residential           |
+
+**Device categories:** Actuators (DIN rail, valve), Climate & Lighting Control (dimmers, climate), Presence Sensors (DALI + KNX), DALI gateways, Thermostats, Capacitive and Mechanical switches, Touch Panels (IP + KNX), Gateways, Energy meters.
+**KNX Secure:** Eelectron is KNX Secure certified — encrypted communication for security-sensitive projects.
+**Hospitality speciality:** 9025 series handles hotel room access (card reader), BLE mobile key, and integrates room automation (lights, HVAC, curtains, DND sign) all on one KNX backbone.
+**Sectors:** Residential, Hospitality, Commercial building, Healthcare.
+**UAE relevance:** Good fit for UAE hotel and luxury residential KNX projects. Positioned between Siemens (commercial) and Schneider (mid-tier) for hospitality-focused KNX.
+
+---
+
+### SIEMENS DESIGO (Commercial Building Automation — Enterprise)
+**Origin:** Siemens Smart Infrastructure, Germany. Global building technology leader.
+
+**Platform overview:**
+| Product          | Scale                  | Use Case                                                         |
+|------------------|------------------------|------------------------------------------------------------------|
+| Desigo CC        | Large-scale            | Building management platform — HVAC, lighting, fire, energy, security unified |
+| Desigo Optic     | Small-to-medium        | Simplified BMS for smaller commercial buildings                  |
+
+**Key capabilities:** Operational efficiency, energy efficiency, carbon footprint reporting, fire safety integration, KNX-compatible, BACnet and LonWorks interoperability.
+**What Desigo CC integrates:** HVAC (Siemens VAV/fan coil controllers), lighting (DALI, KNX), fire detection (Cerberus FIT/PRO), access control, energy metering.
+**UAE relevance:** Siemens is dominant in large UAE commercial and government buildings (government towers, airports, hospitals, malls). Less common in pure residential. Specified by M&E consultants and main contractors, not typically by interior fit-out teams.
+**Dealer model:** Siemens Solution Partner ecosystem; engineering-led procurement, not retail.
+
+---
+
+### BRAND SELECTION GUIDE — When to Recommend Each Platform
+
+| Scenario                                          | Recommended Platform(s)              |
+|---------------------------------------------------|--------------------------------------|
+| UAE luxury villa, budget AED 150k+, full integration | Crestron Home or Savant            |
+| UAE luxury villa, budget AED 50–150k             | Control4 or Crestron Home            |
+| Hospitality (hotel rooms, 4–5 star)              | Eelectron KNX, Dynalite (Signify), Lutron Homeworks |
+| Commercial office / mixed-use tower              | Siemens Desigo, KNX (Siemens/ABB/Schneider) |
+| Lighting-only control, no full smart home        | Lutron RadioRA3 or Caseta, Dynalite  |
+| Consumer / DIY smart lighting                    | Philips Hue, Samsung SmartThings     |
+| KNX residential project with Italian finish      | Eelectron + ABB switches             |
+
 `;
 
 
