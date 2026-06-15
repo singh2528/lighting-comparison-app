@@ -6,6 +6,7 @@
 <title>AV &amp; Entertainment — Speakers, Multi-Room Audio &amp; Cinema | OnePoint Smart Home</title>
 <meta name="description" content="Compare wireless speakers, multi-room wired audio, and full AV distribution with a cinema room — with general-market indicative pricing per zone." />
 <link rel="stylesheet" href="assets/style.css" />
+<link rel="stylesheet" href="assets/results.css" />
 </head>
 <body>
 
@@ -186,10 +187,10 @@
 <!-- TODO: replace number -->
 <a class="wa-float" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">💬 WhatsApp</a>
 
+<script src="assets/results.js"></script>
 <script>
 (function(){
-  var btn = document.getElementById('showOptions');
-  var table = document.getElementById('avTable');
+  var btn     = document.getElementById('showOptions');
   var results = document.getElementById('avResults');
 
   var priceRanges = {
@@ -198,34 +199,25 @@
     full:   { lowPer: 5000, highPer: 12000, fixedLow: 15000, fixedHigh: 40000 }
   };
   var tierNames = {
-    basic: 'Wireless Speakers',
+    basic:  'Wireless Speakers',
     scenes: 'Multi-Room Wired Audio',
-    full: 'Full AV Distribution'
+    full:   'Full AV Distribution'
   };
-
-  function fmt(n) {
-    return 'AED ' + Math.round(n).toLocaleString('en-US');
-  }
+  var tierArr = [
+    { key:'basic',  name:tierNames.basic,  lowPer:800,  highPer:2000,  fixedLow:0,     fixedHigh:0 },
+    { key:'scenes', name:tierNames.scenes, lowPer:2500, highPer:5000,  fixedLow:3000,  fixedHigh:8000 },
+    { key:'full',   name:tierNames.full,   lowPer:5000, highPer:12000, fixedLow:15000, fixedHigh:40000 }
+  ];
 
   btn.addEventListener('click', function () {
-    var stage = document.getElementById('buildStage').value;
+    var stage     = document.getElementById('buildStage').value;
     var pointsRaw = parseInt(document.getElementById('pointCount').value, 10);
-    var level = document.getElementById('controlLevel').value;
-    var priority = document.getElementById('priority').value;
-    var points = (!pointsRaw || pointsRaw < 1) ? 5 : pointsRaw;
+    var level     = document.getElementById('controlLevel').value;
+    var priority  = document.getElementById('priority').value;
+    var points    = (!pointsRaw || pointsRaw < 1) ? 5 : pointsRaw;
 
-    // Highlight the matching column in the comparison table
-    var cells = table.querySelectorAll('[data-tier]');
-    for (var i = 0; i < cells.length; i++) {
-      if (cells[i].getAttribute('data-tier') === level) {
-        cells[i].classList.add('tier-highlight');
-      } else {
-        cells[i].classList.remove('tier-highlight');
-      }
-    }
-
-    var r = priceRanges[level];
-    var low = points * r.lowPer + r.fixedLow;
+    var r    = priceRanges[level];
+    var low  = points * r.lowPer + r.fixedLow;
     var high = points * r.highPer + r.fixedHigh;
 
     var note;
@@ -236,19 +228,28 @@
     } else if (level === 'basic' && priority === 'integration') {
       note = 'For best long-term integration, <b>Multi-Room Wired Audio</b> or Full AV Distribution will tie into lighting and curtain scenes (e.g. "Movie night") far better than independent wireless speakers.';
     } else if (priority === 'cost' && level !== 'basic') {
-      note = 'If lowest upfront cost is the priority, <b>Wireless Speakers</b> (basic) is the cheaper starting point — you can still add wired zones later.';
+      note = 'If lowest upfront cost is the priority, <b>Wireless Speakers</b> is the cheaper starting point — you can still add wired zones later.';
     } else {
       note = 'This tier fits your selection. Final zone count, speaker placement and pricing are confirmed once your design is reviewed.';
     }
 
-    results.innerHTML =
-      '<div class="card">' +
-        '<h3>' + tierNames[level] + ' <small>· ~' + points + ' zones</small></h3>' +
-        '<p><b>Indicative budget: ' + fmt(low) + ' – ' + fmt(high) + '</b></p>' +
-        '<p>' + note + '</p>' +
-      '</div>';
+    var icons = { basic:'🔊', scenes:'🎵', full:'🎬' };
 
-    document.getElementById('compare').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.OP.renderResult({
+      el:           results,
+      tierName:     tierNames[level],
+      units:        points,
+      unitLabel:    'zones',
+      low:          low,
+      high:         high,
+      note:         note,
+      tiers:        tierArr,
+      selectedTier: level,
+      noteIcon:     icons[level] || '💡'
+    });
+
+    window.OP.updateTierHighlight('avTable', level);
+    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });
 })();
 </script>

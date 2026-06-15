@@ -83,18 +83,6 @@
   .res-brand-best, .res-control-best { font-size:.76rem; color:rgba(200,220,250,.6); }
   .res-control-desc { font-size:.8rem; color:rgba(200,220,250,.7); margin-bottom:10px; line-height:1.5; }
 
-  /* AI search bar (same as index.html) */
-  .lg-ask-section { padding:40px 0 20px; }
-  .lg-searchbox { width:100%; max-width:640px; display:flex; margin:0 auto; border:1.5px solid rgba(0,212,255,.28); border-radius:999px; background:rgba(224,240,255,.96); box-shadow:0 12px 40px rgba(0,0,0,.35),0 0 0 4px rgba(0,212,255,.08); overflow:hidden; transition:border-color .2s,box-shadow .2s; }
-  .lg-searchbox:focus-within { border-color:var(--accent); box-shadow:0 12px 40px rgba(0,0,0,.35),0 0 0 5px rgba(0,212,255,.16); }
-  .lg-searchbox input { flex:1; border:none; padding:18px 24px; font-size:1rem; color:#071428; background:transparent; font-family:var(--font-body); }
-  .lg-searchbox input::placeholder { color:rgba(7,20,40,.38); }
-  .lg-searchbox input:focus { outline:none; }
-  .lg-searchbox button { border:none; background:var(--accent); color:var(--dark); font-weight:700; font-size:.95rem; padding:0 28px; cursor:pointer; transition:background .15s; }
-  .lg-searchbox button:hover { background:var(--accent-dark); }
-  .lg-answer-panel { max-width:640px; margin:14px auto 0; display:none; }
-  .lg-answer-panel.show { display:block; animation:ap-enter .45s cubic-bezier(.16,1,.3,1) both; }
-
   @media(max-width:600px) {
     .res-summary-stats { grid-template-columns:repeat(2,1fr); }
     .res-brand-cards, .res-control-cards { grid-template-columns:1fr; }
@@ -197,20 +185,6 @@
   </div>
 </section>
 
-<!-- AI lighting advisor -->
-<section class="lg-ask-section">
-  <div class="wrap reveal" style="text-align:center;">
-    <span class="kicker">AI advisor</span>
-    <h2 class="sec" style="font-size:clamp(1.3rem,3vw,1.9rem);margin-bottom:10px;">Still have lighting questions?</h2>
-    <p class="sub" style="margin-bottom:22px;max-width:520px;margin-left:auto;margin-right:auto;">Ask anything — lux levels, fixture types, CCT, dimming, brands, costs.</p>
-    <form class="lg-searchbox" id="askForm">
-      <input type="text" id="askInput" placeholder="e.g. How many downlights for a 200 sq ft kitchen?" autocomplete="off" />
-      <button type="submit">Ask</button>
-    </form>
-    <div class="lg-answer-panel" id="answerPanel"></div>
-  </div>
-</section>
-
 <!-- Educational lighting knowledge quiz -->
 <section style="padding-top:50px;">
   <div class="wrap reveal" style="text-align:center;">
@@ -254,7 +228,6 @@
 
 <script src="assets/calculator.js"></script>
 <script src="assets/motion.js"></script>
-<script src="assets/search.js"></script>
 
 <!-- Educational lighting quiz -->
 <script>

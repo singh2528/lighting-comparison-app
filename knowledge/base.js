@@ -273,50 +273,58 @@ BOQ philosophy:
 
 ## 12. UAE LIGHTING SUPPLIERS & BRAND ECOSYSTEM
 
-### Scientechnic (Al Gurg Group)
-- One of UAE's largest and most established lighting + building technology companies
-- Headquartered in Dubai (P.O. Box 25490); part of the Al Gurg Group conglomerate
-- KNX-certified integrator and official distributor for key European brands
-- Major projects: Expo 2020 Dubai, Sheikh Zayed Grand Mosque (Abu Dhabi), Dubai Water Canal, Warner Bros. World, City Walk Dubai, Legoland Dubai, IMG Worlds of Adventure, Wahat Al Karama
+### UAE Lighting Brand Ecosystem
 
-**Scientechnic Lighting Brands (official distributor/partner):**
-| Brand      | Origin  | Category                          | Notes                                      |
-|------------|---------|-----------------------------------|--------------------------------------------|
-| Siemens    | Germany | Building automation, KNX systems  | KNX bus devices, HVAC integration          |
-| OSRAM      | Germany | Professional LED fixtures         | Wide range: downlights, track, outdoor     |
-| LEDVANCE   | Germany | General LED lighting              | Spun off from OSRAM; residential + commercial|
-| ERCO       | Germany | Architectural / museum lighting   | High-end accent, facade, hospitality       |
-| Borri      | Italy   | UPS / power protection            | For data/AV rack power                     |
-| Nikkon     | —       | Electrical / lighting components  | Available through Scientechnic             |
-| Olympia Electronics | Greece | Fire & safety systems      | Detection, alarm panels                    |
+**Premium / Professional LED brands active in UAE market:**
+| Brand               | Tier       | Category                          | Notes                                                  |
+|---------------------|------------|-----------------------------------|--------------------------------------------------------|
+| OSRAM               | Premium    | Professional LED fixtures         | Commercial & architectural; widely used in UAE hospitality and government projects |
+| LEDVANCE            | Standard–Premium | General LED lighting        | Strong in residential + commercial; good DALI driver range |
+| ERCO                | Premium    | Architectural / museum lighting   | High-end accent, facade, hospitality, museum; tight beam optics |
+| Philips/Signify     | Standard–Premium | Full LED range              | Widest product range; Hue for residential smart lighting |
+| Havells             | Economy–Standard | General LED               | Widely stocked; strong value proposition for bulk residential |
+| NVC Lighting        | Economy–Standard | Commercial LED            | Popular in UAE fit-outs; good panel and downlight range |
 
-**Scientechnic Lighting Control Brands:**
-| Brand     | Protocol  | Tier     | Notes                                             |
-|-----------|-----------|----------|---------------------------------------------------|
-| Lutron    | Proprietary / DALI | Premium | RadioRA3, Homeworks — industry benchmark for dimming |
-| Dynalite  | DALI / Ethernet | Mid–Premium | Philips Dynalite; hotel/villa lighting scenes |
-| Control4  | IP / KNX  | Premium  | Full smart home platform; AV + lighting + HVAC   |
-| Vimar     | KNX / IoT | Mid      | Italian brand; switches, keypads, KNX modules    |
-| KNX       | KNX bus   | Premium  | Open standard; Scientechnic is KNX certified     |
+**Lighting segments and what professionals specify:**
+- **Construction & development** — OSRAM/LEDVANCE/Philips for commercial; ERCO for feature and facade; Havells/NVC for economy fit-out
+- **Hospitality (hotels, restaurants, lounges)** — mood/colour lighting, ERCO for accent, LEDVANCE/Osram for back-of-house; DALI control universal for dimming scenes
+- **Healthcare** — CRI 90+ mandatory; flicker-free drivers; Philips Healthcare or OSRAM professional ranges
+- **Education** — 300–500 lux, CRI 80+, glare-controlled; panel lights dominant; smart controls for energy saving
+- **Government/public** — sustainable retrofit; LED streetlight replacement; energy-efficiency mandated by UAE Green Building Regulations
+
+**UAE ELV & Building Systems brand intelligence:**
+| Category                | Common brands in UAE market              | Notes                                    |
+|-------------------------|------------------------------------------|------------------------------------------|
+| KNX building automation | Siemens, ABB, Schneider Electric, Legrand | All KNX-certified; Siemens dominant for commercial |
+| Fire detection          | Olympia Electronics, Protec, Notifier, Bosch | UAE Civil Defence approval required for all fire systems |
+| Security/CCTV           | Hikvision, Dahua, Axis (premium)         | SIRA (Security Industry Regulatory Agency) approval required in Dubai |
+| UPS / critical power    | Borri, APC, Eaton                        | Needed for AV racks, NVR, smart home processors |
+| Intercom / access       | Comelit, 2N, HID, Suprema               | Common in UAE villa and commercial projects |
+
+**UAE compliance notes for ELV projects:**
+- Fire detection systems: must be Civil Defence Approved (contractor + products)
+- Security/CCTV in Dubai: SIRA approval required for security systems companies
+- Green Building Regulations (Dubai): minimum efficacy and energy targets for lighting in new builds
+- DEWA/ADDC compliance: electrical first-fix inspection before ceiling close-in
 
 ### Other Key UAE Lighting & Automation Distributors/Brands
 - **Philips Lighting (Signify)** — widely available across all retail + trade channels; Hue for residential smart lighting
 - **Havells** — budget–mid tier; widely stocked in UAE electrical wholesale
 - **Legrand** — wiring devices, KNX modules, data infrastructure; strong in UAE commercial
 - **Schneider Electric** — KNX, DALI control gear, electrical distribution panels
-- **ABB** — KNX certified; high-end switches (Busch-Jaeger, Busch-free@home) and automation
+- **ABB** — KNX certified; high-end switches (Busch-Jaeger, Busch-free@home) and building automation
 - **Somfy** — motorised curtains/blinds; leading curtain motor brand in UAE
+- **Lutron** — premium lighting control (RadioRA3, Homeworks); requires certified dealer; benchmark for dimming
 - **Hikvision / Dahua** — dominant CCTV brands in UAE; widely available through security distributors
 - **Samsung (SmartThings)** — available through Samsung UAE; appliance + lighting automation hub
 - **Sonos** — distributed audio; available through AV retailers in UAE
 
 ### Buying Channels in UAE
-- **Scientechnic** — B2B, project supply; OSRAM, LEDVANCE, ERCO, Lutron, Control4
-- **Tradeline (Dubai)** — lighting fixtures, trade channel
-- **ATCO Electrical** — wholesale electrical and lighting components
-- **ACE Hardware / Carrefour / Lulu** — consumer-grade smart home (Philips Hue, Samsung, basic Wi-Fi devices)
-- **Amazon UAE / Noon** — online; best for Tier 1 smart switches, cameras, wireless speakers
-- **Specialist AV dealers** — Crestron, Savant, Lutron Homeworks require certified dealer installation
+- **Electrical wholesale / trade** — OSRAM, LEDVANCE, Havells, Siemens, Schneider available through trade distributors; B2B, no walk-in retail
+- **Lighting showrooms** — Tradeline and similar for premium residential fixtures
+- **Consumer retail** — ACE Hardware / Carrefour / Lulu for Philips Hue, Samsung, basic Wi-Fi devices
+- **Online (Amazon UAE / Noon)** — Tier 1 smart switches, cameras, wireless speakers, budget fixtures
+- **Specialist AV/automation dealers** — Crestron, Savant, Lutron Homeworks, Control4 require a certified dealer for supply and programming
 `;
 
 

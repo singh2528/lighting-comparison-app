@@ -6,6 +6,7 @@
 <title>Climate / HVAC — Thermostats, Zoning &amp; BMS Integration | OnePoint Smart Home</title>
 <meta name="description" content="Compare smart thermostats, zoned smart control, and full BMS/VRF integration — with general-market indicative pricing per AC zone." />
 <link rel="stylesheet" href="assets/style.css" />
+<link rel="stylesheet" href="assets/results.css" />
 </head>
 <body>
 
@@ -186,10 +187,10 @@
 <!-- TODO: replace number -->
 <a class="wa-float" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">💬 WhatsApp</a>
 
+<script src="assets/results.js"></script>
 <script>
 (function(){
-  var btn = document.getElementById('showOptions');
-  var table = document.getElementById('hvacTable');
+  var btn     = document.getElementById('showOptions');
   var results = document.getElementById('hvacResults');
 
   var priceRanges = {
@@ -198,34 +199,25 @@
     full:   { lowPer: 3500, highPer: 7000, fixedLow: 10000, fixedHigh: 25000 }
   };
   var tierNames = {
-    basic: 'Smart Thermostats',
+    basic:  'Smart Thermostats',
     scenes: 'Zoned Smart Control',
-    full: 'Full BMS/VRF Integration'
+    full:   'Full BMS/VRF Integration'
   };
-
-  function fmt(n) {
-    return 'AED ' + Math.round(n).toLocaleString('en-US');
-  }
+  var tierArr = [
+    { key:'basic',  name:tierNames.basic,  lowPer:800,  highPer:1800, fixedLow:0,     fixedHigh:0 },
+    { key:'scenes', name:tierNames.scenes, lowPer:1800, highPer:3500, fixedLow:1000,  fixedHigh:2500 },
+    { key:'full',   name:tierNames.full,   lowPer:3500, highPer:7000, fixedLow:10000, fixedHigh:25000 }
+  ];
 
   btn.addEventListener('click', function () {
-    var stage = document.getElementById('buildStage').value;
+    var stage     = document.getElementById('buildStage').value;
     var pointsRaw = parseInt(document.getElementById('pointCount').value, 10);
-    var level = document.getElementById('controlLevel').value;
-    var priority = document.getElementById('priority').value;
-    var points = (!pointsRaw || pointsRaw < 1) ? 6 : pointsRaw;
+    var level     = document.getElementById('controlLevel').value;
+    var priority  = document.getElementById('priority').value;
+    var points    = (!pointsRaw || pointsRaw < 1) ? 6 : pointsRaw;
 
-    // Highlight the matching column in the comparison table
-    var cells = table.querySelectorAll('[data-tier]');
-    for (var i = 0; i < cells.length; i++) {
-      if (cells[i].getAttribute('data-tier') === level) {
-        cells[i].classList.add('tier-highlight');
-      } else {
-        cells[i].classList.remove('tier-highlight');
-      }
-    }
-
-    var r = priceRanges[level];
-    var low = points * r.lowPer + r.fixedLow;
+    var r    = priceRanges[level];
+    var low  = points * r.lowPer + r.fixedLow;
     var high = points * r.highPer + r.fixedHigh;
 
     var note;
@@ -236,19 +228,28 @@
     } else if (level === 'basic' && priority === 'integration') {
       note = 'For best long-term integration, <b>Zoned Smart Control</b> or Full BMS/VRF Integration will sync with curtains and lighting scenes (e.g. close curtains + adjust AC before peak heat) far better than basic thermostats alone.';
     } else if (priority === 'cost' && level !== 'basic') {
-      note = 'If lowest upfront cost is the priority, <b>Smart Thermostats</b> (basic) is the cheaper starting point — you can still add zoning later.';
+      note = 'If lowest upfront cost is the priority, <b>Smart Thermostats</b> is the cheaper starting point — you can still add zoning later.';
     } else {
       note = 'This tier fits your selection. Final zone count, sensor placement and pricing are confirmed once your design is reviewed.';
     }
 
-    results.innerHTML =
-      '<div class="card">' +
-        '<h3>' + tierNames[level] + ' <small>· ~' + points + ' zones</small></h3>' +
-        '<p><b>Indicative budget: ' + fmt(low) + ' – ' + fmt(high) + '</b></p>' +
-        '<p>' + note + '</p>' +
-      '</div>';
+    var icons = { basic:'❄️', scenes:'🌡️', full:'🏢' };
 
-    document.getElementById('compare').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.OP.renderResult({
+      el:           results,
+      tierName:     tierNames[level],
+      units:        points,
+      unitLabel:    'zones',
+      low:          low,
+      high:         high,
+      note:         note,
+      tiers:        tierArr,
+      selectedTier: level,
+      noteIcon:     icons[level] || '💡'
+    });
+
+    window.OP.updateTierHighlight('hvacTable', level);
+    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });
 })();
 </script>

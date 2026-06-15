@@ -6,6 +6,7 @@
 <title>CCTV &amp; Security — Cameras, Access Control &amp; Alarms | OnePoint Smart Home</title>
 <meta name="description" content="Compare Wi-Fi cameras, PoE cameras with NVR, and full security with access control — with general-market indicative pricing per camera." />
 <link rel="stylesheet" href="assets/style.css" />
+<link rel="stylesheet" href="assets/results.css" />
 </head>
 <body>
 
@@ -186,10 +187,10 @@
 <!-- TODO: replace number -->
 <a class="wa-float" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">💬 WhatsApp</a>
 
+<script src="assets/results.js"></script>
 <script>
 (function(){
-  var btn = document.getElementById('showOptions');
-  var table = document.getElementById('cctvTable');
+  var btn     = document.getElementById('showOptions');
   var results = document.getElementById('cctvResults');
 
   var priceRanges = {
@@ -198,34 +199,25 @@
     full:   { lowPer: 1200, highPer: 2500, fixedLow: 8000, fixedHigh: 20000 }
   };
   var tierNames = {
-    basic: 'Wi-Fi Cameras (DIY)',
+    basic:  'Wi-Fi Cameras (DIY)',
     scenes: 'PoE Cameras + NVR',
-    full: 'Full Security & Access Control'
+    full:   'Full Security & Access Control'
   };
-
-  function fmt(n) {
-    return 'AED ' + Math.round(n).toLocaleString('en-US');
-  }
+  var tierArr = [
+    { key:'basic',  name:tierNames.basic,  lowPer:300,  highPer:700,  fixedLow:0,    fixedHigh:0 },
+    { key:'scenes', name:tierNames.scenes, lowPer:700,  highPer:1500, fixedLow:1500, fixedHigh:3500 },
+    { key:'full',   name:tierNames.full,   lowPer:1200, highPer:2500, fixedLow:8000, fixedHigh:20000 }
+  ];
 
   btn.addEventListener('click', function () {
-    var stage = document.getElementById('buildStage').value;
+    var stage     = document.getElementById('buildStage').value;
     var pointsRaw = parseInt(document.getElementById('pointCount').value, 10);
-    var level = document.getElementById('controlLevel').value;
-    var priority = document.getElementById('priority').value;
-    var points = (!pointsRaw || pointsRaw < 1) ? 6 : pointsRaw;
+    var level     = document.getElementById('controlLevel').value;
+    var priority  = document.getElementById('priority').value;
+    var points    = (!pointsRaw || pointsRaw < 1) ? 6 : pointsRaw;
 
-    // Highlight the matching column in the comparison table
-    var cells = table.querySelectorAll('[data-tier]');
-    for (var i = 0; i < cells.length; i++) {
-      if (cells[i].getAttribute('data-tier') === level) {
-        cells[i].classList.add('tier-highlight');
-      } else {
-        cells[i].classList.remove('tier-highlight');
-      }
-    }
-
-    var r = priceRanges[level];
-    var low = points * r.lowPer + r.fixedLow;
+    var r    = priceRanges[level];
+    var low  = points * r.lowPer + r.fixedLow;
     var high = points * r.highPer + r.fixedHigh;
 
     var note;
@@ -236,19 +228,28 @@
     } else if (level === 'basic' && priority === 'integration') {
       note = 'For best long-term integration, <b>PoE Cameras + NVR</b> or Full Security &amp; Access Control will tie into lighting scenes (e.g. motion at night triggers lights) far better than standalone Wi-Fi cameras.';
     } else if (priority === 'cost' && level !== 'basic') {
-      note = 'If lowest upfront cost is the priority, <b>Wi-Fi Cameras (DIY)</b> (basic) is the cheaper starting point — note this usually comes with a cloud storage subscription.';
+      note = 'If lowest upfront cost is the priority, <b>Wi-Fi Cameras (DIY)</b> is the cheaper starting point — note this usually comes with a cloud storage subscription.';
     } else {
       note = 'This tier fits your selection. Final camera count, placement and pricing are confirmed once your design is reviewed.';
     }
 
-    results.innerHTML =
-      '<div class="card">' +
-        '<h3>' + tierNames[level] + ' <small>· ~' + points + ' cameras</small></h3>' +
-        '<p><b>Indicative budget: ' + fmt(low) + ' – ' + fmt(high) + '</b></p>' +
-        '<p>' + note + '</p>' +
-      '</div>';
+    var icons = { basic:'📷', scenes:'🔒', full:'🛡️' };
 
-    document.getElementById('compare').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.OP.renderResult({
+      el:           results,
+      tierName:     tierNames[level],
+      units:        points,
+      unitLabel:    'cameras',
+      low:          low,
+      high:         high,
+      note:         note,
+      tiers:        tierArr,
+      selectedTier: level,
+      noteIcon:     icons[level] || '💡'
+    });
+
+    window.OP.updateTierHighlight('cctvTable', level);
+    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });
 })();
 </script>

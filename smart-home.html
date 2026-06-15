@@ -11,21 +11,6 @@
   .system-grid .tilt-wrap { display: flex; }
   .system-grid .tilt-card { flex: 1; }
 
-  /* AI search bar */
-  .sh-ask-wrap { text-align:center; padding:32px 0 20px; }
-  .sh-searchbox { width:100%; max-width:640px; display:flex; margin:0 auto; border:1.5px solid rgba(0,212,255,.28); border-radius:999px; background:rgba(224,240,255,.96); box-shadow:0 12px 40px rgba(0,0,0,.35),0 0 0 4px rgba(0,212,255,.08); overflow:hidden; transition:border-color .2s,box-shadow .2s; }
-  .sh-searchbox:focus-within { border-color:var(--accent); box-shadow:0 12px 40px rgba(0,0,0,.35),0 0 0 5px rgba(0,212,255,.16); }
-  .sh-searchbox input { flex:1; border:none; padding:18px 24px; font-size:1rem; color:#071428; background:transparent; font-family:var(--font-body); }
-  .sh-searchbox input::placeholder { color:rgba(7,20,40,.38); }
-  .sh-searchbox input:focus { outline:none; }
-  .sh-searchbox button { border:none; background:var(--accent); color:var(--dark); font-weight:700; font-size:.95rem; padding:0 28px; cursor:pointer; transition:background .15s; }
-  .sh-searchbox button:hover { background:var(--accent-dark); }
-  .sh-answer-panel { max-width:640px; margin:14px auto 0; display:none; }
-  .sh-answer-panel.show { display:block; animation:ap-enter .45s cubic-bezier(.16,1,.3,1) both; }
-  .sh-chips { display:flex; gap:9px; flex-wrap:wrap; justify-content:center; margin-top:16px; max-width:600px; margin-left:auto; margin-right:auto; }
-  .sh-chip { border:1px solid rgba(255,255,255,.1); border-radius:999px; padding:6px 14px; font-size:.8rem; color:rgba(200,220,250,.45); background:rgba(255,255,255,.03); cursor:pointer; transition:all .15s; }
-  .sh-chip:hover { border-color:var(--accent); color:var(--accent); background:rgba(0,212,255,.05); }
-
   /* Premium quiz result */
   .sh-result-card { background:rgba(6,14,34,.92); border:1px solid rgba(0,212,255,.2); border-radius:16px; overflow:hidden; text-align:left; }
   .sh-result-bar { height:2px; background:linear-gradient(90deg,var(--accent) 0%,rgba(0,212,255,.3) 60%,transparent); }
@@ -60,25 +45,6 @@
     <span class="kicker">Smart Home</span>
     <h1 style="font-size:clamp(1.6rem,3.5vw,2.4rem);">Every system, designed to work as one</h1>
     <p class="lead" style="margin-bottom:0;">A smart home is more than smart lighting. It's lighting, entertainment, climate, security and curtains, all responding to the same scenes and schedules — instead of five separate apps that don't talk to each other.</p>
-  </div>
-</section>
-
-<!-- AI advisor bar -->
-<section class="alt" style="padding:36px 0 28px;">
-  <div class="wrap sh-ask-wrap reveal">
-    <span class="kicker">AI advisor</span>
-    <h2 class="sec" style="font-size:clamp(1.3rem,3vw,1.9rem);margin-bottom:10px;">Ask anything about smart home</h2>
-    <p class="sub" style="margin-bottom:22px;max-width:520px;margin-left:auto;margin-right:auto;">Costs, systems, brands, what works in a retrofit — ask and get a real answer.</p>
-    <form class="sh-searchbox" id="askForm">
-      <input type="text" id="askInput" placeholder="e.g. What does a 4BHK smart home cost in Dubai?" autocomplete="off" />
-      <button type="submit">Ask</button>
-    </form>
-    <div class="sh-answer-panel" id="answerPanel"></div>
-    <div class="sh-chips">
-      <span class="chip">What does a 3BHK smart home cost?</span>
-      <span class="chip">Can I add smart home to a finished villa?</span>
-      <span class="chip">KNX vs smart switches — which is better?</span>
-    </div>
   </div>
 </section>
 
@@ -291,7 +257,6 @@
 <a class="wa-float" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">💬 WhatsApp</a>
 
 <script src="assets/motion.js"></script>
-<script src="assets/search.js"></script>
 
 <!-- System finder quiz logic -->
 <script>
