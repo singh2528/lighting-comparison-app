@@ -454,18 +454,213 @@
 (function () {
   'use strict';
 
-  /* ── State ── */
-  var conversationHistory = [];
+  /* ═══════════════════════════════════════════════════════════════
+     LOCAL INTEGRATION KNOWLEDGE BASE — no server required
+     ═══════════════════════════════════════════════════════════════ */
+  var KB = {
+    sysLabel: {
+      hvac:     'HVAC / AC',
+      lighting: 'Lighting Control',
+      av:       'AV & Entertainment',
+      cctv:     'CCTV & Security',
+      curtains: 'Curtains & Blinds'
+    },
+    keywords: {
+      hvac:     ['daikin','mitsubishi','samsung ac','lg ac','lg hvac','hitachi ac','panasonic ac','gree','carrier','york','trane','toshiba ac','vrf','vrv','chiller','split unit','split ac','air conditioning','air conditioner','hvac','thermostat','climate control'],
+      lighting: ['dali','knx','lutron','casambi','philips hue','lighting control','smart switch','dimmer','light scene','light automation'],
+      av:       ['sonos','denon','marantz','bose speaker','home theatre','home theater','av system','cinema','projector','multi-room audio','multi room audio'],
+      cctv:     ['hikvision','dahua','axis camera','reolink','cctv','security camera','nvr','dvr','doorbell camera','intercom','access control','smart lock'],
+      curtains: ['somfy','dooya','motorised curtain','motorized curtain','motorised blind','motorized blind','curtain motor','blind motor','roller blind motor']
+    },
+    brandMap: {
+      daikin:'hvac', mitsubishi:'hvac', 'lg ac':'hvac', 'samsung ac':'hvac',
+      hitachi:'hvac', panasonic:'hvac', gree:'hvac', carrier:'hvac',
+      york:'hvac', toshiba:'hvac',
+      sonos:'av', denon:'av', marantz:'av', bose:'av',
+      hikvision:'cctv', dahua:'cctv', reolink:'cctv',
+      somfy:'curtains', dooya:'curtains', 'am blinds':'curtains', rollease:'curtains',
+      hue:'lighting', 'philips hue':'lighting', casambi:'lighting',
+      lutron:'lighting', dali:'lighting', knx:'lighting'
+    },
+    specs: {
+      hvac: {
+        'daikin':     { protocol:'BACnet/IP · DIII-NET', hardware:'DMS504B07 BACnet Gateway', cost:'AED 1,800 – 2,800', integrator:'Yes — Daikin-certified', note:'For VRF/DX systems. Residential splits use an IR blaster (AED 150–350) — but no status feedback.' },
+        'mitsubishi': { protocol:'BACnet / Modbus RTU', hardware:'PAC-IF013B-E Gateway or CN-CNT571', cost:'AED 2,000 – 3,500', integrator:'Yes — City Multi certified', note:'For Mitsubishi City Multi VRF. Splits: MAC-333IF Wi-Fi adaptor for basic app control.' },
+        'lg':         { protocol:'LG ThinQ Wi-Fi / BACnet', hardware:'AC Smart 6 or ThinQ dongle', cost:'AED 900 – 2,000', integrator:'Optional for Wi-Fi tier', note:'ThinQ dongle enables app/voice without integrator. AC Smart 6 needed for KNX or Crestron integration.' },
+        'samsung':    { protocol:'RS-485 · Modbus · SmartThings', hardware:'MIM-B19N or MIM-D30EN Gateway', cost:'AED 800 – 2,200', integrator:'Optional for SmartThings', note:'SmartThings for app/voice. D30EN gateway for KNX, Crestron, or AMX integration.' },
+        'hitachi':    { protocol:'Modbus RTU / BACnet', hardware:'UTC-1 or HVIU-10K Gateway', cost:'AED 2,000 – 3,500', integrator:'Yes', note:'Hitachi VRF systems. Residential units: IR blaster for basic control.' },
+        'panasonic':  { protocol:'Modbus RTU', hardware:'CZ-CFUNC1U + Modbus Module', cost:'AED 1,500 – 2,800', integrator:'Yes', note:'Panasonic VRF. CZ-TAW1 Wi-Fi adaptor for split unit app control.' },
+        'gree':       { protocol:'IR / Wi-Fi (proprietary)', hardware:'Gree Wi-Fi module or IR blaster', cost:'AED 150 – 500', integrator:'No', note:'No direct bus gateway. IR blaster is the practical option — but gives no status feedback.' },
+        'carrier':    { protocol:'BACnet / Modbus', hardware:'CCN Gateway or i-Vu Touch', cost:'AED 2,500 – 4,500', integrator:'Yes — Carrier certified', note:'Commercial-grade integration. Residential Carrier splits: IR blaster.' },
+        'toshiba':    { protocol:'Modbus RTU / BACnet', hardware:'TCB-PCNT30TLE2 BACnet Adaptor', cost:'AED 1,800 – 3,200', integrator:'Yes', note:'Toshiba VRF. Basic Wi-Fi control via dedicated adaptor.' },
+        'default':    { protocol:'IR / Wi-Fi (generic)', hardware:'Broadlink RM4 Pro or Tuya IR Blaster', cost:'AED 150 – 350', integrator:'No', note:'For brands without a direct gateway. IR blasters control the AC but cannot confirm the AC changed state — no feedback loop.' }
+      },
+      lighting: {
+        'hue':      { protocol:'Zigbee / Matter / IP', hardware:'Philips Hue Bridge v2', cost:'AED 550 – 750 (bridge) + AED 150–500/bulb', integrator:'No', note:'Self-installed. Bridge supports up to 50 lights. Matter links natively to Apple Home, Google, and Alexa.' },
+        'dali':     { protocol:'DALI-2 (addressable wired bus)', hardware:'DALI-2 Controller + DALI PSU', cost:'AED 3,000 – 9,000 (system cost)', integrator:'Yes — DALI-certified', note:'Industry standard for addressable architectural lighting. Requires DALI wiring during construction.' },
+        'lutron':   { protocol:'Clear Connect RF / Caséta / RA3', hardware:'Smart Bridge Pro (Caséta) or RA3 Processor', cost:'AED 2,800 – 10,000+', integrator:'No for Caséta · Yes for RA3', note:'Caséta is retrofit-friendly wireless. RadioRA 3 is the premium tier with keypads and full scene control.' },
+        'knx':      { protocol:'KNX/EIB (twisted pair bus)', hardware:'KNX IP Gateway + certified devices', cost:'AED 6,000 – 30,000+ (system)', integrator:'Yes — ETS-certified KNX integrator', note:'Most scalable bus standard. Must be wired during construction. Devices programmed via ETS software.' },
+        'casambi':  { protocol:'Bluetooth Mesh (BLE)', hardware:'Casambi-enabled LED drivers (no hub)', cost:'AED 400 – 1,200/driver', integrator:'Optional', note:'Retrofit-friendly wireless. No gateway required. Commissioning via Casambi app. Also integrates with Crestron and AMX.' },
+        'default':  { protocol:'Wi-Fi / Zigbee (Tuya)', hardware:'Tuya Smart Switch or Zigbee Hub', cost:'AED 80 – 300/switch', integrator:'No', note:'Widely available smart switches compatible with Alexa, Google Home, and Apple Home.' }
+      },
+      av: {
+        'sonos':   { protocol:'REST API / AirPlay 2 / Ethernet', hardware:'No additional hardware', cost:'AED 0 (integration built-in)', integrator:'No', note:'Integrates natively with Crestron, Control4, and Savant. Wired Ethernet recommended over Wi-Fi.' },
+        'samsung': { protocol:'SmartThings API / Tizen IP Control', hardware:'No additional hardware', cost:'AED 0 for app control', integrator:'Optional', note:'Samsung TVs support IP commands on local network. SmartThings enables voice and scene integration.' },
+        'lg':      { protocol:'WebOS REST API / IP', hardware:'No additional hardware', cost:'AED 0', integrator:'No', note:'LG Smart TVs have built-in WebOS IP control. Compatible with Control4 and Crestron drivers.' },
+        'sony':    { protocol:'Bravia IP Control / REST API', hardware:'No additional hardware', cost:'AED 0', integrator:'No', note:'Enable "Remote start" in Sony Bravia network settings. Full IP control, no gateway needed.' },
+        'denon':   { protocol:'IP Telnet / HEOS API', hardware:'No additional hardware', cost:'AED 0', integrator:'No', note:'Denon AVRs are IP-native. HEOS enables multi-room audio grouping.' },
+        'bose':    { protocol:'SoundTouch API / AirPlay 2', hardware:'No additional hardware', cost:'AED 0', integrator:'No', note:'Bose Smart speakers support AirPlay 2 for Apple Home. SoundTouch API for legacy products.' },
+        'default': { protocol:'HDMI-CEC / IP / IR', hardware:'Broadlink RM4 Pro or Global Caché iTach IP2IR', cost:'AED 200 – 700', integrator:'No', note:'For AV devices without IP control, an IR blaster handles commands from the automation system. Global Caché is the professional standard.' }
+      },
+      cctv: {
+        'hikvision': { protocol:'ONVIF / RTSP / Hik-Connect API', hardware:'Hikvision PoE NVR (optional)', cost:'AED 400–1,400/camera · NVR AED 1,000–4,000', integrator:'Optional', note:'Hik-Connect for remote access. ONVIF makes cameras compatible with third-party NVRs and VMS platforms.' },
+        'dahua':     { protocol:'ONVIF / RTSP / DMSS API', hardware:'Dahua PoE NVR (optional)', cost:'AED 350–1,100/camera · NVR AED 900–3,200', integrator:'Optional', note:'DMSS app for remote access. ONVIF for third-party NVR compatibility.' },
+        'axis':      { protocol:'VAPIX / ONVIF / RTSP', hardware:'AXIS Camera Station NVR (optional)', cost:'AED 1,200–4,000/camera', integrator:'Recommended for enterprise', note:'Premium IP cameras. VAPIX API enables deep integration with access control and alarm systems.' },
+        'reolink':   { protocol:'RTSP / ONVIF', hardware:'Reolink PoE NVR (optional)', cost:'AED 200–700/camera', integrator:'No', note:'Budget-friendly with RTSP support. Compatible with most NVR software. App-based setup.' },
+        'default':   { protocol:'ONVIF / RTSP', hardware:'PoE switch + IP NVR', cost:'AED 300–1,500/camera (brand-dependent)', integrator:'Optional', note:'Most IP cameras support ONVIF for interoperability. PoE switch powers wired cameras. NVR handles recording and remote access.' }
+      },
+      curtains: {
+        'somfy':     { protocol:'RTS (RF) / io-homecontrol / RS-485', hardware:'TaHoma Switch Hub', cost:'AED 500–1,200 (hub) · AED 400–900/motor', integrator:'No for app · Yes for RS-485 bus', note:'TaHoma enables app, Alexa, Google, and Apple Home. Use SDN (RS-485) motors for KNX or Crestron integration.' },
+        'dooya':     { protocol:'RF 433MHz / RS-485 / DC-Bus', hardware:'Dooya hub or RS-485 converter', cost:'AED 300–700/motor · hub AED 200–500', integrator:'Optional', note:'Widely used in UAE. RF remotes work standalone. RS-485 bus version for scene/whole-home integration.' },
+        'am blinds': { protocol:'Tuya Wi-Fi / RF 433MHz', hardware:'Tuya hub (optional) or direct Wi-Fi', cost:'AED 250–550/motor', integrator:'No', note:'Works with SmartLife, Alexa, and Google Home. Battery-powered options available for retrofit.' },
+        'rollease':  { protocol:'Automate RF / RS-485', hardware:'Automate Pulse 2 Hub', cost:'AED 400–800/motor · hub AED 600', integrator:'No for basic setup', note:'Pulse 2 Hub enables Alexa, Google, and app control. RS-485 version available for KNX integration.' },
+        'default':   { protocol:'RF 433MHz / Wi-Fi (Tuya)', hardware:'RF controller or Tuya gateway hub', cost:'AED 200–600/motor', integrator:'No', note:'Most motorised curtain motors use RF 433 or Wi-Fi (Tuya). Tuya motors integrate with SmartLife, Alexa, and Google Home.' }
+      }
+    }
+  };
+
+  /* ── Conversation state ── */
+  var STATE = { system: null, brand: null, step: 'init' };
   var isLoading = false;
 
   /* ── DOM refs ── */
-  var messagesEl  = document.getElementById('chatMessages');
-  var inputEl     = document.getElementById('intInput');
-  var sendBtn     = document.getElementById('sendBtn');
-  var chipRow     = document.getElementById('chipRow');
-  var statusEl    = document.getElementById('chatStatus');
+  var messagesEl    = document.getElementById('chatMessages');
+  var inputEl       = document.getElementById('intInput');
+  var sendBtn       = document.getElementById('sendBtn');
+  var chipRow       = document.getElementById('chipRow');
+  var statusEl      = document.getElementById('chatStatus');
   var specContainer = document.getElementById('specCardContainer');
-  var newChatBtn  = document.getElementById('newChatBtn');
+  var newChatBtn    = document.getElementById('newChatBtn');
+
+  /* ── Detect system from text ── */
+  function detectSystem(text) {
+    var t = text.toLowerCase();
+    var brands = Object.keys(KB.brandMap);
+    for (var b = 0; b < brands.length; b++) {
+      if (t.indexOf(brands[b]) !== -1) return KB.brandMap[brands[b]];
+    }
+    var systems = Object.keys(KB.keywords);
+    for (var s = 0; s < systems.length; s++) {
+      var kws = KB.keywords[systems[s]];
+      for (var k = 0; k < kws.length; k++) {
+        if (t.indexOf(kws[k]) !== -1) return systems[s];
+      }
+    }
+    var gen = { hvac:['ac','air con','aircon','cool','heat','temperature'], av:['tv','television','speaker','audio','music','screen','cinema'], cctv:['camera','cctv','security','alarm','lock'], curtains:['curtain','blind','shade','motor'], lighting:['light','lamp','dim','switch','scene'] };
+    var gkeys = Object.keys(gen);
+    for (var g = 0; g < gkeys.length; g++) {
+      var gws = gen[gkeys[g]];
+      for (var gi = 0; gi < gws.length; gi++) {
+        if (t.indexOf(gws[gi]) !== -1) return gkeys[g];
+      }
+    }
+    return null;
+  }
+
+  /* ── Detect brand from text ── */
+  function detectBrand(text, system) {
+    if (!system) return null;
+    var t = text.toLowerCase();
+    var specs = KB.specs[system];
+    var found = null;
+    Object.keys(specs).forEach(function(brand) {
+      if (brand !== 'default' && t.indexOf(brand) !== -1) found = brand;
+    });
+    if (!found) {
+      if (/mitsu(bishi)?/i.test(t) && system === 'hvac')  found = 'mitsubishi';
+      if (/dakin|daikn|daikins/i.test(t))                  found = 'daikin';
+      if (/hik\b|hik-/i.test(t) || /hikvision/i.test(t))  found = 'hikvision';
+      if (/philips?\s*hue|hue\s+light/i.test(t))           found = 'hue';
+      if (/am\s*blind/i.test(t))                           found = 'am blinds';
+      if (/rollease|acmeda/i.test(t))                      found = 'rollease';
+    }
+    return found;
+  }
+
+  /* ── Local AI — no server call needed ── */
+  function localAI(userText) {
+    var sys   = detectSystem(userText) || STATE.system;
+    var brand = detectBrand(userText, sys) || STATE.brand;
+    if (sys)   STATE.system = sys;
+    if (brand) STATE.brand  = brand;
+
+    if (sys && brand) {
+      var spec     = KB.specs[sys][brand] || KB.specs[sys]['default'];
+      var sysLabel = KB.sysLabel[sys];
+      var brandCap = brand.split(' ').map(function(w){ return w.charAt(0).toUpperCase()+w.slice(1); }).join(' ');
+      var sysShort = { hvac:'HVAC', lighting:'Lighting', av:'AV', cctv:'CCTV', curtains:'Curtains' }[sys] || sys;
+      STATE.step   = 'spec_shown';
+      return {
+        answer:
+          '**' + brandCap + ' → ' + sysLabel + '**\n\n' +
+          '- **Protocol:** ' + spec.protocol + '\n' +
+          '- **Hardware:** ' + spec.hardware + '\n' +
+          '- **Indicative cost:** ' + spec.cost + '\n' +
+          '- **Integrator needed:** ' + spec.integrator + '\n\n' +
+          (spec.note ? '**Note:** ' + spec.note + '\n\n' : '') +
+          'Want to connect something else, or shall we put together a full integration plan?',
+        specCard: {
+          title:  brandCap + ' ' + sysLabel + ' Integration',
+          system: sysShort,
+          items: [
+            { label:'Protocol',   value:spec.protocol   },
+            { label:'Hardware',   value:spec.hardware   },
+            { label:'Cost (AED)', value:spec.cost       },
+            { label:'Integrator', value:spec.integrator }
+          ],
+          note: spec.note
+        }
+      };
+    }
+
+    if (sys && !brand) {
+      var ex = {
+        hvac:     'Daikin, Mitsubishi, LG, Samsung, Hitachi, Panasonic, Gree, or another brand',
+        lighting: 'Philips Hue, DALI, Lutron, KNX, Casambi, or another system',
+        av:       'Sonos, Samsung, LG, Sony, Denon, Bose, or another brand',
+        cctv:     'Hikvision, Dahua, Axis, Reolink, or another brand',
+        curtains: 'Somfy, Dooya, AM Blinds, Rollease, or another brand'
+      };
+      STATE.step = 'waiting_brand';
+      return {
+        answer: 'Got it — **' + KB.sysLabel[sys] + '**. What **brand and model** are you working with?\n\nFor example: ' + ex[sys] + '.',
+        specCard: null
+      };
+    }
+
+    if (STATE.step === 'waiting_brand' && STATE.system) {
+      var ds = KB.specs[STATE.system]['default'];
+      STATE.step = 'spec_shown';
+      return {
+        answer: 'Here\'s the general approach for **' + KB.sysLabel[STATE.system] + '** — give me the exact brand for a brand-specific spec.\n\n- **Protocol:** ' + ds.protocol + '\n- **Hardware:** ' + ds.hardware + '\n- **Indicative cost:** ' + ds.cost + '\n\n' + ds.note,
+        specCard: null
+      };
+    }
+
+    var t = userText.toLowerCase().trim();
+    var short = ['hi','hello','hey','help','ok','yes','sure','thanks','thank you','start','begin','test'];
+    if (short.indexOf(t) !== -1 || t.length < 5) {
+      return {
+        answer: "Hi! Tell me what you want to connect — for example:\n\n- *\"Control my Daikin AC from my phone\"*\n- *\"Connect my Hikvision cameras to one app\"*\n- *\"How do I add Sonos to my smart home?\"*\n\nI'll give you the exact protocol, hardware, and AED cost.",
+        specCard: null
+      };
+    }
+
+    return {
+      answer: "I need a bit more detail. Can you tell me:\n\n1. **Which system?** — AC/HVAC, lighting, AV/speakers, cameras, or curtains\n2. **Which brand?** — e.g. *Daikin*, *Hikvision*, *Sonos*\n\nThe more specific, the better the spec.",
+      specCard: null
+    };
+  }
 
   /* ── Minimal markdown → HTML ── */
   function inlineFormat(t) {
@@ -509,19 +704,12 @@
   function appendMessage(role, html, isHtml) {
     var div = document.createElement('div');
     div.className = 'msg msg--' + (role === 'user' ? 'user' : 'ai');
-
     var avatar = document.createElement('div');
     avatar.className = 'msg-avatar';
     avatar.textContent = role === 'user' ? 'You' : 'AI';
-
     var bubble = document.createElement('div');
     bubble.className = 'msg-bubble';
-    if (isHtml) {
-      bubble.innerHTML = html;
-    } else {
-      bubble.innerHTML = mdToHtml(html);
-    }
-
+    bubble.innerHTML = isHtml ? html : mdToHtml(html);
     div.appendChild(avatar);
     div.appendChild(bubble);
     messagesEl.appendChild(div);
@@ -545,143 +733,71 @@
     messagesEl.appendChild(div);
     messagesEl.scrollTop = messagesEl.scrollHeight;
   }
-
   function removeTyping() {
     var el = document.getElementById('typingIndicator');
     if (el) el.remove();
   }
 
-  /* ── System badge colour map ── */
-  var SYS_COLOR = {
-    HVAC:     'rgba(0,212,255,.35)',
-    Lighting: 'rgba(201,162,90,.4)',
-    AV:       'rgba(140,100,255,.4)',
-    CCTV:     'rgba(80,200,120,.35)',
-  };
+  /* ── Spec card colours ── */
+  var SYS_COLOR = { HVAC:'rgba(0,212,255,.35)', Lighting:'rgba(201,162,90,.4)', AV:'rgba(140,100,255,.4)', CCTV:'rgba(80,200,120,.35)', Curtains:'rgba(0,212,255,.25)' };
+
+  function escHtml(str) {
+    return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
 
   /* ── Render spec card ── */
   function renderSpecCard(card) {
     if (!card || !card.title) return;
     specContainer.innerHTML = '';
     var sys = card.system || 'Integration';
-    var borderColor = SYS_COLOR[sys] || 'rgba(0,212,255,.25)';
-
-    var itemsHtml = (card.items || []).map(function (item) {
-      return '<div class="spec-item">' +
-        '<div class="spec-item-label">' + escHtml(item.label) + '</div>' +
-        '<div class="spec-item-value">' + escHtml(item.value) + '</div>' +
-        '</div>';
+    var bc  = SYS_COLOR[sys] || 'rgba(0,212,255,.25)';
+    var itemsHtml = (card.items||[]).map(function(item){
+      return '<div class="spec-item"><div class="spec-item-label">'+escHtml(item.label)+'</div><div class="spec-item-value">'+escHtml(item.value)+'</div></div>';
     }).join('');
-
-    var noteHtml = card.note
-      ? '<div class="spec-note"><strong>Note:</strong> ' + escHtml(card.note) + '</div>'
-      : '';
-
-    var html =
-      '<div class="spec-card-wrap">' +
-      '<div class="spec-card" style="border-color:' + borderColor + '">' +
-        '<div class="spec-card-header">' +
-          '<span class="spec-card-title">' + escHtml(card.title) + '</span>' +
-          '<span class="spec-sys-badge" style="border-color:' + borderColor + '">' + escHtml(sys) + '</span>' +
-        '</div>' +
-        '<div class="spec-grid">' + itemsHtml + '</div>' +
-        noteHtml +
-        '<div class="spec-card-footer">' +
-          '<span class="spec-powered">OnePoint Integration Advisor · Prices are indicative</span>' +
-          '<a class="spec-cta" href="services.html#contact">' +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
-            'Get a full integration plan' +
-          '</a>' +
-        '</div>' +
-      '</div>' +
-      '</div>';
-
-    specContainer.innerHTML = html;
-    specContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var noteHtml = card.note ? '<div class="spec-note"><strong>Note:</strong> '+escHtml(card.note)+'</div>' : '';
+    specContainer.innerHTML =
+      '<div class="spec-card-wrap"><div class="spec-card" style="border-color:'+bc+'">' +
+        '<div class="spec-card-header"><span class="spec-card-title">'+escHtml(card.title)+'</span>' +
+        '<span class="spec-sys-badge" style="border-color:'+bc+'">'+escHtml(sys)+'</span></div>' +
+        '<div class="spec-grid">'+itemsHtml+'</div>'+noteHtml+
+        '<div class="spec-card-footer"><span class="spec-powered">OnePoint Integration Advisor · Prices are indicative</span>' +
+          '<a class="spec-cta" href="services.html#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Get a full integration plan</a>' +
+        '</div></div></div>';
+    specContainer.scrollIntoView({ behavior:'smooth', block:'start' });
   }
 
-  function escHtml(str) {
-    return String(str || '')
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-
-  /* ── Send message to API ── */
-  async function sendMessage(userText) {
+  /* ── Send — pure local, no fetch ── */
+  function sendMessage(userText) {
     if (!userText.trim() || isLoading) return;
     isLoading = true;
     sendBtn.disabled = true;
     statusEl.textContent = 'Thinking…';
-
-    /* hide chips after first message */
-    chipRow.querySelectorAll('.chat-chip').forEach(function (c) { c.classList.add('hidden'); });
-
-    /* add user bubble */
+    chipRow.querySelectorAll('.chat-chip').forEach(function(c){ c.classList.add('hidden'); });
     appendMessage('user', userText);
-
-    /* update history */
-    conversationHistory.push({ role: 'user', content: userText });
-
-    /* typing indicator */
     showTyping();
-
-    try {
-      var res = await fetch('/api/integrations', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: conversationHistory })
-      });
-
+    setTimeout(function () {
       removeTyping();
-
-      if (!res.ok) {
-        var err = await res.json().catch(function () { return {}; });
-        appendMessage('ai', '⚠ ' + (err.error || 'Something went wrong. Please try again.'), true);
-        isLoading = false; sendBtn.disabled = false; statusEl.textContent = 'Ready';
-        return;
-      }
-
-      var data = await res.json();
-      if (data.error) {
-        appendMessage('ai', '⚠ ' + data.error, true);
-        isLoading = false; sendBtn.disabled = false; statusEl.textContent = 'Ready';
-        return;
-      }
-
-      /* add AI answer */
-      if (data.answer) {
-        appendMessage('ai', data.answer);
-        conversationHistory.push({ role: 'assistant', content: data.answer });
-      }
-
-      /* render spec card if present */
-      if (data.specCard) {
-        renderSpecCard(data.specCard);
+      var result = localAI(userText);
+      if (result.answer) appendMessage('ai', result.answer);
+      if (result.specCard) {
+        renderSpecCard(result.specCard);
         newChatBtn.classList.add('show');
         statusEl.textContent = 'Spec ready';
       } else {
         statusEl.textContent = 'Ready';
       }
-
-    } catch (e) {
-      removeTyping();
-      appendMessage('ai', '⚠ Could not reach the Integration Advisor. Check your connection and try again.', true);
-      statusEl.textContent = 'Error';
-    }
-
-    isLoading = false;
-    sendBtn.disabled = false;
-    inputEl.focus();
+      isLoading = false;
+      sendBtn.disabled = false;
+      inputEl.focus();
+    }, 700 + Math.floor(Math.random() * 400));
   }
 
-  /* ── Reset / new chat ── */
+  /* ── Reset ── */
   function resetChat() {
-    conversationHistory = [];
+    STATE = { system: null, brand: null, step: 'init' };
     specContainer.innerHTML = '';
     messagesEl.innerHTML = '';
-    chipRow.querySelectorAll('.chat-chip').forEach(function (c) { c.classList.remove('hidden'); });
+    chipRow.querySelectorAll('.chat-chip').forEach(function(c){ c.classList.remove('hidden'); });
     newChatBtn.classList.remove('show');
     statusEl.textContent = 'Ready';
     showGreeting();
@@ -689,23 +805,22 @@
     inputEl.focus();
   }
 
-  /* ── Initial AI greeting ── */
+  /* ── Greeting ── */
   function showGreeting() {
     appendMessage('ai',
       "Hi! Tell me what you want to connect — for example:\n\n" +
       "- *\"I want to control my Daikin AC from my phone\"*\n" +
       "- *\"Connect my existing CCTV cameras to one app\"*\n" +
       "- *\"How do I integrate lighting control with my smart home?\"*\n\n" +
-      "I'll ask a couple of questions, then give you the exact interface, hardware, and cost."
+      "I'll give you the exact protocol, hardware, and indicative AED cost."
     );
   }
 
-  /* ── Event wiring ── */
+  /* ── Events ── */
   sendBtn.addEventListener('click', function () {
     var txt = inputEl.value.trim();
     if (txt) { inputEl.value = ''; sendMessage(txt); }
   });
-
   inputEl.addEventListener('keydown', function (e) {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -713,21 +828,16 @@
       if (txt) { inputEl.value = ''; sendMessage(txt); }
     }
   });
-
-  /* auto-grow textarea */
   inputEl.addEventListener('input', function () {
     this.style.height = 'auto';
     this.style.height = Math.min(this.scrollHeight, 120) + 'px';
   });
-
-  /* chips */
   chipRow.querySelectorAll('.chat-chip').forEach(function (chip) {
     chip.addEventListener('click', function () {
       var msg = this.getAttribute('data-msg');
       if (msg) sendMessage(msg);
     });
   });
-
   newChatBtn.addEventListener('click', resetChat);
 
   /* ── Boot ── */
