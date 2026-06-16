@@ -25,8 +25,8 @@
     z-index: 0; opacity: .55; pointer-events: none;
     /* Transparent at very top (badge/nav area), fades in through the heading,
        fully visible at the search bar level and below */
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.08) 18%, black 40%);
-    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.08) 18%, black 40%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.20) 0%, rgba(0,0,0,.60) 12%, black 28%);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,.20) 0%, rgba(0,0,0,.60) 12%, black 28%);
   }
   .hero-content {
     position: relative; z-index: 1;
@@ -530,12 +530,19 @@
     W  = canvas.width  = hero.offsetWidth  || 800;
     H  = canvas.height = hero.offsetHeight || 500;
     CX = W/2;
-    /* Centre the orbit behind the search bar, shifted slightly above
-       the midpoint so the visual weight feels centred with the content. */
-    CY = H * (W < 600 ? 0.52 : 0.48);
-    OX = W * (W < 600 ? 0.22 : 0.26);  /* elliptical orbit — wider than tall */
-    OY = Math.min(H, W) * (W < 600 ? 0.15 : 0.20);
-    HS = Math.min(W, H) * 0.072; /* house half-size */
+    /* Anchor orbit centre to the actual search bar position in the DOM
+       so it stays locked behind the input regardless of viewport height. */
+    var form = document.getElementById('askForm');
+    if (form) {
+      var heroRect = hero.getBoundingClientRect();
+      var formRect = form.getBoundingClientRect();
+      CY = (formRect.top - heroRect.top) + formRect.height * 0.55;
+    } else {
+      CY = H * (W < 600 ? 0.46 : 0.46);
+    }
+    OX = W * (W < 600 ? 0.43 : 0.26);        /* much wider orbit on mobile */
+    OY = Math.min(H, W) * (W < 600 ? 0.25 : 0.20); /* taller orbit on mobile */
+    HS = Math.min(W, H) * (W < 600 ? 0.10 : 0.072); /* bigger house on mobile */
   }
   resize();
   window.addEventListener('resize', resize, {passive:true});
@@ -580,7 +587,7 @@
 
   /* ─── Device node ─── */
   function drawNode(x, y, icon, label){
-    var r = W < 600 ? 14 : 19;
+    var r = W < 600 ? 19 : 19;
     ctx.save();
     /* Glow halo */
     var g = ctx.createRadialGradient(x,y,0, x,y, r*2.8);
@@ -602,7 +609,7 @@
     ctx.stroke();
     /* Emoji icon */
     ctx.shadowBlur = 0;
-    ctx.font = (W < 600 ? '11' : '13') + 'px serif';
+    ctx.font = (W < 600 ? '14' : '13') + 'px serif';
     ctx.textAlign    = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(icon, x, y);
@@ -644,6 +651,15 @@
     t += dt;
 
     ctx.clearRect(0,0,W,H);
+
+    /* Soft ambient glow from house centre — fills dead space above orbit */
+    var ambR = Math.max(OX, OY) * 2.4;
+    var amb  = ctx.createRadialGradient(CX, CY, 0, CX, CY, ambR);
+    amb.addColorStop(0,   'rgba(0,212,255,0.07)');
+    amb.addColorStop(0.5, 'rgba(0,212,255,0.025)');
+    amb.addColorStop(1,   'rgba(0,212,255,0)');
+    ctx.fillStyle = amb;
+    ctx.fillRect(0, 0, W, H);
 
     var hubX = CX;
     var hubY = CY + HS*0.20; /* aligns with hub dot inside house */
