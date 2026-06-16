@@ -334,4 +334,40 @@
     requestAnimationFrame(drawElectric);
   }
 
+  /* ─────────────────────────────────────────────────────────
+     8. Mobile hamburger nav — injected into every page header
+     ───────────────────────────────────────────────────────── */
+  (function () {
+    var hdr = document.querySelector('header.site');
+    var navLinks = hdr ? hdr.querySelector('.nav-links') : null;
+    if (!hdr || !navLinks) return;
+
+    var btn = document.createElement('button');
+    btn.className = 'nav-hamburger';
+    btn.setAttribute('aria-label', 'Open menu');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = '<span></span><span></span><span></span>';
+    navLinks.parentNode.insertBefore(btn, navLinks);
+
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = hdr.classList.toggle('nav-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!hdr.contains(e.target)) {
+        hdr.classList.remove('nav-open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    navLinks.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        hdr.classList.remove('nav-open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }());
+
 }());
